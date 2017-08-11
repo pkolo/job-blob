@@ -3,7 +3,7 @@ export function APIRoot(url) {
 }
 
 export function checkResponse(response) {
-  if (response.status === 200) {
+  if ([200, 201].includes(response.status)) {
     return Promise.resolve(response)
   } else {
     return Promise.reject(
