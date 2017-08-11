@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Job from './Job'
 
 class JobList extends Component {
 
@@ -6,7 +7,7 @@ class JobList extends Component {
     let jobs = this.props.jobs
     return (
       <div>
-        {jobs.map(job => <p>{job["title"]}</p>)}
+        {jobs.map(job => <Job job={job} key={job.id} />)}
       </div>
     )
   }
