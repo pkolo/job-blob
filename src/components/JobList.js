@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Job extends Component {
+class JobList extends Component {
   render() {
     return (
       <p>Anything.</p>
@@ -8,4 +8,4 @@ class Job extends Component {
   }
 }
 
-export default Job;
+export default JobList;
