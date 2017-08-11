@@ -10,9 +10,16 @@ const jobStyle = {
 class Job extends Component {
 
   render(props) {
+    let job = this.props.job;
     return (
       <div style={jobStyle}>
-        <p>Anything</p>
+        <h3>{job.title}</h3>
+        <p>{job.details}</p>
+        <ul>
+          <li>Category: {job.category.name}</li>
+          <li>Location: {job.location.city}, {job.location.state}</li>
+          <li>Posted on {job.date_posted}</li>
+        </ul>
       </div>
     )
   }
