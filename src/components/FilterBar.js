@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FilterList from './FilterList';
 
 const barStyle = {
   float: 'left',
@@ -12,6 +13,8 @@ class FilterBar extends Component {
     return(
       <div style={barStyle}>
         <h3>Browse Jobs</h3>
+        <FilterList name="Categories" data={this.props.categories} />
+        <FilterList name="Locations" data={this.props.locations} />
       </div>
     )
   }
