@@ -1,5 +1,4 @@
 export function APIRoot(url) {
-  debugger
   return `https://radiant-springs-66711.herokuapp.com/api/${url}`
 }
 
