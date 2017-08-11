@@ -22,6 +22,12 @@ class JobForm extends Component {
       locationCity: '',
       locationState: ''
     }
+
+    this.handleJobTitleChange = this.handleJobTitleChange.bind(this)
+  }
+
+  handleJobTitleChange(e) {
+    this.setState({ jobTitle: e.target.value })
   }
 
   render(props) {
@@ -32,7 +38,8 @@ class JobForm extends Component {
           inputType={"text"}
           label={"Job Title"}
           name={"job[title]"}
-          content={this.state.jobTitle} />
+          content={this.state.jobTitle}
+          changeHandler={this.handleJobTitleChange} />
         <TextArea
           rows={10}
           resize={false}
