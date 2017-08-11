@@ -9,7 +9,8 @@ class TextArea extends Component {
           style={this.props.resize ? null : {resize: 'none'}}
           name={this.props.name}
           rows={this.props.rows}
-          value={this.props.content} />
+          value={this.props.content}
+          onChange={this.props.changeHandler} />
       </div>
     )
   }

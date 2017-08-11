@@ -17,17 +17,22 @@ class JobForm extends Component {
     super(props);
     this.state = {
       jobTitle: '',
-      jobDescription: '',
+      jobDetails: '',
       categorySelection: '',
       locationCity: '',
       locationState: ''
     }
 
     this.handleJobTitleChange = this.handleJobTitleChange.bind(this)
+    this.handleJobDetailsChange = this.handleJobDetailsChange.bind(this)
   }
 
   handleJobTitleChange(e) {
     this.setState({ jobTitle: e.target.value })
+  }
+
+  handleJobDetailsChange(e) {
+    this.setState({ jobDetails: e.target.value })
   }
 
   render(props) {
@@ -45,7 +50,8 @@ class JobForm extends Component {
           resize={false}
           label={"Job Description"}
           name={"job[details]"}
-          content={this.state.jobDetails} />
+          content={this.state.jobDetails}
+          changeHandler={this.handleJobDetailsChange} />
         <DropDownSelector
           label={"Category"}
           name={"job[category_name]"}
