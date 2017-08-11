@@ -40,11 +40,12 @@ class App extends Component {
   }
 
   render() {
+    let categories = this.getCategories()
     return (
       <div style={appStyle}>
         <h2>Job Blob</h2>
-        <SideBar categories={this.getCategories()} locations={this.getLocations()} />
-        <JobForm />
+        <SideBar categories={categories} locations={this.getLocations()} />
+        <JobForm categoryOptions={categories.map(c => c.name)}/>
         <JobList jobs={this.state.jobs}/>
       </div>
     );
