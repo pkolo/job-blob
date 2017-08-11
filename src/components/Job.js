@@ -19,6 +19,8 @@ class Job extends Component {
           <li>Location: {job.location.city}, {job.location.state}</li>
           <li>Posted on {job.date_posted}</li>
         </ul>
+        <button>Update</button>
+        <button onClick={this.props.handleDelete}>Delete</button>
       </div>
     )
   }
