@@ -4,6 +4,7 @@ import uniqBy from 'lodash/uniqBy'
 import { APIRoot, checkResponse, getJson } from '../api'
 
 import SideBar from './SideBar'
+import JobForm from './form/JobForm'
 import JobList from './JobList'
 
 const appStyle = {
@@ -43,6 +44,7 @@ class App extends Component {
       <div style={appStyle}>
         <h2>Job Blob</h2>
         <SideBar categories={this.getCategories()} locations={this.getLocations()} />
+        <JobForm />
         <JobList jobs={this.state.jobs}/>
       </div>
     );
