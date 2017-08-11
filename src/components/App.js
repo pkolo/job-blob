@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { checkResponse, getJson } from '../api'
 
+import BrowseBar from './BrowseBar'
 import JobList from './JobList'
+
+const appStyle = {
+  width: '1000px',
+  marginLeft: '20px'
+}
 
 class App extends Component {
 
@@ -22,8 +28,9 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div style={appStyle}>
         <h2>Job Blob</h2>
+        <BrowseBar />
         <JobList jobs={this.state.jobs}/>
       </div>
     );
