@@ -18,14 +18,13 @@ class JobForm extends Component {
     this.state = {
       jobTitle: '',
       jobDescription: '',
-      categoryOptions: [],
       categorySelection: '',
       locationCity: '',
       locationState: ''
     }
   }
 
-  render() {
+  render(props) {
     return (
       <div style={formStyle}>
         <h2>Post a new job...</h2>
@@ -43,7 +42,7 @@ class JobForm extends Component {
         <DropDownSelector
           label={"Category"}
           name={"job[category_name]"}
-          options={this.state.categoryOptions} />
+          options={this.props.categoryOptions} />
         <TextInput
           type="text"
           label="City"
