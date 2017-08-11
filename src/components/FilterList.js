@@ -6,7 +6,7 @@ class FilterList extends Component {
       <div>
         <h4>{this.props.name}</h4>
         <ul>
-          {this.props.data.map(el => <li>{el.id}</li>)}
+          {this.props.data.map(el => <li key={el.id}>{el.id}</li>)}
         </ul>
       </div>
     )
