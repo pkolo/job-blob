@@ -26,8 +26,8 @@ class App extends Component {
 
   componentDidMount() {
     fetch(APIRoot("jobs"), {mode: 'cors'})
-      .then(checkResponse)
       .then(getJson)
+      .then(checkResponse)
       .then(json => this.setState({jobs: sortBy(json.result, 'id').reverse()}))
       .catch(err => console.log('ERROR', err))
   }

@@ -3,11 +3,11 @@ export function APIRoot(url) {
 }
 
 export function checkResponse(response) {
-  if ([200, 201].includes(response.status)) {
+  if ([200, 201].includes(response.code)) {
     return Promise.resolve(response)
   } else {
     return Promise.reject(
-      new Error(response.statusText)
+      new Error(response.messages)
     )
   }
 }
