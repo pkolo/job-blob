@@ -4,7 +4,10 @@ class FilterList extends Component {
   render() {
     return (
       <div>
-        Hello World!
+        <h4>{this.props.name}</h4>
+        <ul>
+          {this.props.data.map(el => <li>{el.id}</li>)}
+        </ul>
       </div>
     )
   }
