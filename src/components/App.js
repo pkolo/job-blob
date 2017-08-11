@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { checkResponse, getJson } from '../api'
 
-import Job from './Job'
+import JobList from './JobList'
 
 class App extends Component {
 
@@ -13,34 +14,17 @@ class App extends Component {
 
   componentDidMount() {
     fetch('/stubs/initial_data.json')
-      .then(this.checkResponse)
-      .then(this.getJson)
+      .then(checkResponse)
+      .then(getJson)
       .then(json => this.setState({jobs: json["result"]}))
       .catch(err => console.log('ERROR', err))
-  }
-
-  checkResponse(response) {
-    if (response.status === 200) {
-      return Promise.resolve(response)
-    } else {
-      return Promise.reject(
-        new Error(response.statusText)
-      )
-    }
-  }
-
-  getJson(response) {
-    return response.json()
   }
 
   render() {
     return (
       <div>
-        <h2>Welcome to React</h2>
-        <p>
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Job />
+        <h2>Job Blob</h2>
+        <JobList />
       </div>
     );
   }
