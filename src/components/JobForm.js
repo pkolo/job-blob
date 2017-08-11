@@ -4,6 +4,8 @@ import TextInput from './form/TextInput'
 import TextArea from './form/TextArea'
 import DropDownSelector from './form/DropDownSelector'
 
+import { APIRoot, checkResponse, getJson } from '../api'
+
 const formStyle = {
   width: '600px',
   float: 'right',
@@ -24,21 +26,37 @@ class JobForm extends Component {
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
   }
 
   handleFormSubmit(e) {
     e.preventDefault()
-
     const jobPayload = {
-      title: this.state.jobTitle,
-      details: this.state.jobDetails,
-      category_name: this.state.categorySelection,
-      location_attributes: {
-        city: this.state.locationCity,
-        state: this.state.locationState
+      job: {
+        title: this.state.jobTitle,
+        details: this.state.jobDetails,
+        category_name: this.state.categorySelection,
+        location_attributes: {
+          city: this.state.locationCity,
+          state: this.state.locationState
+        }
       }
     }
 
+    console.log(JSON.stringify(jobPayload))
+
+    fetch(APIRoot("jobs"),
+      {
+        method: 'POST',
+        body: JSON.stringify(jobPayload),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(checkResponse)
+      .then(getJson)
+      .then(json => console.log(json))
+      .catch(err => console.log('ERROR', err))
   }
 
   clearForm() {
