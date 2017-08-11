@@ -33,6 +33,9 @@ class JobForm extends Component {
 
   handleFormSubmit(e) {
     e.preventDefault()
+
+    this.clearErrors()
+
     const jobPayload = {
       job: {
         title: this.state.jobTitle,
@@ -57,6 +60,8 @@ class JobForm extends Component {
       .then(checkResponse)
       .then(json => this.props.stateUpdater(json.result))
       .catch(err => this.setState({ errorMessages: err.message }))
+
+      this.clearForm()
   }
 
   clearForm() {
@@ -67,6 +72,10 @@ class JobForm extends Component {
       locationCity: '',
       locationState: ''
     })
+  }
+
+  clearErrors() {
+    this.setState({ errorMessages: [] })
   }
 
   handleInputChange(e) {
@@ -115,6 +124,7 @@ class JobForm extends Component {
           content={this.state.locationState}
           changeHandler={this.handleInputChange} />
         <button onClick={this.handleFormSubmit}>Submit</button>
+
         {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
       </div>
     )
