@@ -20,6 +20,8 @@ class App extends Component {
     this.state = {
       jobs: []
     }
+
+    this.addJob = this.addJob.bind(this)
   }
 
   componentDidMount() {
@@ -40,13 +42,20 @@ class App extends Component {
     return uniqBy(locations, 'id')
   }
 
+  addJob(result) {
+    let newJobs = this.state.jobs
+    newJobs.push(result)
+
+    this.setState({ jobs: sortBy(newJobs, 'id').reverse() })
+  }
+
   render() {
     let categories = this.getCategories()
     return (
       <div style={appStyle}>
         <h2>Job Blob</h2>
         <SideBar categories={categories} locations={this.getLocations()} />
-        <JobForm categoryOptions={categories.map(c => c.name)}/>
+        <JobForm categoryOptions={categories.map(c => c.name)} stateUpdater={this.addJob}/>
         <JobList jobs={this.state.jobs}/>
       </div>
     );

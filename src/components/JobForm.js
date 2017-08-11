@@ -55,7 +55,7 @@ class JobForm extends Component {
       })
       .then(checkResponse)
       .then(getJson)
-      .then(json => console.log(json))
+      .then(json => this.props.stateUpdater(json.result))
       .catch(err => console.log('ERROR', err))
   }
 
