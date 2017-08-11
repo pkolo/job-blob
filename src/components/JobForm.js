@@ -13,15 +13,27 @@ const formStyle = {
 };
 
 class JobForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      jobTitle: '',
+      jobDescription: '',
+      categoryOptions: [],
+      categorySelection: '',
+      locationCity: '',
+      locationState: ''
+    }
+  }
+
   render() {
     return (
       <div style={formStyle}>
         <h2>Post a new job...</h2>
-        <TextInput label="Job Title" />
-        <TextArea label="Job Description" />
-        <DropDownSelector label="Category" />
-        <TextInput label="City" />
-        <TextInput label="State" />
+        <TextInput label="Job Title" name="job[title]"/>
+        <TextArea label="Job Description" name="job[details]"/>
+        <DropDownSelector label="Category" name="job[category_name]"/>
+        <TextInput label="City" name="job[location_attributes][city]"/>
+        <TextInput label="State" name="job[location_attributes][state]"/>
       </div>
     )
   }
