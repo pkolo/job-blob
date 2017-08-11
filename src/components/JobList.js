@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 
 class JobList extends Component {
-  render() {
+
+  render(props) {
+    let jobs = this.props.jobs
     return (
-      <p>Anything.</p>
+      <div>
+        {jobs.map(job => <p>{job["title"]}</p>)}
+      </div>
     )
   }
 }

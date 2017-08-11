@@ -24,7 +24,7 @@ class App extends Component {
     return (
       <div>
         <h2>Job Blob</h2>
-        <JobList />
+        <JobList jobs={this.state.jobs}/>
       </div>
     );
   }
