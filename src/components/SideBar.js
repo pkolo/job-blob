@@ -8,7 +8,7 @@ const barStyle = {
   padding: '15px'
 }
 
-class FilterBar extends Component {
+class SideBar extends Component {
   render() {
     return(
       <div style={barStyle}>
@@ -20,4 +20,4 @@ class FilterBar extends Component {
   }
 }
 
-export default FilterBar;
+export default SideBar;
