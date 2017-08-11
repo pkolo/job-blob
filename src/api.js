@@ -1,3 +1,8 @@
+export function APIRoot(url) {
+  debugger
+  return `https://radiant-springs-66711.herokuapp.com/api/${url}`
+}
+
 export function checkResponse(response) {
   if (response.status === 200) {
     return Promise.resolve(response)
