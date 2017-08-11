@@ -16,7 +16,7 @@ class App extends Component {
     fetch('/stubs/initial_data.json')
       .then(checkResponse)
       .then(getJson)
-      .then(json => this.setState({jobs: json["result"]}))
+      .then(json => this.setState({jobs: json.result}))
       .catch(err => console.log('ERROR', err))
   }
 
