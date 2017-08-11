@@ -22,6 +22,7 @@ class App extends Component {
     }
 
     this.addJob = this.addJob.bind(this)
+    this.deleteJob = this.deleteJob.bind(this)
   }
 
   componentDidMount() {
@@ -42,11 +43,18 @@ class App extends Component {
     return uniqBy(locations, 'id')
   }
 
-  addJob(result) {
+  addJob(job) {
     let newJobs = this.state.jobs
-    newJobs.push(result)
+    newJobs.push(job)
 
     this.setState({ jobs: sortBy(newJobs, 'id').reverse() })
+  }
+
+  deleteJob(jobToDelete) {
+    let newJobs = this.state.jobs.filter(job => job !== jobToDelete )
+    this.setState({
+      jobs: newJobs
+    })
   }
 
   render() {
@@ -56,7 +64,7 @@ class App extends Component {
         <h2>Job Blob</h2>
         <SideBar categories={categories} locations={this.getLocations()} />
         <JobForm categoryOptions={categories.map(c => c.name)} stateUpdater={this.addJob}/>
-        <JobList jobs={this.state.jobs}/>
+        <JobList jobs={this.state.jobs} handleDelete={this.deleteJob} />
       </div>
     );
   }

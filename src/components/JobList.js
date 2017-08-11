@@ -12,7 +12,7 @@ class JobList extends Component {
     let jobs = this.props.jobs
     return (
       <div style={jobListStyle}>
-        {jobs.map(job => <Job job={job} key={job.id} />)}
+        {jobs.map(job => <Job job={job} key={job.id} handleDelete={this.props.handleDelete} />)}
       </div>
     )
   }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { APIRoot, checkResponse, getJson } from '../api'
+
 const jobStyle = {
   padding: '15px',
   marginBottom: '10px',
@@ -7,6 +9,21 @@ const jobStyle = {
 };
 
 class Job extends Component {
+  handleDeleteButton(e) {
+    e.preventDefault()
+
+    fetch(APIRoot(`jobs/${this.props.job.id}`),
+    {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(getJson)
+    .then(checkResponse)
+    .then(this.props.handleDelete(this.props.job))
+    .catch(err => console.log('ERROR', err))
+  }
 
   render(props) {
     let job = this.props.job;
@@ -20,7 +37,7 @@ class Job extends Component {
           <li>Posted on {job.date_posted}</li>
         </ul>
         <button>Update</button>
-        <button onClick={this.props.handleDelete}>Delete</button>
+        <button onClick={this.handleDeleteButton.bind(this)}>Delete</button>
       </div>
     )
   }
