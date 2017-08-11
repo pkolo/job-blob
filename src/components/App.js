@@ -33,11 +33,16 @@ class App extends Component {
     return uniqBy(categories, 'id')
   }
 
+  getLocations() {
+    let locations = this.state.jobs.map(job => job.location)
+    return uniqBy(locations, 'id')
+  }
+
   render() {
     return (
       <div style={appStyle}>
         <h2>Job Blob</h2>
-        <FilterBar categories={this.getCategories()}/>
+        <FilterBar categories={this.getCategories()} locations={this.getLocations()} />
         <JobList jobs={this.state.jobs}/>
       </div>
     );
