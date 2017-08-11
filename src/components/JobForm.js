@@ -23,12 +23,7 @@ class JobForm extends Component {
       locationState: ''
     }
 
-    this.handleJobTitleChange = this.handleJobTitleChange.bind(this)
-    this.handleJobDetailsChange = this.handleJobDetailsChange.bind(this)
-    this.handleCategoryChange = this.handleCategoryChange.bind(this)
-    this.handleCityChange = this.handleCityChange.bind(this)
-    this.handleStateChange = this.handleStateChange.bind(this)
-    this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
   }
 
   handleFormSubmit(e) {
@@ -44,7 +39,6 @@ class JobForm extends Component {
       }
     }
 
-    console.log(jobPayload)
   }
 
   clearForm() {
@@ -57,24 +51,14 @@ class JobForm extends Component {
     })
   }
 
-  handleJobTitleChange(e) {
-    this.setState({ jobTitle: e.target.value })
-  }
+  handleInputChange(e) {
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
 
-  handleJobDetailsChange(e) {
-    this.setState({ jobDetails: e.target.value })
-  }
-
-  handleCategoryChange(e) {
-    this.setState({ categorySelection: e.target.value })
-  }
-
-  handleCityChange(e) {
-    this.setState({ locationCity: e.target.value })
-  }
-
-  handleStateChange(e) {
-    this.setState({ locationState: e.target.value })
+    this.setState({
+      [name]: value
+    })
   }
 
   render(props) {
@@ -84,34 +68,34 @@ class JobForm extends Component {
         <TextInput
           inputType={"text"}
           label={"Job Title"}
-          name={"job[title]"}
+          name={"jobTitle"}
           content={this.state.jobTitle}
-          changeHandler={this.handleJobTitleChange} />
+          changeHandler={this.handleInputChange} />
         <TextArea
           rows={10}
           resize={false}
           label={"Job Description"}
-          name={"job[details]"}
+          name={"jobDetails"}
           content={this.state.jobDetails}
-          changeHandler={this.handleJobDetailsChange} />
+          changeHandler={this.handleInputChange} />
         <DropDownSelector
           label={"Category"}
-          name={"job[category_name]"}
+          name={"categorySelection"}
           options={this.props.categoryOptions}
           placeholder={''}
-          changeHandler={this.handleCategoryChange} />
+          changeHandler={this.handleInputChange} />
         <TextInput
           type="text"
           label="City"
-          name={"job[location_attributes][city]"}
+          name={"locationCity"}
           content={this.state.locationCity}
-          changeHandler={this.handleCityChange} />
+          changeHandler={this.handleInputChange} />
         <TextInput
           type="text"
           label="State"
-          name={"job[location_attributes][state]"}
+          name={"locationState"}
           content={this.state.locationState}
-          changeHandler={this.handleStateChange} />
+          changeHandler={this.handleInputChange} />
         <button onClick={this.handleFormSubmit}>Submit</button>
       </div>
     )
