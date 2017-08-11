@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { checkResponse, getJson } from '../api'
 
-import BrowseBar from './BrowseBar'
+import FilterBar from './FilterBar'
 import JobList from './JobList'
 
 const appStyle = {
@@ -30,7 +30,7 @@ class App extends Component {
     return (
       <div style={appStyle}>
         <h2>Job Blob</h2>
-        <BrowseBar />
+        <FilterBar />
         <JobList jobs={this.state.jobs}/>
       </div>
     );

@@ -7,7 +7,7 @@ const barStyle = {
   padding: '15px'
 }
 
-class BrowseBar extends Component {
+class FilterBar extends Component {
   render() {
     return(
       <div style={barStyle}>
@@ -17,4 +17,4 @@ class BrowseBar extends Component {
   }
 }
 
-export default BrowseBar;
+export default FilterBar;
