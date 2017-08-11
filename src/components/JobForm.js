@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import TextInput from './form/TextInput'
+import TextArea from './form/TextArea'
+
 const formStyle = {
   width: '600px',
   float: 'right',
@@ -12,7 +15,8 @@ class JobForm extends Component {
   render() {
     return (
       <div style={formStyle}>
-        This is a form
+        <TextInput label="Title" />
+        <TextArea label="Job Details" />
       </div>
     )
   }

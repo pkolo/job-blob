@@ -4,7 +4,7 @@ import uniqBy from 'lodash/uniqBy'
 import { APIRoot, checkResponse, getJson } from '../api'
 
 import SideBar from './SideBar'
-import JobForm from './form/JobForm'
+import JobForm from './JobForm'
 import JobList from './JobList'
 
 const appStyle = {
