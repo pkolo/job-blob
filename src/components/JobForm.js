@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import TextInput from './form/TextInput'
 import TextArea from './form/TextArea'
 import DropDownSelector from './form/DropDownSelector'
+import ErrorMessageList from './ErrorMessageList'
 
 import { APIRoot, checkResponse, getJson } from '../api'
 
@@ -22,7 +23,8 @@ class JobForm extends Component {
       jobDetails: '',
       categorySelection: '',
       locationCity: '',
-      locationState: ''
+      locationState: '',
+      errorMessages: []
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
@@ -43,8 +45,6 @@ class JobForm extends Component {
       }
     }
 
-    console.log(JSON.stringify(jobPayload))
-
     fetch(APIRoot("jobs"),
       {
         method: 'POST',
@@ -53,10 +53,10 @@ class JobForm extends Component {
           "Content-Type": "application/json"
         }
       })
-      .then(checkResponse)
       .then(getJson)
+      .then(checkResponse)
       .then(json => this.props.stateUpdater(json.result))
-      .catch(err => console.log('ERROR', err))
+      .catch(err => this.setState({ errorMessages: err.message }))
   }
 
   clearForm() {
@@ -115,6 +115,7 @@ class JobForm extends Component {
           content={this.state.locationState}
           changeHandler={this.handleInputChange} />
         <button onClick={this.handleFormSubmit}>Submit</button>
+        {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
       </div>
     )
   }
