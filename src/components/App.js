@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import uniqBy from 'lodash/uniqBy'
 
-import { checkResponse, getJson } from '../api'
+import { APIRoot, checkResponse, getJson } from '../api'
 
 import SideBar from './SideBar'
 import JobList from './JobList'
@@ -21,7 +21,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('/stubs/initial_data.json')
+    fetch(APIRoot("jobs"), {mode: 'cors'})
       .then(checkResponse)
       .then(getJson)
       .then(json => this.setState({jobs: json.result}))
