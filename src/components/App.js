@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import uniqBy from 'lodash/uniqBy'
+import sortBy from 'lodash/sortBy'
 
 import { APIRoot, checkResponse, getJson } from '../api'
 
@@ -25,7 +26,7 @@ class App extends Component {
     fetch(APIRoot("jobs"), {mode: 'cors'})
       .then(checkResponse)
       .then(getJson)
-      .then(json => this.setState({jobs: json.result}))
+      .then(json => this.setState({jobs: sortBy(json.result, 'id').reverse()}))
       .catch(err => console.log('ERROR', err))
   }
 

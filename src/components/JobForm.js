@@ -28,6 +28,33 @@ class JobForm extends Component {
     this.handleCategoryChange = this.handleCategoryChange.bind(this)
     this.handleCityChange = this.handleCityChange.bind(this)
     this.handleStateChange = this.handleStateChange.bind(this)
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
+  }
+
+  handleFormSubmit(e) {
+    e.preventDefault()
+
+    const jobPayload = {
+      title: this.state.jobTitle,
+      details: this.state.jobDetails,
+      category_name: this.state.categorySelection,
+      location_attributes: {
+        city: this.state.locationCity,
+        state: this.state.locationState
+      }
+    }
+
+    console.log(jobPayload)
+  }
+
+  clearForm() {
+    this.setState({
+      jobTitle: '',
+      jobDetails: '',
+      categorySelection: '',
+      locationCity: '',
+      locationState: ''
+    })
   }
 
   handleJobTitleChange(e) {
@@ -85,6 +112,7 @@ class JobForm extends Component {
           name={"job[location_attributes][state]"}
           content={this.state.locationState}
           changeHandler={this.handleStateChange} />
+        <button onClick={this.handleFormSubmit}>Submit</button>
       </div>
     )
   }
