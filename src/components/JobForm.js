@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import TextInput from './form/TextInput'
 import TextArea from './form/TextArea'
+import DropDownSelector from './form/DropDownSelector'
 
 const formStyle = {
   width: '600px',
@@ -15,8 +16,8 @@ class JobForm extends Component {
   render() {
     return (
       <div style={formStyle}>
-        <TextInput label="Title" />
-        <TextArea label="Job Details" />
+        <TextInput label="Job Title" />
+        <TextArea label="Job Description" />
       </div>
     )
   }
