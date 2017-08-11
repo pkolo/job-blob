@@ -29,11 +29,31 @@ class JobForm extends Component {
     return (
       <div style={formStyle}>
         <h2>Post a new job...</h2>
-        <TextInput label="Job Title" name="job[title]"/>
-        <TextArea label="Job Description" name="job[details]"/>
-        <DropDownSelector label="Category" name="job[category_name]"/>
-        <TextInput label="City" name="job[location_attributes][city]"/>
-        <TextInput label="State" name="job[location_attributes][state]"/>
+        <TextInput
+          inputType={"text"}
+          label={"Job Title"}
+          name={"job[title]"}
+          content={this.state.jobTitle} />
+        <TextArea
+          rows={10}
+          resize={false}
+          label={"Job Description"}
+          name={"job[details]"}
+          content={this.state.jobDetails} />
+        <DropDownSelector
+          label={"Category"}
+          name={"job[category_name]"}
+          options={this.state.categoryOptions} />
+        <TextInput
+          type="text"
+          label="City"
+          name={"job[location_attributes][city]"}
+          content={this.state.locationCity} />
+        <TextInput
+          type="text"
+          label="State"
+          name={"job[location_attributes][state]"}
+          content={this.state.locationState} />
       </div>
     )
   }
