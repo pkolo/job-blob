@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 const jobStyle = {
-  width: '600px',
   padding: '15px',
   marginBottom: '10px',
   border: '1px solid black'
