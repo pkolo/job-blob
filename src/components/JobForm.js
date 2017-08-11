@@ -26,6 +26,8 @@ class JobForm extends Component {
     this.handleJobTitleChange = this.handleJobTitleChange.bind(this)
     this.handleJobDetailsChange = this.handleJobDetailsChange.bind(this)
     this.handleCategoryChange = this.handleCategoryChange.bind(this)
+    this.handleCityChange = this.handleCityChange.bind(this)
+    this.handleStateChange = this.handleStateChange.bind(this)
   }
 
   handleJobTitleChange(e) {
@@ -38,6 +40,14 @@ class JobForm extends Component {
 
   handleCategoryChange(e) {
     this.setState({ categorySelection: e.target.value })
+  }
+
+  handleCityChange(e) {
+    this.setState({ locationCity: e.target.value })
+  }
+
+  handleStateChange(e) {
+    this.setState({ locationState: e.target.value })
   }
 
   render(props) {
@@ -67,12 +77,14 @@ class JobForm extends Component {
           type="text"
           label="City"
           name={"job[location_attributes][city]"}
-          content={this.state.locationCity} />
+          content={this.state.locationCity}
+          changeHandler={this.handleCityChange} />
         <TextInput
           type="text"
           label="State"
           name={"job[location_attributes][state]"}
-          content={this.state.locationState} />
+          content={this.state.locationState}
+          changeHandler={this.handleStateChange} />
       </div>
     )
   }
