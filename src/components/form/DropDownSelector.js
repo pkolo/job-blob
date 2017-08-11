@@ -7,6 +7,7 @@ class DropDownSelector extends Component {
         <label>{this.props.label}</label>
         <select
           name={this.props.name}
+          value={this.props.selectedOption}
           onChange={this.props.changeHandler}>
           <option value="">{this.props.placeholder}</option>
           {

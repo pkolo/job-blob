@@ -110,6 +110,7 @@ class JobForm extends Component {
           name={"categorySelection"}
           options={this.props.categoryOptions}
           placeholder={''}
+          selectedOption={this.state.categorySelection}
           changeHandler={this.handleInputChange} />
         <TextInput
           type="text"
