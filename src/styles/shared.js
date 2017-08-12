@@ -16,7 +16,10 @@ export const inputGroup = StyleSheet.create({
     fontWeight: '200'
   },
   input: {
-    width: '100%'
+    boxSizing: 'border-box',
+    width: '100%',
+    padding: '10px',
+    fontSize: '.75em'
   }
 })
 
