@@ -7,7 +7,7 @@ class DropDownSelector extends Component {
   render() {
     return (
       <div className={css(this.props.width, inputGroup.container)}>
-        <div className={css(inputGroup.label)}>{this.props.label}</div>
+        <div className={css(inputGroup.label)}>{this.props.label} {this.props.required && <span>*</span>}</div>
         <select
           className={css(inputGroup.input)}
           name={this.props.name}

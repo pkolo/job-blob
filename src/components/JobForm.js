@@ -117,13 +117,16 @@ class JobForm extends Component {
       <div className={css(styles.formContainer)} onClick={this.toggleFullForm}>
         <div className={css(styles.inputRow)}>
           <TextInput
+            required={true}
             type={"text"}
             label={'What do you need done?'}
+            placeholder={'I need a catsitter...'}
             name={"jobTitle"}
             content={this.state.jobTitle}
             width={width.large}
             changeHandler={this.handleInputChange} />
           <DropDownSelector
+            required={true}
             label={"Category"}
             name={"categorySelection"}
             options={this.props.categoryOptions}
@@ -136,8 +139,10 @@ class JobForm extends Component {
           <div>
             <div className={css(styles.inputRow)}>
               <TextArea
+                required={true}
                 rows={5}
-                label={"Job Description"}
+                label={"Anything you'd like to add?"}
+                placeholder={'The more details the better. No personal info, please...'}
                 name={"jobDetails"}
                 content={this.state.jobDetails}
                 width={width.full}
@@ -145,14 +150,18 @@ class JobForm extends Component {
             </div>
             <div className={css(styles.inputRow, width.medium)}>
               <TextInput
+                required={true}
                 type="text"
                 label="City"
+                placeholder={'City'}
                 name={"locationCity"}
                 content={this.state.locationCity}
                 changeHandler={this.handleInputChange} />
               <TextInput
+                required={true}
                 type="text"
                 label="State"
+                placeholder={'State'}
                 name={"locationState"}
                 content={this.state.locationState}
                 changeHandler={this.handleInputChange} />
