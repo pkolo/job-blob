@@ -18,12 +18,12 @@ class Job extends Component {
     }
 
     this.handleDeleteButton = this.handleDeleteButton.bind(this)
-    this.handleEditButton = this.handleEditButton.bind(this)
+    this.toggleEditMode = this.toggleEditMode.bind(this)
   }
 
-  handleEditButton(e) {
+  toggleEditMode(e) {
     e.preventDefault()
-    this.setState({ mode: 'edit' })
+    this.state.mode === 'show' ? this.setState({ mode: 'edit' }) : this.setState({ mode: 'show' })
   }
 
   handleDeleteButton(e) {
@@ -46,7 +46,7 @@ class Job extends Component {
     let job = this.props.job;
     if (this.state.mode === 'edit') {
       return (
-        <JobForm categoryOptions={this.props.categoryOptions} mode='edit' job={job} />
+        <JobForm categoryOptions={this.props.categoryOptions} mode='edit' job={job} toggleParentMode={this.toggleEditMode}/>
       )
     } else {
       return (
@@ -58,7 +58,7 @@ class Job extends Component {
             <li>Location: {job.location.city}, {job.location.state}</li>
             <li>Posted on {job.date_posted}</li>
           </ul>
-          <button onClick={this.handleEditButton}>Update</button>
+          <button onClick={this.toggleEditMode}>Update</button>
           <button onClick={this.handleDeleteButton}>Delete</button>
         </div>
       )
