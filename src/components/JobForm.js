@@ -27,6 +27,7 @@ class JobForm extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.handleCancelButton = this.handleCancelButton.bind(this)
     this.showFullForm = this.showFullForm.bind(this)
     this.hideFullForm = this.hideFullForm.bind(this)
   }
@@ -107,6 +108,14 @@ class JobForm extends Component {
     this.setState({ showFullForm: false })
   }
 
+  handleCancelButton(e) {
+    if (this.props.mode === 'create') {
+      this.hideFullForm()
+    } else {
+      this.props.toggleParentMode(e)
+    }
+  }
+
   handleInputChange(e) {
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -173,16 +182,14 @@ class JobForm extends Component {
                 changeHandler={this.handleInputChange} />
             </div>
             <button onClick={this.handleFormSubmit}>Submit</button>
-            {this.props.mode === 'create' &&
-              <button onClick={this.hideFullForm}>Cancel</button>}
+            <button onClick={this.handleCancelButton}>Cancel</button>
+            {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
           </div>
         }
+        <div>
 
-
-        {this.props.mode === 'edit' &&
-          <button onClick={this.props.toggleParentMode}>Cancel</button>}
-
-        {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
+          {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
+        </div>
       </div>
     )
   }
