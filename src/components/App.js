@@ -75,8 +75,8 @@ class App extends Component {
       <div className={css(styles.appContainer)}>
         <h2>Job Blob</h2>
         <SideBar categories={categories} locations={this.getLocations()} />
-        <JobForm categoryOptions={categories.map(c => c.name)} stateUpdater={this.addJob}/>
-        <div className="job-list" style={jobListStyle}>
+        <div className={css(styles.mainSection)}>
+          <JobForm categoryOptions={categories.map(c => c.name)} stateUpdater={this.addJob}/>
           {jobs.map(job => <Job job={job} key={job.id} handleDelete={this.deleteJob} categoryOptions={categories.map(c => c.name)} stateUpdater={this.updateJob} />)}
         </div>
       </div>
@@ -91,10 +91,9 @@ const styles = StyleSheet.create({
     width: '1000px',
     marginLeft: '20px',
     fontFamily: 'sans-serif'
+  },
+  mainSection: {
+    width: '600px',
+    float: 'right'
   }
 })
-
-const jobListStyle = {
-  width: '600px',
-  float: 'right'
-}

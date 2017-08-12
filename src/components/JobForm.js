@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 
+import {StyleSheet, css} from 'aphrodite'
+
+import { APIRoot, checkResponse, getJson } from '../modules/api'
+
 import TextInput from './form/TextInput'
 import TextArea from './form/TextArea'
 import DropDownSelector from './form/DropDownSelector'
 import ErrorMessageList from './ErrorMessageList'
-
-import { APIRoot, checkResponse, getJson } from '../modules/api'
-
-const formStyle = {
-  width: '600px',
-  float: 'right',
-  padding: '15px',
-  marginBottom: '10px',
-  border: '1px solid black'
-};
 
 class JobForm extends Component {
   constructor(props) {
@@ -111,8 +105,7 @@ class JobForm extends Component {
 
   render(props) {
     return (
-      <div style={formStyle}>
-        <h2>Post a new job...</h2>
+      <div className={css(styles.formContainer)}>
         <TextInput
           inputType={"text"}
           label={"Job Title"}
@@ -156,3 +149,11 @@ class JobForm extends Component {
 }
 
 export default JobForm;
+
+const styles = StyleSheet.create({
+  formContainer: {
+    padding: '15px',
+    marginBottom: '10px',
+    border: '1px solid black'
+  }
+});
