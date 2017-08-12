@@ -106,25 +106,27 @@ class JobForm extends Component {
   render(props) {
     return (
       <div className={css(styles.formContainer)}>
-        <TextInput
-          inputType={"text"}
-          label={"Job Title"}
-          name={"jobTitle"}
-          content={this.state.jobTitle}
-          changeHandler={this.handleInputChange} />
+        <div className={css(styles.inputGroup)}>
+          <TextInput
+            inputType={"text"}
+            label={"Job Title"}
+            name={"jobTitle"}
+            content={this.state.jobTitle}
+            changeHandler={this.handleInputChange} />
+          <DropDownSelector
+            label={"Category"}
+            name={"categorySelection"}
+            options={this.props.categoryOptions}
+            placeholder={''}
+            selectedOption={this.state.categorySelection}
+            changeHandler={this.handleInputChange} />
+        </div>
         <TextArea
           rows={10}
           resize={false}
           label={"Job Description"}
           name={"jobDetails"}
           content={this.state.jobDetails}
-          changeHandler={this.handleInputChange} />
-        <DropDownSelector
-          label={"Category"}
-          name={"categorySelection"}
-          options={this.props.categoryOptions}
-          placeholder={''}
-          selectedOption={this.state.categorySelection}
           changeHandler={this.handleInputChange} />
         <TextInput
           type="text"
@@ -155,5 +157,14 @@ const styles = StyleSheet.create({
     padding: '15px',
     marginBottom: '10px',
     border: '1px solid black'
+  },
+  inputGroup: {
+    boxSizing: 'border-box',
+    boxOrient: 'horizontal',
+    display: 'flex',
+    flexDirection: 'row',
+    flexPack: 'justify',
+    justifyContent: 'space-between',
+    paddingBottom: '10px'
   }
 });
