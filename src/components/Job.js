@@ -66,9 +66,9 @@ class Job extends Component {
             <li>Posted on {job.date_posted}</li>
           </ul>
           {this.state.buttonsVisible &&
-            <div>
+            <div className={css(styles.buttonContainer)}>
               <button className={css(button.regular)} onClick={this.toggleEditMode}>Update</button>
-              <button onClick={this.handleDeleteButton}>Delete</button>
+              <button className={css(button.regular)} onClick={this.handleDeleteButton}>Delete</button>
             </div>
           }
         </div>
@@ -81,8 +81,14 @@ export default Job;
 
 const styles = StyleSheet.create({
   jobContainer: {
+    position: 'relative',
     padding: '15px',
     marginBottom: '10px',
     border: '1px solid black'
+  },
+  buttonContainer: {
+    position: 'absolute',
+    top: '10px',
+    right: '10px'
   }
 })
