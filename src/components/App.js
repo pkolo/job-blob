@@ -74,7 +74,7 @@ class App extends Component {
         <SideBar categories={categories} locations={this.getLocations()} />
         <JobForm categoryOptions={categories.map(c => c.name)} stateUpdater={this.addJob}/>
         <div className="job-list" style={jobListStyle}>
-          {jobs.map(job => <Job job={job} key={job.id} handleDelete={this.deleteJob} />)}
+          {jobs.map(job => <Job job={job} key={job.id} handleDelete={this.deleteJob} categoryOptions={categories.map(c => c.name)} />)}
         </div>
       </div>
     );

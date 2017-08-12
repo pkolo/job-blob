@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import { APIRoot, checkResponse, getJson } from '../api'
 
+import JobForm from './JobForm'
+
 const jobStyle = {
   padding: '15px',
   marginBottom: '10px',
@@ -43,7 +45,9 @@ class Job extends Component {
   render(props) {
     let job = this.props.job;
     if (this.state.mode === 'edit') {
-      return(<p>Now editing...</p>)
+      return (
+        <JobForm categoryOptions={this.props.categoryOptions} />
+      )
     } else {
       return (
         <div style={jobStyle}>
