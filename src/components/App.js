@@ -92,7 +92,8 @@ const styles = StyleSheet.create({
   appContainer: {
     width: '1000px',
     marginLeft: '20px',
-    fontFamily: 'sans-serif'
+    fontFamily: 'sans-serif',
+    fontSize: '1.25em'
   },
   sidebarSection: {
     width: '200px',
