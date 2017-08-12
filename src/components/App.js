@@ -18,11 +18,13 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      jobs: []
+      jobs: [],
+      categories: []
     }
 
     this.addJob = this.addJob.bind(this)
     this.deleteJob = this.deleteJob.bind(this)
+    this.setCategories = this.setCategories.bind(this)
   }
 
   componentDidMount() {
@@ -30,12 +32,13 @@ class App extends Component {
       .then(getJson)
       .then(checkResponse)
       .then(json => this.setState({jobs: sortBy(json.result, 'id').reverse()}))
+      .then(this.getCategories)
       .catch(err => console.log('ERROR', err))
   }
 
-  getCategories() {
+  setCategories() {
     let categories = this.state.jobs.map(job => job.category)
-    return uniqBy(categories, 'id')
+    this.setState({ categories: uniqBy(categories, 'id') })
   }
 
   getLocations() {
@@ -58,7 +61,7 @@ class App extends Component {
   }
 
   render() {
-    let categories = this.getCategories()
+    let categories = this.state.categories
     return (
       <div style={appStyle}>
         <h2>Job Blob</h2>
