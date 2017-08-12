@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 
-import {StyleSheet, css} from 'aphrodite'
-import { inputStyles } from '../../styles/shared.js'
+import {css} from 'aphrodite'
+import {inputGroup} from '../../styles/shared'
 
 class TextArea extends Component {
   render() {
     return (
-      <div className={css(inputStyles.container)}>
-        <div className={css(inputStyles.label)}>{this.props.label}</div>
+      <div className={css(this.props.width, inputGroup.container)}>
+        <div>{this.props.label}</div>
         <textarea
-          style={this.props.resize ? null : {resize: 'none'}}
+          className={css(inputGroup.input)}
           name={this.props.name}
           rows={this.props.rows}
           value={this.props.content}
