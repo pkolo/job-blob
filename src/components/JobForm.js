@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import {StyleSheet, css} from 'aphrodite'
+import {width} from '../styles/shared'
 
 import { APIRoot, checkResponse, getJson } from '../modules/api'
 
@@ -106,12 +107,12 @@ class JobForm extends Component {
   render(props) {
     return (
       <div className={css(styles.formContainer)}>
-        <div className={css(styles.inputGroup)}>
+        <div className={css(styles.inputRow)}>
           <TextInput
             inputType={"text"}
-            label={"Job Title"}
-            name={"jobTitle"}
+            label={'What do you need done?'}
             content={this.state.jobTitle}
+            width={width.large}
             changeHandler={this.handleInputChange} />
           <DropDownSelector
             label={"Category"}
@@ -119,18 +120,19 @@ class JobForm extends Component {
             options={this.props.categoryOptions}
             placeholder={''}
             selectedOption={this.state.categorySelection}
+            width={width.small}
             changeHandler={this.handleInputChange} />
         </div>
-        <div className={css(styles.inputGroup)}>
+        <div className={css(styles.inputRow)}>
           <TextArea
-            rows={10}
-            resize={false}
+            rows={5}
             label={"Job Description"}
             name={"jobDetails"}
             content={this.state.jobDetails}
+            width={width.full}
             changeHandler={this.handleInputChange} />
         </div>
-        <div className={css(styles.inputGroup)}>
+        <div className={css(styles.inputRow, width.medium)}>
           <TextInput
             type="text"
             label="City"
@@ -162,13 +164,12 @@ const styles = StyleSheet.create({
     marginBottom: '10px',
     border: '1px solid black'
   },
-  inputGroup: {
+  inputRow: {
     boxSizing: 'border-box',
     boxOrient: 'horizontal',
     display: 'flex',
     flexDirection: 'row',
     flexPack: 'justify',
-    justifyContent: 'space-between',
-    paddingBottom: '20px'
+    justifyContent: 'space-between'
   }
 });
