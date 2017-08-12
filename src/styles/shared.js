@@ -10,6 +10,11 @@ export const inputGroup = StyleSheet.create({
   container: {
     padding: '10px'
   },
+  label: {
+    paddingBottom: '5px',
+    fontSize: '1.15em',
+    fontWeight: '200'
+  },
   input: {
     width: '100%'
   }

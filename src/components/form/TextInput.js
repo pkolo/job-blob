@@ -7,7 +7,7 @@ class TextInput extends Component {
   render() {
     return (
       <div className={css(this.props.width, inputGroup.container)}>
-        <div>{this.props.label}</div>
+        <div className={css(inputGroup.label)}>{this.props.label}</div>
         <input
           className={css(inputGroup.input)}
           name={this.props.name}
