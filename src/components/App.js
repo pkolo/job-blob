@@ -6,11 +6,16 @@ import { APIRoot, checkResponse, getJson } from '../api'
 
 import SideBar from './SideBar'
 import JobForm from './JobForm'
-import JobList from './JobList'
+import Job from './Job'
 
 const appStyle = {
   width: '1000px',
   marginLeft: '20px'
+}
+
+const jobListStyle = {
+  width: '600px',
+  float: 'right'
 }
 
 class App extends Component {
@@ -32,7 +37,7 @@ class App extends Component {
       .then(getJson)
       .then(checkResponse)
       .then(json => this.setState({jobs: sortBy(json.result, 'id').reverse()}))
-      .then(this.getCategories)
+      .then(this.setCategories)
       .catch(err => console.log('ERROR', err))
   }
 
@@ -62,12 +67,15 @@ class App extends Component {
 
   render() {
     let categories = this.state.categories
+    let jobs = this.state.jobs
     return (
       <div style={appStyle}>
         <h2>Job Blob</h2>
         <SideBar categories={categories} locations={this.getLocations()} />
         <JobForm categoryOptions={categories.map(c => c.name)} stateUpdater={this.addJob}/>
-        <JobList jobs={this.state.jobs} handleDelete={this.deleteJob} />
+        <div className="job-list" style={jobListStyle}>
+          {jobs.map(job => <Job job={job} key={job.id} handleDelete={this.deleteJob} />)}
+        </div>
       </div>
     );
   }
