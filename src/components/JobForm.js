@@ -109,8 +109,9 @@ class JobForm extends Component {
       <div className={css(styles.formContainer)}>
         <div className={css(styles.inputRow)}>
           <TextInput
-            inputType={"text"}
+            type={"text"}
             label={'What do you need done?'}
+            name={"jobTitle"}
             content={this.state.jobTitle}
             width={width.large}
             changeHandler={this.handleInputChange} />
