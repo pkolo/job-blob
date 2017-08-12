@@ -24,6 +24,8 @@ class JobForm extends Component {
       categorySelection: '',
       locationCity: '',
       locationState: '',
+      formMethod: 'POST',
+      formURL: 'jobs',
       errorMessages: []
     }
 
@@ -31,9 +33,25 @@ class JobForm extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
   }
 
+  componentWillMount() {
+    if (this.props.mode === 'edit') {
+      const job = this.props.job
+      this.setState({
+        jobTitle: job.title,
+        jobDetails: job.details,
+        categorySelection: job.category.name,
+        locationCity: job.location.city,
+        locationState: job.location.state,
+        formMethod: 'PUT',
+        formURL: `jobs/${job.id}`
+      })
+    } else {
+      this.clearForm()
+    }
+  }
+
   handleFormSubmit(e) {
     e.preventDefault()
-
     this.clearErrors()
 
     const jobPayload = {
@@ -48,9 +66,9 @@ class JobForm extends Component {
       }
     }
 
-    fetch(APIRoot("jobs"),
+    fetch(APIRoot(this.state.formURL),
       {
-        method: 'POST',
+        method: this.state.formMethod,
         body: JSON.stringify(jobPayload),
         headers: {
           "Content-Type": "application/json"
@@ -59,19 +77,22 @@ class JobForm extends Component {
       .then(getJson)
       .then(checkResponse)
       .then(json => this.props.stateUpdater(json.result))
+      .then(this.clearForm())
       .catch(err => this.setState({ errorMessages: err.message }))
-
-      this.clearForm()
   }
 
   clearForm() {
-    this.setState({
-      jobTitle: '',
-      jobDetails: '',
-      categorySelection: '',
-      locationCity: '',
-      locationState: ''
-    })
+    if (this.props.mode === 'edit') {
+      this.props.toggleParentMode()
+    } else {
+      this.setState({
+        jobTitle: '',
+        jobDetails: '',
+        categorySelection: '',
+        locationCity: '',
+        locationState: ''
+      })
+    }
   }
 
   clearErrors() {
@@ -125,6 +146,8 @@ class JobForm extends Component {
           content={this.state.locationState}
           changeHandler={this.handleInputChange} />
         <button onClick={this.handleFormSubmit}>Submit</button>
+        {this.props.mode === 'edit' &&
+          <button onClick={this.props.toggleParentMode}>Cancel</button>}
 
         {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
       </div>
