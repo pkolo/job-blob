@@ -46,7 +46,7 @@ class Job extends Component {
     let job = this.props.job;
     if (this.state.mode === 'edit') {
       return (
-        <JobForm categoryOptions={this.props.categoryOptions} />
+        <JobForm categoryOptions={this.props.categoryOptions} mode='edit' job={job} />
       )
     } else {
       return (

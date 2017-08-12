@@ -31,6 +31,21 @@ class JobForm extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
   }
 
+  componentWillMount() {
+    if (this.props.mode === 'edit') {
+      const job = this.props.job
+      this.setState({
+        jobTitle: job.title,
+        jobDetails: job.details,
+        categorySelection: job.category.name,
+        locationCity: job.location.city,
+        locationState: job.location.state
+      })
+    } else {
+      this.clearForm()
+    }
+  }
+
   handleFormSubmit(e) {
     e.preventDefault()
 
