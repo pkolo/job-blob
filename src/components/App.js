@@ -33,7 +33,7 @@ class App extends Component {
     this.setCategories = this.setCategories.bind(this)
   }
 
-  componentDidMount() {
+  componentWillMount() {
     fetch(APIRoot("jobs"), {mode: 'cors'})
       .then(getJson)
       .then(checkResponse)
