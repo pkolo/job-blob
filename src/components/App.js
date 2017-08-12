@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     border: '1px solid black'
   },
   mainSection: {
-    width: '600px',
+    width: '750px',
     float: 'right'
   }
 })
