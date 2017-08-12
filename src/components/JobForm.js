@@ -19,6 +19,7 @@ class JobForm extends Component {
       categorySelection: '',
       locationCity: '',
       locationState: '',
+      showFullForm: false,
       formMethod: 'POST',
       formURL: 'jobs',
       errorMessages: []
@@ -26,6 +27,7 @@ class JobForm extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.toggleFullForm = this.toggleFullForm.bind(this)
   }
 
   componentWillMount() {
@@ -37,6 +39,7 @@ class JobForm extends Component {
         categorySelection: job.category.name,
         locationCity: job.location.city,
         locationState: job.location.state,
+        showFullForm: true,
         formMethod: 'PUT',
         formURL: `jobs/${job.id}`
       })
@@ -85,13 +88,18 @@ class JobForm extends Component {
         jobDetails: '',
         categorySelection: '',
         locationCity: '',
-        locationState: ''
+        locationState: '',
+        showFullForm: false
       })
     }
   }
 
   clearErrors() {
     this.setState({ errorMessages: [] })
+  }
+
+  toggleFullForm(e) {
+    this.setState({ showFullForm: true })
   }
 
   handleInputChange(e) {
@@ -106,7 +114,7 @@ class JobForm extends Component {
 
   render(props) {
     return (
-      <div className={css(styles.formContainer)}>
+      <div className={css(styles.formContainer)} onClick={this.toggleFullForm}>
         <div className={css(styles.inputRow)}>
           <TextInput
             type={"text"}
@@ -124,30 +132,36 @@ class JobForm extends Component {
             width={width.small}
             changeHandler={this.handleInputChange} />
         </div>
-        <div className={css(styles.inputRow)}>
-          <TextArea
-            rows={5}
-            label={"Job Description"}
-            name={"jobDetails"}
-            content={this.state.jobDetails}
-            width={width.full}
-            changeHandler={this.handleInputChange} />
-        </div>
-        <div className={css(styles.inputRow, width.medium)}>
-          <TextInput
-            type="text"
-            label="City"
-            name={"locationCity"}
-            content={this.state.locationCity}
-            changeHandler={this.handleInputChange} />
-          <TextInput
-            type="text"
-            label="State"
-            name={"locationState"}
-            content={this.state.locationState}
-            changeHandler={this.handleInputChange} />
-        </div>
-        <button onClick={this.handleFormSubmit}>Submit</button>
+        { this.state.showFullForm &&
+          <div>
+            <div className={css(styles.inputRow)}>
+              <TextArea
+                rows={5}
+                label={"Job Description"}
+                name={"jobDetails"}
+                content={this.state.jobDetails}
+                width={width.full}
+                changeHandler={this.handleInputChange} />
+            </div>
+            <div className={css(styles.inputRow, width.medium)}>
+              <TextInput
+                type="text"
+                label="City"
+                name={"locationCity"}
+                content={this.state.locationCity}
+                changeHandler={this.handleInputChange} />
+              <TextInput
+                type="text"
+                label="State"
+                name={"locationState"}
+                content={this.state.locationState}
+                changeHandler={this.handleInputChange} />
+            </div>
+            <button onClick={this.handleFormSubmit}>Submit</button>
+          </div>
+        }
+
+
         {this.props.mode === 'edit' &&
           <button onClick={this.props.toggleParentMode}>Cancel</button>}
 
