@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 
+import {StyleSheet, css} from 'aphrodite'
+import { inputStyles } from '../../styles/shared.js'
+
 class DropDownSelector extends Component {
   render() {
     return (
-      <div>
-        <label>{this.props.label}</label>
+      <div className={css(inputStyles.container)}>
+        <div className={css(inputStyles.label)}>{this.props.label}</div>
         <select
           name={this.props.name}
           value={this.props.selectedOption}

@@ -121,25 +121,29 @@ class JobForm extends Component {
             selectedOption={this.state.categorySelection}
             changeHandler={this.handleInputChange} />
         </div>
-        <TextArea
-          rows={10}
-          resize={false}
-          label={"Job Description"}
-          name={"jobDetails"}
-          content={this.state.jobDetails}
-          changeHandler={this.handleInputChange} />
-        <TextInput
-          type="text"
-          label="City"
-          name={"locationCity"}
-          content={this.state.locationCity}
-          changeHandler={this.handleInputChange} />
-        <TextInput
-          type="text"
-          label="State"
-          name={"locationState"}
-          content={this.state.locationState}
-          changeHandler={this.handleInputChange} />
+        <div className={css(styles.inputGroup)}>
+          <TextArea
+            rows={10}
+            resize={false}
+            label={"Job Description"}
+            name={"jobDetails"}
+            content={this.state.jobDetails}
+            changeHandler={this.handleInputChange} />
+        </div>
+        <div className={css(styles.inputGroup)}>
+          <TextInput
+            type="text"
+            label="City"
+            name={"locationCity"}
+            content={this.state.locationCity}
+            changeHandler={this.handleInputChange} />
+          <TextInput
+            type="text"
+            label="State"
+            name={"locationState"}
+            content={this.state.locationState}
+            changeHandler={this.handleInputChange} />
+        </div>
         <button onClick={this.handleFormSubmit}>Submit</button>
         {this.props.mode === 'edit' &&
           <button onClick={this.props.toggleParentMode}>Cancel</button>}
@@ -165,6 +169,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexPack: 'justify',
     justifyContent: 'space-between',
-    paddingBottom: '10px'
+    paddingBottom: '20px'
   }
 });
