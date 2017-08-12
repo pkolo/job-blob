@@ -77,19 +77,22 @@ class JobForm extends Component {
       .then(getJson)
       .then(checkResponse)
       .then(json => this.props.stateUpdater(json.result))
+      .then(this.clearForm())
       .catch(err => this.setState({ errorMessages: err.message }))
-
-      this.clearForm()
   }
 
   clearForm() {
-    this.setState({
-      jobTitle: '',
-      jobDetails: '',
-      categorySelection: '',
-      locationCity: '',
-      locationState: ''
-    })
+    if (this.props.mode === 'edit') {
+      this.props.toggleParentMode()
+    } else {
+      this.setState({
+        jobTitle: '',
+        jobDetails: '',
+        categorySelection: '',
+        locationCity: '',
+        locationState: ''
+      })
+    }
   }
 
   clearErrors() {

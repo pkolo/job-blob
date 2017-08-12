@@ -22,7 +22,6 @@ class Job extends Component {
   }
 
   toggleEditMode(e) {
-    e.preventDefault()
     this.state.mode === 'show' ? this.setState({ mode: 'edit' }) : this.setState({ mode: 'show' })
   }
 
