@@ -8,6 +8,7 @@ import sortBy from 'lodash/sortBy'
 import { APIRoot, checkResponse, getJson } from '../modules/api'
 
 import Header from './Header'
+import Slide from './Slide'
 import JobForm from './JobForm'
 import Job from './Job'
 
@@ -75,6 +76,7 @@ class App extends Component {
       <div className={css(styles.appContainer)}>
         <Header />
         <div className={css(styles.mainSection)}>
+          <Slide />
           <JobForm categoryOptions={categories.map(c => c.name)} stateUpdater={this.addJob}/>
           {jobs.map(job => <Job job={job} key={job.id} handleDelete={this.deleteJob} categoryOptions={categories.map(c => c.name)} stateUpdater={this.updateJob} />)}
         </div>
@@ -93,6 +95,7 @@ const styles = StyleSheet.create({
   },
   mainSection: {
     maxWidth: '900px',
-    margin: 'auto'
+    margin: 'auto',
+    padding: '0 10px'
   }
 })
