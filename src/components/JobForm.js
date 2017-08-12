@@ -24,6 +24,8 @@ class JobForm extends Component {
       categorySelection: '',
       locationCity: '',
       locationState: '',
+      formMethod: 'POST',
+      formURL: 'jobs',
       errorMessages: []
     }
 
@@ -39,7 +41,9 @@ class JobForm extends Component {
         jobDetails: job.details,
         categorySelection: job.category.name,
         locationCity: job.location.city,
-        locationState: job.location.state
+        locationState: job.location.state,
+        formMethod: 'PUT',
+        formURL: `jobs/${job.id}`
       })
     } else {
       this.clearForm()
@@ -48,7 +52,6 @@ class JobForm extends Component {
 
   handleFormSubmit(e) {
     e.preventDefault()
-
     this.clearErrors()
 
     const jobPayload = {
@@ -63,9 +66,9 @@ class JobForm extends Component {
       }
     }
 
-    fetch(APIRoot("jobs"),
+    fetch(APIRoot(this.state.formURL),
       {
-        method: 'POST',
+        method: this.state.formMethod,
         body: JSON.stringify(jobPayload),
         headers: {
           "Content-Type": "application/json"
