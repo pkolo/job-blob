@@ -9,6 +9,21 @@ const jobStyle = {
 };
 
 class Job extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      mode: 'show'
+    }
+
+    this.handleDeleteButton = this.handleDeleteButton.bind(this)
+    this.handleEditButton = this.handleEditButton.bind(this)
+  }
+
+  handleEditButton(e) {
+    e.preventDefault()
+    this.setState({ mode: 'edit' })
+  }
+
   handleDeleteButton(e) {
     e.preventDefault()
 
@@ -27,19 +42,23 @@ class Job extends Component {
 
   render(props) {
     let job = this.props.job;
-    return (
-      <div style={jobStyle}>
-        <h3>{job.title}</h3>
-        <p>{job.details}</p>
-        <ul>
-          <li>Category: {job.category.name}</li>
-          <li>Location: {job.location.city}, {job.location.state}</li>
-          <li>Posted on {job.date_posted}</li>
-        </ul>
-        <button>Update</button>
-        <button onClick={this.handleDeleteButton.bind(this)}>Delete</button>
-      </div>
-    )
+    if (this.state.mode === 'edit') {
+      return(<p>Now editing...</p>)
+    } else {
+      return (
+        <div style={jobStyle}>
+          <h3>{job.title}</h3>
+          <p>{job.details}</p>
+          <ul>
+            <li>Category: {job.category.name}</li>
+            <li>Location: {job.location.city}, {job.location.state}</li>
+            <li>Posted on {job.date_posted}</li>
+          </ul>
+          <button onClick={this.handleEditButton}>Update</button>
+          <button onClick={this.handleDeleteButton}>Delete</button>
+        </div>
+      )
+    }
   }
 }
 
