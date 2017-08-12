@@ -140,6 +140,8 @@ class JobForm extends Component {
           content={this.state.locationState}
           changeHandler={this.handleInputChange} />
         <button onClick={this.handleFormSubmit}>Submit</button>
+        {this.props.mode === 'edit' &&
+          <button onClick={this.props.toggleParentMode}>Cancel</button>}
 
         {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
       </div>
