@@ -5,7 +5,7 @@ import {StyleSheet, css} from 'aphrodite'
 import uniqBy from 'lodash/uniqBy'
 import sortBy from 'lodash/sortBy'
 
-import { APIRoot, checkResponse, getJson } from '../api'
+import { APIRoot, checkResponse, getJson } from '../modules/api'
 
 import SideBar from './SideBar'
 import JobForm from './JobForm'
@@ -24,7 +24,6 @@ const jobListStyle = {
 }
 
 class App extends Component {
-
   constructor(props) {
     super(props)
     this.state = {
