@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+
+import {StyleSheet, css} from 'aphrodite'
+
 import uniqBy from 'lodash/uniqBy'
 import sortBy from 'lodash/sortBy'
 
@@ -8,10 +11,12 @@ import SideBar from './SideBar'
 import JobForm from './JobForm'
 import Job from './Job'
 
-const appStyle = {
-  width: '1000px',
-  marginLeft: '20px'
-}
+const styles = StyleSheet.create({
+  appContainer: {
+    width: '1000px',
+    marginLeft: '20px'
+  }
+})
 
 const jobListStyle = {
   width: '600px',
@@ -80,7 +85,7 @@ class App extends Component {
     let categories = this.state.categories
     let jobs = this.state.jobs
     return (
-      <div style={appStyle}>
+      <div className={css(styles.appContainer)}>
         <h2>Job Blob</h2>
         <SideBar categories={categories} locations={this.getLocations()} />
         <JobForm categoryOptions={categories.map(c => c.name)} stateUpdater={this.addJob}/>
