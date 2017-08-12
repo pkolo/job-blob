@@ -29,6 +29,7 @@ class App extends Component {
 
     this.addJob = this.addJob.bind(this)
     this.deleteJob = this.deleteJob.bind(this)
+    this.updateJob = this.updateJob.bind(this)
     this.setCategories = this.setCategories.bind(this)
   }
 
@@ -65,6 +66,16 @@ class App extends Component {
     })
   }
 
+  updateJob(updatedJob) {
+    let jobs = this.state.jobs
+    let newJobs = jobs.filter(job => job.id !== updatedJob.id)
+    newJobs.push(updatedJob)
+
+    this.setState({
+      jobs: sortBy(newJobs, 'id').reverse()
+    })
+  }
+
   render() {
     let categories = this.state.categories
     let jobs = this.state.jobs
@@ -74,7 +85,7 @@ class App extends Component {
         <SideBar categories={categories} locations={this.getLocations()} />
         <JobForm categoryOptions={categories.map(c => c.name)} stateUpdater={this.addJob}/>
         <div className="job-list" style={jobListStyle}>
-          {jobs.map(job => <Job job={job} key={job.id} handleDelete={this.deleteJob} categoryOptions={categories.map(c => c.name)} />)}
+          {jobs.map(job => <Job job={job} key={job.id} handleDelete={this.deleteJob} categoryOptions={categories.map(c => c.name)} stateUpdater={this.updateJob} />)}
         </div>
       </div>
     );
