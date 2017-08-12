@@ -11,18 +11,6 @@ import SideBar from './SideBar'
 import JobForm from './JobForm'
 import Job from './Job'
 
-const styles = StyleSheet.create({
-  appContainer: {
-    width: '1000px',
-    marginLeft: '20px'
-  }
-})
-
-const jobListStyle = {
-  width: '600px',
-  float: 'right'
-}
-
 class App extends Component {
   constructor(props) {
     super(props)
@@ -97,3 +85,16 @@ class App extends Component {
 }
 
 export default App;
+
+const styles = StyleSheet.create({
+  appContainer: {
+    width: '1000px',
+    marginLeft: '20px',
+    fontFamily: 'sans-serif'
+  }
+})
+
+const jobListStyle = {
+  width: '600px',
+  float: 'right'
+}

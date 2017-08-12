@@ -4,6 +4,9 @@ import { APIRoot, checkResponse, getJson } from '../modules/api'
 
 import JobForm from './JobForm'
 
+import {StyleSheet, css} from 'aphrodite'
+import { button } from '../styles/shared'
+
 const jobStyle = {
   padding: '15px',
   marginBottom: '10px',
@@ -57,7 +60,7 @@ class Job extends Component {
             <li>Location: {job.location.city}, {job.location.state}</li>
             <li>Posted on {job.date_posted}</li>
           </ul>
-          <button onClick={this.toggleEditMode}>Update</button>
+          <button className={css(button.regular)} onClick={this.toggleEditMode}>Update</button>
           <button onClick={this.handleDeleteButton}>Delete</button>
         </div>
       )
