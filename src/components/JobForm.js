@@ -5,7 +5,7 @@ import TextArea from './form/TextArea'
 import DropDownSelector from './form/DropDownSelector'
 import ErrorMessageList from './ErrorMessageList'
 
-import { APIRoot, checkResponse, getJson } from '../api'
+import { APIRoot, checkResponse, getJson } from '../modules/api'
 
 const formStyle = {
   width: '600px',

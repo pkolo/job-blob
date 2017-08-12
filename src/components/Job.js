@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { APIRoot, checkResponse, getJson } from '../api'
+import { APIRoot, checkResponse, getJson } from '../modules/api'
 
 import JobForm from './JobForm'
 
