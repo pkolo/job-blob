@@ -14,7 +14,8 @@ class TextInput extends Component {
           type={this.props.type}
           value={this.props.content}
           placeholder={this.props.placeholder}
-          onChange={this.props.changeHandler} />
+          onChange={this.props.changeHandler}
+          onFocus={this.props.focusHandler} />
       </div>
     )
   }

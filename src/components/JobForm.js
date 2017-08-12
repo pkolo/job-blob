@@ -27,7 +27,8 @@ class JobForm extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
-    this.toggleFullForm = this.toggleFullForm.bind(this)
+    this.showFullForm = this.showFullForm.bind(this)
+    this.hideFullForm = this.hideFullForm.bind(this)
   }
 
   componentWillMount() {
@@ -98,8 +99,12 @@ class JobForm extends Component {
     this.setState({ errorMessages: [] })
   }
 
-  toggleFullForm(e) {
+  showFullForm(e) {
     this.setState({ showFullForm: true })
+  }
+
+  hideFullForm(e) {
+    this.setState({ showFullForm: false })
   }
 
   handleInputChange(e) {
@@ -114,7 +119,7 @@ class JobForm extends Component {
 
   render(props) {
     return (
-      <div className={css(styles.formContainer)} onClick={this.toggleFullForm}>
+      <div className={css(styles.formContainer)}>
         <div className={css(styles.inputRow)}>
           <TextInput
             required={true}
@@ -124,7 +129,8 @@ class JobForm extends Component {
             name={"jobTitle"}
             content={this.state.jobTitle}
             width={width.large}
-            changeHandler={this.handleInputChange} />
+            changeHandler={this.handleInputChange}
+            focusHandler={this.showFullForm} />
           <DropDownSelector
             required={true}
             label={"Category"}
@@ -167,6 +173,8 @@ class JobForm extends Component {
                 changeHandler={this.handleInputChange} />
             </div>
             <button onClick={this.handleFormSubmit}>Submit</button>
+            {this.props.mode === 'create' &&
+              <button onClick={this.hideFullForm}>Cancel</button>}
           </div>
         }
 

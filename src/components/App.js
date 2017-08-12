@@ -77,7 +77,7 @@ class App extends Component {
         <Header />
         <div className={css(styles.mainSection)}>
           <Slide />
-          <JobForm categoryOptions={categories.map(c => c.name)} stateUpdater={this.addJob}/>
+          <JobForm categoryOptions={categories.map(c => c.name)} stateUpdater={this.addJob} mode={'create'} />
           {jobs.map(job => <Job job={job} key={job.id} handleDelete={this.deleteJob} categoryOptions={categories.map(c => c.name)} stateUpdater={this.updateJob} />)}
         </div>
       </div>
