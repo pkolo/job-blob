@@ -5,3 +5,12 @@ export const button = StyleSheet.create({
     borderRadius: '25px'
   }
 })
+
+export const inputStyles = StyleSheet.create({
+  container: {
+
+  },
+  label: {
+    paddingBottom: '5px'
+  }
+})
