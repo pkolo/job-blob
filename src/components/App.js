@@ -7,7 +7,7 @@ import sortBy from 'lodash/sortBy'
 
 import { APIRoot, checkResponse, getJson } from '../modules/api'
 
-import SideBar from './SideBar'
+import Header from './Header'
 import JobForm from './JobForm'
 import Job from './Job'
 
@@ -73,7 +73,7 @@ class App extends Component {
     let jobs = this.state.jobs
     return (
       <div className={css(styles.appContainer)}>
-        <h2>Job Blob</h2>
+        <Header />
         <div className={css(styles.mainSection)}>
           <JobForm categoryOptions={categories.map(c => c.name)} stateUpdater={this.addJob}/>
           {jobs.map(job => <Job job={job} key={job.id} handleDelete={this.deleteJob} categoryOptions={categories.map(c => c.name)} stateUpdater={this.updateJob} />)}
@@ -88,7 +88,6 @@ export default App;
 const styles = StyleSheet.create({
   appContainer: {
     maxWidth: '100%',
-    marginLeft: '20px',
     fontFamily: 'sans-serif',
     fontSize: '1.25em'
   },
