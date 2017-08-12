@@ -90,7 +90,7 @@ export default App;
 const styles = StyleSheet.create({
   appContainer: {
     maxWidth: '100%',
-    fontFamily: 'sans-serif',
+    fontFamily: 'Roboto Condensed, sans-serif',
     fontSize: '1.25em'
   },
   mainSection: {
