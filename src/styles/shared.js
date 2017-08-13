@@ -23,3 +23,8 @@ export const colors = {
   lightGrey: '#A2A2A2',
   white: '#FFFFFF'
 }
+
+export const fonts = {
+  heading: 'Roboto Condensed, sans-serif',
+  second: 'sans-serif'
+}
