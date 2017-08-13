@@ -25,7 +25,6 @@ class BasicTextInput extends Component {
   render() {
     return (
       <div>
-        <div className={css(inputGroup.label)}>{this.props.label} {this.props.required && <span>*</span>}</div>
         <input
           className={css(inputGroup.input)}
           name={this.props.name}

@@ -9,7 +9,6 @@ class BasicDropDownSelector extends Component {
   render() {
     return (
       <div>
-        <div className={css(inputGroup.label)}>{this.props.label} {this.props.required && <span>*</span>}</div>
         <select
           className={css(inputGroup.input)}
           name={this.props.name}

@@ -9,7 +9,6 @@ class BasicTextArea extends Component {
   render() {
     return (
       <div>
-        <div className={css(inputGroup.label)}>{this.props.label} {this.props.required && <span>*</span>}</div>
         <textarea
           className={css(inputGroup.input)}
           name={this.props.name}
