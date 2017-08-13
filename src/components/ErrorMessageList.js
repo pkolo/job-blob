@@ -15,6 +15,9 @@ export default ErrorMessageList;
 
 const styles = StyleSheet.create({
   error: {
-    color: colors.darkRed
+    float: 'left',
+    display: 'inline',
+    color: colors.darkRed,
+    fontSize: '1em'
   }
 })

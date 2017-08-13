@@ -83,7 +83,8 @@ class JobForm extends Component {
   }
 
   clearForm() {
-    if (this.props.mode === 'edit') {
+    let errors = (this.state.errorMessages.length > 0)
+    if (this.props.mode === 'edit' && !errors) {
       this.props.toggleParentMode()
     } else {
       this.setState({
@@ -94,7 +95,7 @@ class JobForm extends Component {
         locationState: '',
       })
 
-      if (this.state.errorMessages.length === 0) {
+      if (!errors) {
         this.setState({showFullForm: false})
       }
     }
@@ -186,17 +187,17 @@ class JobForm extends Component {
                 content={this.state.locationState}
                 changeHandler={this.handleInputChange} />
             </div>
-            <div className={css(styles.buttonRow)}>
-              <Button label={'Post Job'} handleClick={this.handleFormSubmit} />
-              <Button label={'Cancel'} handleClick={this.handleCancelButton} />
+            <div className={css(styles.inputRow)}>
+              <div className={css(styles.errorContainer)}>
+                {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
+              </div>
+              <div className={css(styles.buttonContainer)}>
+                <Button label={'Post Job'} handleClick={this.handleFormSubmit} />
+                <Button label={'Cancel'} handleClick={this.handleCancelButton} />
+              </div>
             </div>
-            {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
           </div>
         }
-        <div>
-
-          {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
-        </div>
       </div>
     )
   }
@@ -218,7 +219,11 @@ const styles = StyleSheet.create({
     flexPack: 'justify',
     justifyContent: 'space-between'
   },
-  buttonRow: {
-    textAlign: 'right'
+  buttonContainer: {
+    marginLeft: 'auto'
+  },
+  errorContainer: {
+    marginRight: 'auto',
+    padding: '10px'
   }
 });
