@@ -5,18 +5,27 @@ const InputGroup = (WrappedComponent) => class extends Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      selected: false
+    }
+
     this.onFocus = this.onFocus.bind(this)
+    this.onBlur = this.onBlur.bind(this)
   }
 
   onFocus(e) {
-    console.log(e)
+    this.setState({ selected: true })
+  }
+
+  onBlur(e) {
+    this.setState({ selected: false})
   }
 
   render() {
     return (
       <div className={css(this.props.width, styles.container)}>
         <div className={css(styles.label)}>{this.props.label} {this.props.required && <span>*</span>}</div>
-        <WrappedComponent {...this.props} styleOnFocus={this.onFocus} inputStyle={css(styles.input)}/>
+        <WrappedComponent {...this.props} styleOnFocus={this.onFocus} styleOnBlur={this.onBlur} inputStyle={this.state.selected ? css(styles.input, styles.selected) : css(styles.input)}/>
       </div>
     );
   }
@@ -38,5 +47,8 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: '10px',
     fontSize: '.75em'
+  },
+  selected: {
+    borderColor: '#D0021B'
   }
 })
