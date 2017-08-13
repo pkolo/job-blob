@@ -1,25 +1,18 @@
 import React, { Component } from 'react';
+
+import {StyleSheet, css} from 'aphrodite'
+
 import uniqBy from 'lodash/uniqBy'
 import sortBy from 'lodash/sortBy'
 
-import { APIRoot, checkResponse, getJson } from '../api'
+import { APIRoot, checkResponse, getJson } from '../modules/api'
 
-import SideBar from './SideBar'
+import Header from './Header'
+import Slide from './Slide'
 import JobForm from './JobForm'
 import Job from './Job'
 
-const appStyle = {
-  width: '1000px',
-  marginLeft: '20px'
-}
-
-const jobListStyle = {
-  width: '600px',
-  float: 'right'
-}
-
 class App extends Component {
-
   constructor(props) {
     super(props)
     this.state = {
@@ -33,7 +26,7 @@ class App extends Component {
     this.setCategories = this.setCategories.bind(this)
   }
 
-  componentDidMount() {
+  componentWillMount() {
     fetch(APIRoot("jobs"), {mode: 'cors'})
       .then(getJson)
       .then(checkResponse)
@@ -80,11 +73,11 @@ class App extends Component {
     let categories = this.state.categories
     let jobs = this.state.jobs
     return (
-      <div style={appStyle}>
-        <h2>Job Blob</h2>
-        <SideBar categories={categories} locations={this.getLocations()} />
-        <JobForm categoryOptions={categories.map(c => c.name)} stateUpdater={this.addJob}/>
-        <div className="job-list" style={jobListStyle}>
+      <div className={css(styles.appContainer)}>
+        <Header />
+        <div className={css(styles.mainSection)}>
+          <Slide />
+          <JobForm categoryOptions={categories.map(c => c.name)} stateUpdater={this.addJob} mode={'create'} />
           {jobs.map(job => <Job job={job} key={job.id} handleDelete={this.deleteJob} categoryOptions={categories.map(c => c.name)} stateUpdater={this.updateJob} />)}
         </div>
       </div>
@@ -93,3 +86,16 @@ class App extends Component {
 }
 
 export default App;
+
+const styles = StyleSheet.create({
+  appContainer: {
+    maxWidth: '100%',
+    fontFamily: 'Roboto Condensed, sans-serif',
+    fontSize: '1.25em'
+  },
+  mainSection: {
+    maxWidth: '900px',
+    margin: 'auto',
+    padding: '0 10px'
+  }
+})

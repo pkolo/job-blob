@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 
-import { APIRoot, checkResponse, getJson } from '../api'
+import { APIRoot, checkResponse, getJson } from '../modules/api'
 
 import JobForm from './JobForm'
 
-const jobStyle = {
-  padding: '15px',
-  marginBottom: '10px',
-  border: '1px solid black'
-};
+import {StyleSheet, css} from 'aphrodite'
+import { button } from '../styles/shared'
 
 class Job extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      mode: 'show'
+      mode: 'show',
+      buttonsVisible: false
     }
 
     this.handleDeleteButton = this.handleDeleteButton.bind(this)
     this.toggleEditMode = this.toggleEditMode.bind(this)
+    this.showButtons = this.showButtons.bind(this)
+    this.hideButtons = this.hideButtons.bind(this)
   }
 
   toggleEditMode(e) {
@@ -41,6 +41,14 @@ class Job extends Component {
     .catch(err => console.log('ERROR', err))
   }
 
+  showButtons(e) {
+    this.setState({ buttonsVisible: true })
+  }
+
+  hideButtons(e) {
+    this.setState({ buttonsVisible: false })
+  }
+
   render(props) {
     let job = this.props.job;
     if (this.state.mode === 'edit') {
@@ -49,7 +57,7 @@ class Job extends Component {
       )
     } else {
       return (
-        <div style={jobStyle}>
+        <div className={css(styles.jobContainer)} onMouseEnter={this.showButtons} onMouseLeave={this.hideButtons}>
           <h3>{job.title}</h3>
           <p>{job.details}</p>
           <ul>
@@ -57,8 +65,12 @@ class Job extends Component {
             <li>Location: {job.location.city}, {job.location.state}</li>
             <li>Posted on {job.date_posted}</li>
           </ul>
-          <button onClick={this.toggleEditMode}>Update</button>
-          <button onClick={this.handleDeleteButton}>Delete</button>
+          {this.state.buttonsVisible &&
+            <div className={css(styles.buttonContainer)}>
+              <button className={css(button.regular)} onClick={this.toggleEditMode}>Update</button>
+              <button className={css(button.regular)} onClick={this.handleDeleteButton}>Delete</button>
+            </div>
+          }
         </div>
       )
     }
@@ -66,3 +78,17 @@ class Job extends Component {
 }
 
 export default Job;
+
+const styles = StyleSheet.create({
+  jobContainer: {
+    position: 'relative',
+    padding: '15px',
+    marginBottom: '10px',
+    border: '1px solid black'
+  },
+  buttonContainer: {
+    position: 'absolute',
+    top: '10px',
+    right: '10px'
+  }
+})

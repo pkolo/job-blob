@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
 
+import {StyleSheet, css} from 'aphrodite'
+import {width} from '../styles/shared'
+
+import { APIRoot, checkResponse, getJson } from '../modules/api'
+
 import TextInput from './form/TextInput'
 import TextArea from './form/TextArea'
 import DropDownSelector from './form/DropDownSelector'
 import ErrorMessageList from './ErrorMessageList'
-
-import { APIRoot, checkResponse, getJson } from '../api'
-
-const formStyle = {
-  width: '600px',
-  float: 'right',
-  padding: '15px',
-  marginBottom: '10px',
-  border: '1px solid black'
-};
 
 class JobForm extends Component {
   constructor(props) {
@@ -24,6 +19,7 @@ class JobForm extends Component {
       categorySelection: '',
       locationCity: '',
       locationState: '',
+      showFullForm: false,
       formMethod: 'POST',
       formURL: 'jobs',
       errorMessages: []
@@ -31,6 +27,9 @@ class JobForm extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.handleCancelButton = this.handleCancelButton.bind(this)
+    this.showFullForm = this.showFullForm.bind(this)
+    this.hideFullForm = this.hideFullForm.bind(this)
   }
 
   componentWillMount() {
@@ -42,6 +41,7 @@ class JobForm extends Component {
         categorySelection: job.category.name,
         locationCity: job.location.city,
         locationState: job.location.state,
+        showFullForm: true,
         formMethod: 'PUT',
         formURL: `jobs/${job.id}`
       })
@@ -90,13 +90,30 @@ class JobForm extends Component {
         jobDetails: '',
         categorySelection: '',
         locationCity: '',
-        locationState: ''
+        locationState: '',
+        showFullForm: false
       })
     }
   }
 
   clearErrors() {
     this.setState({ errorMessages: [] })
+  }
+
+  showFullForm(e) {
+    this.setState({ showFullForm: true })
+  }
+
+  hideFullForm(e) {
+    this.setState({ showFullForm: false })
+  }
+
+  handleCancelButton(e) {
+    if (this.props.mode === 'create') {
+      this.hideFullForm()
+    } else {
+      this.props.toggleParentMode(e)
+    }
   }
 
   handleInputChange(e) {
@@ -111,48 +128,87 @@ class JobForm extends Component {
 
   render(props) {
     return (
-      <div style={formStyle}>
-        <h2>Post a new job...</h2>
-        <TextInput
-          inputType={"text"}
-          label={"Job Title"}
-          name={"jobTitle"}
-          content={this.state.jobTitle}
-          changeHandler={this.handleInputChange} />
-        <TextArea
-          rows={10}
-          resize={false}
-          label={"Job Description"}
-          name={"jobDetails"}
-          content={this.state.jobDetails}
-          changeHandler={this.handleInputChange} />
-        <DropDownSelector
-          label={"Category"}
-          name={"categorySelection"}
-          options={this.props.categoryOptions}
-          placeholder={''}
-          selectedOption={this.state.categorySelection}
-          changeHandler={this.handleInputChange} />
-        <TextInput
-          type="text"
-          label="City"
-          name={"locationCity"}
-          content={this.state.locationCity}
-          changeHandler={this.handleInputChange} />
-        <TextInput
-          type="text"
-          label="State"
-          name={"locationState"}
-          content={this.state.locationState}
-          changeHandler={this.handleInputChange} />
-        <button onClick={this.handleFormSubmit}>Submit</button>
-        {this.props.mode === 'edit' &&
-          <button onClick={this.props.toggleParentMode}>Cancel</button>}
+      <div className={css(styles.formContainer)}>
+        <div className={css(styles.inputRow)}>
+          <TextInput
+            required={true}
+            type={"text"}
+            label={'What do you need done?'}
+            placeholder={'I need a catsitter...'}
+            name={"jobTitle"}
+            content={this.state.jobTitle}
+            width={width.large}
+            changeHandler={this.handleInputChange}
+            focusHandler={this.showFullForm} />
+          <DropDownSelector
+            required={true}
+            label={"Category"}
+            name={"categorySelection"}
+            options={this.props.categoryOptions}
+            placeholder={''}
+            selectedOption={this.state.categorySelection}
+            width={width.small}
+            changeHandler={this.handleInputChange} />
+        </div>
+        { this.state.showFullForm &&
+          <div>
+            <div className={css(styles.inputRow)}>
+              <TextArea
+                required={true}
+                rows={5}
+                label={"Anything you'd like to add?"}
+                placeholder={'The more details the better. No personal info, please...'}
+                name={"jobDetails"}
+                content={this.state.jobDetails}
+                width={width.full}
+                changeHandler={this.handleInputChange} />
+            </div>
+            <div className={css(styles.inputRow, width.medium)}>
+              <TextInput
+                required={true}
+                type="text"
+                label="City"
+                placeholder={'City'}
+                name={"locationCity"}
+                content={this.state.locationCity}
+                changeHandler={this.handleInputChange} />
+              <TextInput
+                required={true}
+                type="text"
+                label="State"
+                placeholder={'State'}
+                name={"locationState"}
+                content={this.state.locationState}
+                changeHandler={this.handleInputChange} />
+            </div>
+            <button onClick={this.handleFormSubmit}>Submit</button>
+            <button onClick={this.handleCancelButton}>Cancel</button>
+            {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
+          </div>
+        }
+        <div>
 
-        {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
+          {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
+        </div>
       </div>
     )
   }
 }
 
 export default JobForm;
+
+const styles = StyleSheet.create({
+  formContainer: {
+    padding: '15px',
+    marginBottom: '10px',
+    border: '1px solid black'
+  },
+  inputRow: {
+    boxSizing: 'border-box',
+    boxOrient: 'horizontal',
+    display: 'flex',
+    flexDirection: 'row',
+    flexPack: 'justify',
+    justifyContent: 'space-between'
+  }
+});
