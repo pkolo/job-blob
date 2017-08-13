@@ -8,6 +8,7 @@ import { APIRoot, checkResponse, getJson } from '../modules/api'
 import TextInput from './form/TextInput'
 import TextArea from './form/TextArea'
 import DropDownSelector from './form/DropDownSelector'
+import Button from './form/Button'
 import ErrorMessageList from './ErrorMessageList'
 
 class JobForm extends Component {
@@ -74,15 +75,16 @@ class JobForm extends Component {
           "Content-Type": "application/json"
         }
       })
+
       .then(getJson)
       .then(checkResponse)
-      .then(json => this.props.stateUpdater(json.result))
-      .then(this.clearForm())
-      .catch(err => this.setState({ errorMessages: err.message }))
+      .then(json => {this.props.stateUpdater(json.result); this.clearForm()})
+      .catch(err => {this.setState({ errorMessages: err.message }); this.clearForm()})
   }
 
   clearForm() {
-    if (this.props.mode === 'edit') {
+    let errors = (this.state.errorMessages.length > 0)
+    if (this.props.mode === 'edit' && !errors) {
       this.props.toggleParentMode()
     } else {
       this.setState({
@@ -91,8 +93,11 @@ class JobForm extends Component {
         categorySelection: '',
         locationCity: '',
         locationState: '',
-        showFullForm: false
       })
+
+      if (!errors) {
+        this.setState({showFullForm: false})
+      }
     }
   }
 
@@ -110,6 +115,7 @@ class JobForm extends Component {
 
   handleCancelButton(e) {
     if (this.props.mode === 'create') {
+      this.clearErrors()
       this.hideFullForm()
     } else {
       this.props.toggleParentMode(e)
@@ -181,15 +187,17 @@ class JobForm extends Component {
                 content={this.state.locationState}
                 changeHandler={this.handleInputChange} />
             </div>
-            <button onClick={this.handleFormSubmit}>Submit</button>
-            <button onClick={this.handleCancelButton}>Cancel</button>
-            {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
+            <div className={css(styles.inputRow)}>
+              <div className={css(styles.errorContainer)}>
+                {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
+              </div>
+              <div className={css(styles.buttonContainer)}>
+                <Button label={'Post Job'} handleClick={this.handleFormSubmit} />
+                <Button label={'Cancel'} handleClick={this.handleCancelButton} />
+              </div>
+            </div>
           </div>
         }
-        <div>
-
-          {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
-        </div>
       </div>
     )
   }
@@ -210,5 +218,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexPack: 'justify',
     justifyContent: 'space-between'
+  },
+  buttonContainer: {
+    marginLeft: 'auto'
+  },
+  errorContainer: {
+    marginRight: 'auto',
+    padding: '10px'
   }
 });

@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { APIRoot, checkResponse, getJson } from '../modules/api'
 
 import JobForm from './JobForm'
+import Button from './form/Button'
 
 import {StyleSheet, css} from 'aphrodite'
-import { button } from '../styles/shared'
 
 class Job extends Component {
   constructor(props) {
@@ -67,8 +67,8 @@ class Job extends Component {
           </ul>
           {this.state.buttonsVisible &&
             <div className={css(styles.buttonContainer)}>
-              <button className={css(button.regular)} onClick={this.toggleEditMode}>Update</button>
-              <button className={css(button.regular)} onClick={this.handleDeleteButton}>Delete</button>
+              <Button handleClick={this.toggleEditMode} label={'Edit'} />
+              <Button handleClick={this.handleDeleteButton} label={'Delete'}/>
             </div>
           }
         </div>
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     position: 'absolute',
-    top: '10px',
-    right: '10px'
+    top: '0px',
+    right: '0px'
   }
 })

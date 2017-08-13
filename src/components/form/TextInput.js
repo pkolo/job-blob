@@ -1,24 +1,35 @@
 import React, { Component } from 'react';
 
-import {StyleSheet, css} from 'aphrodite'
-import {inputGroup} from '../../styles/shared'
+import InputGroup from './InputGroup'
 
-class TextInput extends Component {
+class BasicTextInput extends Component {
+  constructor(props) {
+    super(props)
+
+    this.handleFocus = this.handleFocus.bind(this)
+  }
+
+  handleFocus(e) {
+    if (this.props.focusHandler) {
+      this.props.focusHandler(e)
+    }
+  }
+
+
   render() {
     return (
-      <div className={css(this.props.width, inputGroup.container)}>
-        <div className={css(inputGroup.label)}>{this.props.label} {this.props.required && <span>*</span>}</div>
-        <input
-          className={css(inputGroup.input)}
-          name={this.props.name}
-          type={this.props.type}
-          value={this.props.content}
-          placeholder={this.props.placeholder}
-          onChange={this.props.changeHandler}
-          onFocus={this.props.focusHandler} />
-      </div>
+      <input
+        className={this.props.inputStyle}
+        name={this.props.name}
+        type={this.props.type}
+        value={this.props.content}
+        placeholder={this.props.placeholder}
+        onChange={this.props.changeHandler}
+        onFocus={this.handleFocus} />
     )
   }
 }
+
+let TextInput = InputGroup(BasicTextInput)
 
 export default TextInput;

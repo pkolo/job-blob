@@ -1,30 +1,27 @@
 import React, { Component } from 'react';
 
-import {StyleSheet, css} from 'aphrodite'
-import {inputGroup} from '../../styles/shared'
+import InputGroup from './InputGroup'
 
-class DropDownSelector extends Component {
+class BasicDropDownSelector extends Component {
   render() {
     return (
-      <div className={css(this.props.width, inputGroup.container)}>
-        <div className={css(inputGroup.label)}>{this.props.label} {this.props.required && <span>*</span>}</div>
-        <select
-          className={css(inputGroup.input)}
-          name={this.props.name}
-          value={this.props.selectedOption}
-          onChange={this.props.changeHandler}>
-          <option value>{this.props.placeholder}</option>
-          {
-            this.props.options.map(opt => {
-              return (
-                <option key={opt} value={opt}>{opt}</option>
-              )
-            })
-          }
-        </select>
-      </div>
+      <select
+        className={this.props.inputStyle}
+        name={this.props.name}
+        value={this.props.selectedOption}
+        onChange={this.props.changeHandler} >
+        <option value>{this.props.placeholder}</option>
+        {
+          this.props.options.map(opt => {
+            return (
+              <option key={opt} value={opt}>{opt}</option>
+            )
+          })
+        }
+      </select>
     )
   }
 }
 
+let DropDownSelector = InputGroup(BasicDropDownSelector)
 export default DropDownSelector;
