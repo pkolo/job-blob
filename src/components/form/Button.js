@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     ':hover': {
       backgroundColor: colors.yellow,
-      cursor: 'pointer'
+      cursor: 'pointer',
+      transition: 'background-color 0.15s ease-in-out'
     }
   }
 })

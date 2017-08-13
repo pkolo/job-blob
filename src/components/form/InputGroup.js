@@ -39,11 +39,12 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: '10px',
     fontSize: '.75em',
-    border: `2px solid ${colors.lightGrey}`,
+    border: `1px solid ${colors.lightGrey}`,
+    borderRadius: '5px',
     ':focus': {
       backgroundColor: colors.lightRed,
-      border: `2px solid ${colors.yellow}`,
-      transition: 'border 0.1s ease-in-out, background-color 0.1s ease-in-out'
+      border: `1px solid ${colors.yellow}`,
+      transition: 'border 0.05s ease-in-out, background-color 0.05s ease-in-out'
     }
   }
 })
