@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import {css} from 'aphrodite'
 import {inputGroup} from '../../styles/shared'
 
-class DropDownSelector extends Component {
+import InputGroup from './InputGroup'
+
+class BasicDropDownSelector extends Component {
   render() {
     return (
       <div className={css(this.props.width, inputGroup.container)}>
@@ -12,7 +14,8 @@ class DropDownSelector extends Component {
           className={css(inputGroup.input)}
           name={this.props.name}
           value={this.props.selectedOption}
-          onChange={this.props.changeHandler}>
+          onChange={this.props.changeHandler}
+          onFocus={this.props.styleOnFocus}>
           <option value>{this.props.placeholder}</option>
           {
             this.props.options.map(opt => {
@@ -27,4 +30,5 @@ class DropDownSelector extends Component {
   }
 }
 
+let DropDownSelector = InputGroup(BasicDropDownSelector)
 export default DropDownSelector;
