@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import {css} from 'aphrodite'
-
 import InputGroup from './InputGroup'
 
 class BasicTextInput extends Component {
@@ -23,17 +21,15 @@ class BasicTextInput extends Component {
 
   render() {
     return (
-      <div>
-        <input
-          className={this.props.inputStyle}
-          name={this.props.name}
-          type={this.props.type}
-          value={this.props.content}
-          placeholder={this.props.placeholder}
-          onChange={this.props.changeHandler}
-          onFocus={this.handleFocus}
-           />
-      </div>
+      <input
+        className={this.props.inputStyle}
+        name={this.props.name}
+        type={this.props.type}
+        value={this.props.content}
+        placeholder={this.props.placeholder}
+        onChange={this.props.changeHandler}
+        onFocus={this.handleFocus}
+         />
     )
   }
 }
