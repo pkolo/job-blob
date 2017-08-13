@@ -11,9 +11,7 @@ class BasicTextArea extends Component {
         rows={this.props.rows}
         placeholder={this.props.placeholder}
         value={this.props.content}
-        onChange={this.props.changeHandler}
-        onFocus={this.props.styleOnFocus}
-        onBlur={this.props.styleOnBlur} />
+        onChange={this.props.changeHandler} />
     )
   }
 }

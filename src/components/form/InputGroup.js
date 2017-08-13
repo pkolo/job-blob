@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import {css, StyleSheet} from 'aphrodite'
+import { css, StyleSheet } from 'aphrodite'
+
+import { colors } from '../../styles/shared'
 
 const InputGroup = (WrappedComponent) => class extends Component {
   constructor(props) {
@@ -8,24 +10,14 @@ const InputGroup = (WrappedComponent) => class extends Component {
     this.state = {
       selected: false
     }
-
-    this.onFocus = this.onFocus.bind(this)
-    this.onBlur = this.onBlur.bind(this)
-  }
-
-  onFocus(e) {
-    this.setState({ selected: true })
-  }
-
-  onBlur(e) {
-    this.setState({ selected: false})
   }
 
   render() {
     return (
       <div className={css(this.props.width, styles.container)}>
         <div className={css(styles.label)}>{this.props.label} {this.props.required && <span>*</span>}</div>
-        <WrappedComponent {...this.props} styleOnFocus={this.onFocus} styleOnBlur={this.onBlur} inputStyle={this.state.selected ? css(styles.input, styles.selected) : css(styles.input)}/>
+        <WrappedComponent {...this.props}
+          inputStyle={css(styles.input)}/>
       </div>
     );
   }
@@ -46,9 +38,10 @@ const styles = StyleSheet.create({
     boxSizing: 'border-box',
     width: '100%',
     padding: '10px',
-    fontSize: '.75em'
-  },
-  selected: {
-    borderColor: '#D0021B'
+    fontSize: '.75em',
+    border: `2px solid ${colors.lightGrey}`,
+    ':focus': {
+      border: `2px solid ${colors.red}`
+    }
   }
 })

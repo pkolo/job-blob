@@ -12,9 +12,6 @@ class BasicTextInput extends Component {
   handleFocus(e) {
     if (this.props.focusHandler) {
       this.props.focusHandler(e)
-      this.props.styleOnFocus(e)
-    } else {
-      this.props.styleOnFocus(e)
     }
   }
 
@@ -28,9 +25,7 @@ class BasicTextInput extends Component {
         value={this.props.content}
         placeholder={this.props.placeholder}
         onChange={this.props.changeHandler}
-        onFocus={this.handleFocus}
-        onBlur={this.props.styleOnBlur}
-         />
+        onFocus={this.handleFocus} />
     )
   }
 }
