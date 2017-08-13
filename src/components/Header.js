@@ -24,8 +24,7 @@ const styles = StyleSheet.create({
   siteName: {
     fontSize: '2.25em',
     fontWeight: '800',
-    color: '#FFFFFF',
-    letterSpacing: '5px'
+    color: '#FFFFFF'
   },
   pop: {
     color: colors.yellow
