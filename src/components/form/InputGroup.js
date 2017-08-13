@@ -16,7 +16,7 @@ const InputGroup = (WrappedComponent) => class extends Component {
     return (
       <div className={css(this.props.width, styles.container)}>
         <div className={css(styles.label)}>{this.props.label} {this.props.required && <span>*</span>}</div>
-        <WrappedComponent {...this.props} styleOnFocus={this.onFocus} />
+        <WrappedComponent {...this.props} styleOnFocus={this.onFocus} inputStyle={css(styles.input)}/>
       </div>
     );
   }

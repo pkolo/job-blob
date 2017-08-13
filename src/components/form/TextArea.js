@@ -10,7 +10,7 @@ class BasicTextArea extends Component {
     return (
       <div>
         <textarea
-          className={css(inputGroup.input)}
+          className={this.props.inputStyle}
           name={this.props.name}
           rows={this.props.rows}
           placeholder={this.props.placeholder}

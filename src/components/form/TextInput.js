@@ -26,7 +26,7 @@ class BasicTextInput extends Component {
     return (
       <div>
         <input
-          className={css(inputGroup.input)}
+          className={this.props.inputStyle}
           name={this.props.name}
           type={this.props.type}
           value={this.props.content}

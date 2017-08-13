@@ -10,7 +10,7 @@ class BasicDropDownSelector extends Component {
     return (
       <div>
         <select
-          className={css(inputGroup.input)}
+          className={this.props.inputStyle}
           name={this.props.name}
           value={this.props.selectedOption}
           onChange={this.props.changeHandler}
