@@ -41,7 +41,9 @@ const styles = StyleSheet.create({
     fontSize: '.75em',
     border: `2px solid ${colors.lightGrey}`,
     ':focus': {
-      border: `2px solid ${colors.red}`
+      backgroundColor: colors.lightRed,
+      border: `2px solid ${colors.yellow}`,
+      transition: 'border 0.1s ease-in-out, background-color 0.1s ease-in-out'
     }
   }
 })

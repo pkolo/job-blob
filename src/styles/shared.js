@@ -23,6 +23,7 @@ export const width = StyleSheet.create({
 
 export const colors = {
   red: '#F05E5D',
+  lightRed: '#FEF3D7',
   yellow: '#FED667',
   lightGrey: '#BABABA'
 }
