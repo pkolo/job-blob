@@ -31,7 +31,7 @@ class App extends Component {
     fetch(APIRoot("jobs"), {mode: 'cors'})
       .then(getJson)
       .then(checkResponse)
-      .then(json => this.setState({jobs: sortBy(json.result, 'id').reverse()}))
+      .then(json => this.setState({jobs: sortBy(json.result, 'date_posted').reverse()}))
       .then(this.setCategories)
       .catch(err => console.log('ERROR', err))
   }
