@@ -8,7 +8,7 @@ import InputGroup from './InputGroup'
 class BasicDropDownSelector extends Component {
   render() {
     return (
-      <div className={css(this.props.width, inputGroup.container)}>
+      <div>
         <div className={css(inputGroup.label)}>{this.props.label} {this.props.required && <span>*</span>}</div>
         <select
           className={css(inputGroup.input)}

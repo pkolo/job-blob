@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {css, StyleSheet} from 'aphrodite'
 
 const InputGroup = (WrappedComponent) => class extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ const InputGroup = (WrappedComponent) => class extends Component {
 
   render() {
     return (
-      <div>
+      <div className={css(this.props.width, styles.container)}>
         <WrappedComponent {...this.props} styleOnFocus={this.onFocus} />
       </div>
     );
@@ -21,3 +22,20 @@ const InputGroup = (WrappedComponent) => class extends Component {
 }
 
 export default InputGroup;
+
+const styles = StyleSheet.create({
+  container: {
+    padding: '10px'
+  },
+  label: {
+    paddingBottom: '5px',
+    fontSize: '1.15em',
+    fontWeight: '200'
+  },
+  input: {
+    boxSizing: 'border-box',
+    width: '100%',
+    padding: '10px',
+    fontSize: '.75em'
+  }
+})
