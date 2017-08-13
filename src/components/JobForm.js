@@ -8,6 +8,7 @@ import { APIRoot, checkResponse, getJson } from '../modules/api'
 import TextInput from './form/TextInput'
 import TextArea from './form/TextArea'
 import DropDownSelector from './form/DropDownSelector'
+import Button from './form/Button'
 import ErrorMessageList from './ErrorMessageList'
 
 class JobForm extends Component {
@@ -181,8 +182,10 @@ class JobForm extends Component {
                 content={this.state.locationState}
                 changeHandler={this.handleInputChange} />
             </div>
-            <button onClick={this.handleFormSubmit}>Submit</button>
-            <button onClick={this.handleCancelButton}>Cancel</button>
+            <div className={css(styles.buttonRow)}>
+              <Button label={'Submit'} handleClick={this.handleFormSubmit} />
+              <Button label={'Cancel'} handleClick={this.handleCancelButton} />
+            </div>
             {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
           </div>
         }
@@ -210,5 +213,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexPack: 'justify',
     justifyContent: 'space-between'
+  },
+  buttonRow: {
+    textAlign: 'right'
   }
 });
