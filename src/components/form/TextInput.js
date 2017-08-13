@@ -29,6 +29,7 @@ class BasicTextInput extends Component {
         placeholder={this.props.placeholder}
         onChange={this.props.changeHandler}
         onFocus={this.handleFocus}
+        onBlur={this.props.styleOnBlur}
          />
     )
   }

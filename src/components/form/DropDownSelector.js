@@ -10,7 +10,8 @@ class BasicDropDownSelector extends Component {
         name={this.props.name}
         value={this.props.selectedOption}
         onChange={this.props.changeHandler}
-        onFocus={this.props.styleOnFocus}>
+        onFocus={this.props.styleOnFocus}
+        onBlur={this.props.styleOnBlur} >
         <option value>{this.props.placeholder}</option>
         {
           this.props.options.map(opt => {
