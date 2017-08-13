@@ -6,6 +6,7 @@ import JobForm from './JobForm'
 import Button from './form/Button'
 
 import {StyleSheet, css} from 'aphrodite'
+import { fonts } from '../styles/shared'
 
 class Job extends Component {
   constructor(props) {
@@ -58,7 +59,7 @@ class Job extends Component {
     } else {
       return (
         <div className={css(styles.jobContainer)} onMouseEnter={this.showButtons} onMouseLeave={this.hideButtons}>
-          <h3>{job.title}</h3>
+          <div className={(css(styles.jobHeading))}>{job.title}</div>
           <p>{job.details}</p>
           <ul>
             <li>Category: {job.category.name}</li>
@@ -85,6 +86,10 @@ const styles = StyleSheet.create({
     padding: '15px',
     marginBottom: '10px',
     border: '1px solid black'
+  },
+  jobHeading: {
+    fontFamily: fonts.heading,
+    fontSize: '1.15em'
   },
   buttonContainer: {
     position: 'absolute',

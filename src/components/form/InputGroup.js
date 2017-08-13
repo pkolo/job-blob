@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { css, StyleSheet } from 'aphrodite'
 
-import { colors } from '../../styles/shared'
+import { colors, fonts } from '../../styles/shared'
 
 const InputGroup = (WrappedComponent) => class extends Component {
   constructor(props) {
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   },
   label: {
     paddingBottom: '5px',
+    fontFamily: fonts.heading,
     fontSize: '1.15em',
     fontWeight: '200'
   },

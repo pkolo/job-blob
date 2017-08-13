@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import {StyleSheet, css} from 'aphrodite'
+import { fonts } from '../styles/shared'
 
 import uniqBy from 'lodash/uniqBy'
 import sortBy from 'lodash/sortBy'
@@ -90,7 +91,7 @@ export default App;
 const styles = StyleSheet.create({
   appContainer: {
     maxWidth: '100%',
-    fontFamily: 'Roboto Condensed, sans-serif',
+    fontFamily: fonts.second,
     fontSize: '1.25em'
   },
   mainSection: {

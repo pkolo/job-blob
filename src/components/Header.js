@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
 import {StyleSheet, css} from 'aphrodite';
-
-import { colors } from '../styles/shared'
+import { colors, fonts } from '../styles/shared'
 
 const Header = props => {
   return (
@@ -22,6 +21,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.red
   },
   siteName: {
+    fontFamily: fonts.heading,
     fontSize: '2.25em',
     fontWeight: '800',
     color: '#FFFFFF'
