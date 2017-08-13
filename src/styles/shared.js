@@ -20,3 +20,8 @@ export const width = StyleSheet.create({
     width: '25%'
   }
 })
+
+export const colors = {
+  red: '#F05E5D',
+  yellow: '#FED667'
+}
