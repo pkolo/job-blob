@@ -16,9 +16,10 @@ export default Button;
 
 const styles = StyleSheet.create({
   button: {
-    margin: '10px',
+    margin: '5px',
     padding: '10px 25px',
-    border: `2px solid ${colors.red}`,
+    border: `1px solid ${colors.red}`,
+    borderRadius: '5px',
     backgroundColor: colors.white,
     color: colors.red,
     fontWeight: '800',

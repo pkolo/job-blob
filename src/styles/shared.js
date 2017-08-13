@@ -1,11 +1,5 @@
 import {StyleSheet} from 'aphrodite'
 
-export const button = StyleSheet.create({
-  regular: {
-    borderRadius: '25px'
-  }
-})
-
 export const width = StyleSheet.create({
   full: {
     width: '100%'
@@ -24,7 +18,8 @@ export const width = StyleSheet.create({
 export const colors = {
   red: '#F05E5D',
   lightRed: '#FEF3D7',
+  darkRed: '#BC2323',
   yellow: '#FED667',
-  lightGrey: '#BABABA',
+  lightGrey: '#A2A2A2',
   white: '#FFFFFF'
 }

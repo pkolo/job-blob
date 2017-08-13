@@ -183,7 +183,7 @@ class JobForm extends Component {
                 changeHandler={this.handleInputChange} />
             </div>
             <div className={css(styles.buttonRow)}>
-              <Button label={'Submit'} handleClick={this.handleFormSubmit} />
+              <Button label={'Post Job'} handleClick={this.handleFormSubmit} />
               <Button label={'Cancel'} handleClick={this.handleCancelButton} />
             </div>
             {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
