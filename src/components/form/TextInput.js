@@ -3,7 +3,25 @@ import React, { Component } from 'react';
 import {css} from 'aphrodite'
 import {inputGroup} from '../../styles/shared'
 
-class TextInput extends Component {
+import InputGroup from './InputGroup'
+
+class BasicTextInput extends Component {
+  constructor(props) {
+    super(props)
+
+    this.handleFocus = this.handleFocus.bind(this)
+  }
+
+  handleFocus(e) {
+    if (this.props.focusHandler) {
+      this.props.focusHandler(e)
+      this.props.styleOnFocus(e)
+    } else {
+      this.props.styleOnFocus(e)
+    }
+  }
+
+
   render() {
     return (
       <div className={css(this.props.width, inputGroup.container)}>
@@ -15,10 +33,13 @@ class TextInput extends Component {
           value={this.props.content}
           placeholder={this.props.placeholder}
           onChange={this.props.changeHandler}
-          onFocus={this.props.focusHandler} />
+          onFocus={this.handleFocus}
+           />
       </div>
     )
   }
 }
+
+let TextInput = InputGroup(BasicTextInput)
 
 export default TextInput;
