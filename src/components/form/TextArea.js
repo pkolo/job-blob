@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import {css} from 'aphrodite'
-import {inputGroup} from '../../styles/shared'
 
 import InputGroup from './InputGroup'
 
