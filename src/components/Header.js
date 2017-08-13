@@ -8,7 +8,7 @@ const Header = props => {
   return (
     <div className={css(styles.container)}>
       <span className={css(styles.siteName)}>
-        Job
+        job
         <span className={css(styles.pop)}>Blob</span>
       </span>
     </div>
