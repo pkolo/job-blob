@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {StyleSheet, css} from 'aphrodite'
+import {css} from 'aphrodite'
 import {inputGroup} from '../../styles/shared'
 
 class DropDownSelector extends Component {
