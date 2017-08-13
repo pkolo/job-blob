@@ -75,11 +75,11 @@ class JobForm extends Component {
           "Content-Type": "application/json"
         }
       })
+
       .then(getJson)
       .then(checkResponse)
-      .then(json => this.props.stateUpdater(json.result))
-      .then(this.clearForm())
-      .catch(err => this.setState({ errorMessages: err.message }))
+      .then(json => {this.props.stateUpdater(json.result); this.clearForm()})
+      .catch(err => {this.setState({ errorMessages: err.message }); this.clearForm()})
   }
 
   clearForm() {
@@ -92,8 +92,11 @@ class JobForm extends Component {
         categorySelection: '',
         locationCity: '',
         locationState: '',
-        showFullForm: false
       })
+
+      if (this.state.errorMessages.length === 0) {
+        this.setState({showFullForm: false})
+      }
     }
   }
 
@@ -111,6 +114,7 @@ class JobForm extends Component {
 
   handleCancelButton(e) {
     if (this.props.mode === 'create') {
+      this.clearErrors()
       this.hideFullForm()
     } else {
       this.props.toggleParentMode(e)
