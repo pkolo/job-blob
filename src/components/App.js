@@ -53,7 +53,7 @@ class App extends Component {
     let newJobs = this.state.jobs
     newJobs.push(job)
 
-    this.setState({ jobs: sortBy(newJobs, 'id').reverse() })
+    this.setState({ jobs: sortBy(newJobs, 'date_posted').reverse() })
   }
 
   deleteJob(jobToDelete) {
@@ -69,7 +69,7 @@ class App extends Component {
     newJobs.push(updatedJob)
 
     this.setState({
-      jobs: sortBy(newJobs, 'id').reverse()
+      jobs: sortBy(newJobs, 'date_posted').reverse()
     })
   }
 
