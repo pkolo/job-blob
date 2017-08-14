@@ -22,8 +22,9 @@ const styles = StyleSheet.create({
   },
   siteName: {
     fontFamily: fonts.heading,
-    fontSize: '2.25em',
+    fontSize: '3em',
     fontWeight: '800',
+    letterSpacing: '2px',
     color: '#FFFFFF'
   },
   pop: {

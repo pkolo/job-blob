@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import {StyleSheet, css} from 'aphrodite';
-import { fonts } from '../styles/shared'
+import { colors, fonts } from '../styles/shared'
 
 const Slide = props => {
   return (
@@ -18,8 +18,10 @@ const styles = StyleSheet.create({
     padding: '40px 0'
   },
   slide: {
+    color: colors.red,
     fontFamily: fonts.heading,
-    fontSize: '2.25em'
+    fontSize: '2.25em',
+    fontWeight: '600'
   }
 })
 
