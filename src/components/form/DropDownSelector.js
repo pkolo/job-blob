@@ -12,9 +12,9 @@ class BasicDropDownSelector extends Component {
         onChange={this.props.changeHandler} >
         <option value>{this.props.placeholder}</option>
         {
-          this.props.options.map(opt => {
+          this.props.options.map((opt, i) => {
             return (
-              <option key={opt} value={opt}>{opt}</option>
+              <option key={i} value={opt}>{opt}</option>
             )
           })
         }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import {StyleSheet, css} from 'aphrodite'
-import {width} from '../styles/shared'
+import { StyleSheet, css } from 'aphrodite'
+import { width, colors } from '../styles/shared'
 
 import { APIRoot, checkResponse, getJson } from '../modules/api'
 
@@ -9,7 +9,7 @@ import TextInput from './form/TextInput'
 import TextArea from './form/TextArea'
 import DropDownSelector from './form/DropDownSelector'
 import Button from './form/Button'
-import ErrorMessageList from './ErrorMessageList'
+import Flash from './form/Flash'
 
 class JobForm extends Component {
   constructor(props) {
@@ -29,6 +29,7 @@ class JobForm extends Component {
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.handleCancelButton = this.handleCancelButton.bind(this)
+    this.handleFlash = this.handleFlash.bind(this)
     this.showFullForm = this.showFullForm.bind(this)
     this.hideFullForm = this.hideFullForm.bind(this)
   }
@@ -84,20 +85,18 @@ class JobForm extends Component {
 
   clearForm() {
     let errors = (this.state.errorMessages.length > 0)
+
     if (this.props.mode === 'edit' && !errors) {
       this.props.toggleParentMode()
-    } else {
+    } else if (!errors) {
       this.setState({
         jobTitle: '',
         jobDetails: '',
         categorySelection: '',
         locationCity: '',
         locationState: '',
+        showFullForm: false
       })
-
-      if (!errors) {
-        this.setState({showFullForm: false})
-      }
     }
   }
 
@@ -122,6 +121,10 @@ class JobForm extends Component {
     }
   }
 
+  handleFlash(e) {
+    this.clearErrors()
+  }
+
   handleInputChange(e) {
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -135,6 +138,7 @@ class JobForm extends Component {
   render(props) {
     return (
       <div className={css(styles.formContainer)}>
+        {this.state.errorMessages.length > 0 && <Flash messages={this.state.errorMessages} clickHandler={this.handleFlash} />}
         <div className={css(styles.inputRow)}>
           <TextInput
             required={true}
@@ -189,7 +193,7 @@ class JobForm extends Component {
             </div>
             <div className={css(styles.inputRow)}>
               <div className={css(styles.errorContainer)}>
-                {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
+
               </div>
               <div className={css(styles.buttonContainer)}>
                 <Button label={'Post Job'} handleClick={this.handleFormSubmit} />
@@ -207,9 +211,10 @@ export default JobForm;
 
 const styles = StyleSheet.create({
   formContainer: {
+    position: 'relative',
     padding: '15px',
     marginBottom: '10px',
-    border: '1px solid black'
+    border: `1px solid ${colors.lightGrey}`
   },
   inputRow: {
     boxSizing: 'border-box',

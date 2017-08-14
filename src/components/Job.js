@@ -6,6 +6,8 @@ import JobForm from './JobForm'
 import Button from './form/Button'
 
 import {StyleSheet, css} from 'aphrodite'
+import { fonts, colors } from '../styles/shared'
+import Moment from 'moment'
 
 class Job extends Component {
   constructor(props) {
@@ -50,7 +52,8 @@ class Job extends Component {
   }
 
   render(props) {
-    let job = this.props.job;
+    let job = this.props.job
+    let date = Moment(job.date_posted).format("dddd, MMMM Do YYYY")
     if (this.state.mode === 'edit') {
       return (
         <JobForm categoryOptions={this.props.categoryOptions} mode='edit' job={job} toggleParentMode={this.toggleEditMode} stateUpdater={this.props.stateUpdater} />
@@ -58,13 +61,15 @@ class Job extends Component {
     } else {
       return (
         <div className={css(styles.jobContainer)} onMouseEnter={this.showButtons} onMouseLeave={this.hideButtons}>
-          <h3>{job.title}</h3>
-          <p>{job.details}</p>
-          <ul>
-            <li>Category: {job.category.name}</li>
-            <li>Location: {job.location.city}, {job.location.state}</li>
-            <li>Posted on {job.date_posted}</li>
-          </ul>
+          <div className={(css(styles.jobHeading))}>{job.title}</div>
+          <div className={css(styles.jobDetails)}>{job.details}</div>
+          <div className={css(styles.metaContainer)}>
+            <div>
+              <div>Category: <span className={css(styles.metaData)}>{job.category.name}</span></div>
+              <div>Location: <span className={css(styles.metaData)}>{job.location.city}, {job.location.state}</span></div>
+            </div>
+            <div>Posted: <span className={css(styles.metaData)}>{date}</span></div>
+          </div>
           {this.state.buttonsVisible &&
             <div className={css(styles.buttonContainer)}>
               <Button handleClick={this.toggleEditMode} label={'Edit'} />
@@ -83,12 +88,39 @@ const styles = StyleSheet.create({
   jobContainer: {
     position: 'relative',
     padding: '15px',
-    marginBottom: '10px',
-    border: '1px solid black'
+    marginBottom: '20px',
+    border: `1px solid ${colors.yellow}`,
+    borderRadius: '5px',
+    backgroundColor: colors.lightRed,
+    color: colors.darkGrey,
+    fontSize: '.85em'
+  },
+  jobHeading: {
+    paddingBottom: '15px',
+    color: colors.red,
+    fontFamily: fonts.heading,
+    fontSize: '1.5em',
+    fontWeight: '600'
+  },
+  jobDetails: {
+    fontSize: '1.15em',
+    marginBottom: '15px'
+  },
+  metaContainer: {
+    boxSizing: 'border-box',
+    boxOrient: 'horizontal',
+    display: 'flex',
+    flexDirection: 'row',
+    flexPack: 'justify',
+    justifyContent: 'space-between',
+    fontSize: '1em'
+  },
+  metaData: {
+    color: colors.red
   },
   buttonContainer: {
     position: 'absolute',
-    top: '0px',
+    top: '5px',
     right: '0px'
   }
 })
