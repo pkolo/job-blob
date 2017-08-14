@@ -77,7 +77,7 @@ class App extends Component {
 
   filterJobs(filterArgs) {
     let jobs = this.state.jobs
-    let newJobs = jobs.filter(job => job[filterArgs.filterType] === filterArgs.value)
+    let newJobs = jobs.filter(job => job[filterArgs.filterType].id === parseInt(filterArgs.value))
 
     this.setState({
       jobs: sortBy(newJobs, 'date_posted').reverse()
