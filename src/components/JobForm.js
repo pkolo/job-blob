@@ -136,7 +136,7 @@ class JobForm extends Component {
   render(props) {
     return (
       <div className={css(styles.formContainer)}>
-        {this.state.errorMessages.length > 0 && <Flash errors={this.state.errorMessages}/>}
+        {this.state.errorMessages.length > 0 && <Flash messages={this.state.errorMessages}/>}
         <div className={css(styles.inputRow)}>
           <TextInput
             required={true}
@@ -191,7 +191,7 @@ class JobForm extends Component {
             </div>
             <div className={css(styles.inputRow)}>
               <div className={css(styles.errorContainer)}>
-                {this.state.errorMessages.length > 0 && <ErrorMessageList errors={this.state.errorMessages}/>}
+
               </div>
               <div className={css(styles.buttonContainer)}>
                 <Button label={'Post Job'} handleClick={this.handleFormSubmit} />
