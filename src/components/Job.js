@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 
+import Moment from 'moment'
+
+import {StyleSheet, css} from 'aphrodite'
+import { fonts, colors } from '../styles/shared'
+
 import { APIRoot, checkResponse, getJson } from '../modules/api'
 
 import JobForm from './JobForm'
 import Button from './form/Button'
-
-import {StyleSheet, css} from 'aphrodite'
-import { fonts, colors } from '../styles/shared'
-import Moment from 'moment'
 
 class Job extends Component {
   constructor(props) {
@@ -21,10 +22,6 @@ class Job extends Component {
     this.toggleEditMode = this.toggleEditMode.bind(this)
     this.showButtons = this.showButtons.bind(this)
     this.hideButtons = this.hideButtons.bind(this)
-  }
-
-  toggleEditMode(e) {
-    this.state.mode === 'show' ? this.setState({ mode: 'edit' }) : this.setState({ mode: 'show' })
   }
 
   handleDeleteButton(e) {
@@ -41,6 +38,10 @@ class Job extends Component {
     .then(checkResponse)
     .then(this.props.handleDelete(this.props.job))
     .catch(err => console.log('ERROR', err))
+  }
+
+  toggleEditMode(e) {
+    this.state.mode === 'show' ? this.setState({ mode: 'edit' }) : this.setState({ mode: 'show' })
   }
 
   showButtons(e) {
