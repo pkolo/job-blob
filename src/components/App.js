@@ -41,7 +41,7 @@ class App extends Component {
     let categories = this.state.jobs.map(job => job.category)
     let uniqCategories = uniqBy(categories, 'id')
 
-    this.setState({ categories: sortBy(categories, 'name') })
+    this.setState({ categories: sortBy(uniqCategories, 'name') })
   }
 
   getLocations() {

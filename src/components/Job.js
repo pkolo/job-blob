@@ -51,7 +51,7 @@ class Job extends Component {
   }
 
   render(props) {
-    let job = this.props.job;
+    let job = this.props.job
     if (this.state.mode === 'edit') {
       return (
         <JobForm categoryOptions={this.props.categoryOptions} mode='edit' job={job} toggleParentMode={this.toggleEditMode} stateUpdater={this.props.stateUpdater} />
