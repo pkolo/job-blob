@@ -86,20 +86,18 @@ class JobForm extends Component {
 
   clearForm() {
     let errors = (this.state.errorMessages.length > 0)
+
     if (this.props.mode === 'edit' && !errors) {
       this.props.toggleParentMode()
-    } else {
+    } else if (!errors) {
       this.setState({
         jobTitle: '',
         jobDetails: '',
         categorySelection: '',
         locationCity: '',
         locationState: '',
+        showFullForm: false
       })
-
-      if (!errors) {
-        this.setState({showFullForm: false})
-      }
     }
   }
 
