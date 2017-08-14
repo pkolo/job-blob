@@ -6,7 +6,7 @@ import { colors, fonts } from '../styles/shared'
 const Slide = props => {
   return (
     <div className={css(styles.slideContainer)}>
-      <span className={css(styles.slide)}>{props.content}</span>
+      <span className={css(styles.slide, styles.small)}>{props.content}</span>
     </div>
   )
 }
@@ -22,6 +22,13 @@ const styles = StyleSheet.create({
     fontFamily: fonts.heading,
     fontSize: '2.25em',
     fontWeight: '600'
+  },
+
+  small: {
+    '@media (max-width: 630px)': {
+      fontSize: '2em',
+      textAlign: 'center'
+    }
   }
 })
 
