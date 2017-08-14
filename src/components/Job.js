@@ -63,7 +63,7 @@ class Job extends Component {
         <div className={css(styles.jobContainer)} onMouseEnter={this.showButtons} onMouseLeave={this.hideButtons}>
           <div className={(css(styles.jobHeading))}>{job.title}</div>
           <div className={css(styles.jobDetails)}>{job.details}</div>
-          <div className={css(styles.metaContainer)}>
+          <div className={css(styles.metaContainer, styles.smallMetaContainer)}>
             <div>
               <div>Category: <span className={css(styles.metaData)}>{job.category.name}</span></div>
               <div>Location: <span className={css(styles.metaData)}>{job.location.city}, {job.location.state}</span></div>
@@ -122,5 +122,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '5px',
     right: '0px'
+  },
+
+  smallMetaContainer: {
+    '@media (max-width: 630px)': {
+      display: 'block'
+    }
   }
 })
