@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 
 import {StyleSheet, css} from 'aphrodite'
-import { fonts } from '../styles/shared'
+import { fonts } from './styles/shared'
 
 import uniqBy from 'lodash/uniqBy'
 import sortBy from 'lodash/sortBy'
 
-import { APIRoot, checkResponse, getJson } from '../modules/api'
+import { APIRoot, checkResponse, getJson } from './modules/api'
 
-import Header from './Header'
-import Slide from './Slide'
-import JobForm from './JobForm'
-import Job from './Job'
+import Header from './components/Header'
+import Slide from './components/Slide'
+import JobForm from './components/JobForm'
+import Job from './components/Job'
 
 class App extends Component {
   constructor(props) {
