@@ -7,7 +7,7 @@ const Flash = props => {
   let messages= props.messages.split(',')
   return (
     <div className={css(styles.flashContainer)} onClick={props.clickHandler}>
-      <div className={(css(styles.messageContainer))}>
+      <div className={(css(styles.messageContainer, styles.smallMessageContainer))}>
         <div className={css(styles.flashHeader)}>Something went wrong...</div>
         <ul className={(css(styles.messages))}>
           {messages.map((message, i) => <li key={i}>{message}</li>)}
@@ -38,5 +38,11 @@ const styles = StyleSheet.create({
   flashHeader: {
     fontSize: '1.25em',
     fontWeight: '600'
+  },
+
+  smallMessageContainer: {
+    '@media (max-width: 630px)': {
+      maxWidth: '85%'
+    }
   }
 })
