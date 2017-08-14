@@ -61,11 +61,9 @@ class Job extends Component {
         <div className={css(styles.jobContainer)} onMouseEnter={this.showButtons} onMouseLeave={this.hideButtons}>
           <div className={(css(styles.jobHeading))}>{job.title}</div>
           <p>{job.details}</p>
-          <ul>
-            <li>Category: {job.category.name}</li>
-            <li>Location: {job.location.city}, {job.location.state}</li>
-            <li>Posted on {job.date_posted}</li>
-          </ul>
+          <div className={css(styles.metaContainer)}>
+            <div>Posted under {job.category.name} from {job.location.city}, {job.location.state} on {job.date_posted}</div>
+          </div>
           {this.state.buttonsVisible &&
             <div className={css(styles.buttonContainer)}>
               <Button handleClick={this.toggleEditMode} label={'Edit'} />
@@ -96,6 +94,9 @@ const styles = StyleSheet.create({
     fontFamily: fonts.heading,
     fontSize: '1.5em',
     fontWeight: '600'
+  },
+  metaContainer: {
+    fontSize: '.75em'
   },
   buttonContainer: {
     position: 'absolute',
