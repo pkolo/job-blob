@@ -7,10 +7,12 @@ const Flash = props => {
   let messages= props.messages.split(',')
   return (
     <div className={css(styles.flashContainer)} onClick={props.clickHandler}>
-      <div className={css(styles.flasHeader)}>Something went wrong...</div>
-      <ul className={(css(styles.messages))}>
-        {messages.map((message, i) => <li key={i}>{message}</li>)}
-      </ul>
+      <div className={(css(styles.messageContainer))}>
+        <div className={css(styles.flashHeader)}>Something went wrong...</div>
+        <ul className={(css(styles.messages))}>
+          {messages.map((message, i) => <li key={i}>{message}</li>)}
+        </ul>
+      </div>
     </div>
   )
 }
@@ -27,14 +29,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(240, 240, 240, 0.9)',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    color: colors.red
+  },
+  messageContainer: {
+    maxWidth: '50%'
   },
   flashHeader: {
-    maxWidth: '50%',
-    alignSelf: 'flex-start'
-  },
-  messages: {
-    maxWidth: '50%',
-    color: colors.red
+    fontSize: '1.25em',
+    fontWeight: '600'
   }
 })
