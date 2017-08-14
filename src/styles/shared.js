@@ -25,6 +25,6 @@ export const colors = {
 }
 
 export const fonts = {
-  heading: 'Roboto Condensed, sans-serif',
-  second: 'sans-serif'
+  heading: 'Quicksand, sans-serif',
+  second: 'Quicksand, sans-serif'
 }
