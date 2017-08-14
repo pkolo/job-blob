@@ -60,7 +60,7 @@ class Job extends Component {
       )
     } else {
       return (
-        <div className={css(styles.jobContainer)} onMouseEnter={this.showButtons} onMouseLeave={this.hideButtons}>
+        <div className={css(styles.jobContainer, styles.smallJobContainer)} onMouseEnter={this.showButtons} onMouseLeave={this.hideButtons}>
           <div className={(css(styles.jobHeading))}>{job.title}</div>
           <div className={css(styles.jobDetails)}>{job.details}</div>
           <div className={css(styles.metaContainer, styles.smallMetaContainer)}>
@@ -70,7 +70,7 @@ class Job extends Component {
             </div>
             <div>Posted: <span className={css(styles.metaData)}>{date}</span></div>
           </div>
-          {this.state.buttonsVisible &&
+          { this.state.buttonsVisible &&
             <div className={css(styles.buttonContainer)}>
               <Button handleClick={this.toggleEditMode} label={'Edit'} />
               <Button handleClick={this.handleDeleteButton} label={'Delete'}/>
@@ -87,7 +87,7 @@ export default Job;
 const styles = StyleSheet.create({
   jobContainer: {
     position: 'relative',
-    padding: '15px',
+    padding: '25px 25px 50px 25px',
     marginBottom: '20px',
     border: `1px solid ${colors.yellow}`,
     borderRadius: '5px',
@@ -120,10 +120,14 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     position: 'absolute',
-    top: '5px',
     right: '0px'
   },
 
+  smallJobContainer: {
+    '@media (max-width: 630px)': {
+      paddingBottom: '50px'
+    }
+  },
   smallMetaContainer: {
     '@media (max-width: 630px)': {
       display: 'block'
