@@ -31,9 +31,7 @@ const styles = StyleSheet.create({
   },
   label: {
     paddingBottom: '5px',
-    fontFamily: fonts.heading,
-    fontSize: '1.15em',
-    fontWeight: '200'
+    fontSize: '1.15em'
   },
   input: {
     boxSizing: 'border-box',
