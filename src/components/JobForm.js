@@ -56,11 +56,13 @@ class JobForm extends Component {
     e.preventDefault()
     this.clearErrors()
 
+    let category = this.props.categoryOptions.find((cat) => cat.id === parseInt(this.state.categorySelection))
+
     const jobPayload = {
       job: {
         title: this.state.jobTitle,
         details: this.state.jobDetails,
-        category_name: this.state.categorySelection,
+        category_name: category ? category.name : "",
         location_attributes: {
           city: this.state.locationCity,
           state: this.state.locationState
