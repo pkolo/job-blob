@@ -85,6 +85,7 @@ class App extends Component {
   }
 
   render() {
+    let locations = this.getLocations()
     let categories = this.state.categories
     let jobs = this.state.jobs
     return (
@@ -95,6 +96,7 @@ class App extends Component {
           <JobForm categoryOptions={categories} stateUpdater={this.addJob} mode={'create'} optionNameFormatter={(category) => category.name} />
           <Slide content={'Available Jobs'}/>
           <FilterWidget menuOptions={categories} filterType={'category'} stateUpdater={this.filterJobs} optionNameFormatter={(category) => category.name} />
+          <FilterWidget menuOptions={locations} filterType={'location'} stateUpdater={this.filterJobs} optionNameFormatter={(location) => `${location.city}, ${location.state}`} />
           {jobs.map(job => <Job job={job} key={job.id} handleDelete={this.deleteJob} categoryOptions={categories.map(c => c.name)} stateUpdater={this.updateJob} />)}
         </div>
       </div>

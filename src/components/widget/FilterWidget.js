@@ -26,7 +26,7 @@ class FilterWidget extends Component {
     return (
       <DropDownSelector
         required={false}
-        label={"Filter By Category"}
+        label={`Filter by ${this.props.filterType}`}
         name={"categorySelection"}
         options={this.props.menuOptions}
         placeholder={''}
