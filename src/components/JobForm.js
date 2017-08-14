@@ -9,7 +9,6 @@ import TextInput from './form/TextInput'
 import TextArea from './form/TextArea'
 import DropDownSelector from './form/DropDownSelector'
 import Button from './form/Button'
-import ErrorMessageList from './ErrorMessageList'
 import Flash from './form/Flash'
 
 class JobForm extends Component {
