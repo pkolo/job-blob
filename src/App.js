@@ -12,6 +12,7 @@ import Header from './components/Header'
 import Slide from './components/Slide'
 import JobForm from './components/JobForm'
 import Job from './components/Job'
+import FilterWidget from './components/widget/FilterWidget'
 
 class App extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class App extends Component {
     this.addJob = this.addJob.bind(this)
     this.deleteJob = this.deleteJob.bind(this)
     this.updateJob = this.updateJob.bind(this)
+    this.filterJobs = this.filterJobs.bind(this)
     this.setCategories = this.setCategories.bind(this)
   }
 
@@ -73,6 +75,15 @@ class App extends Component {
     })
   }
 
+  filterJobs(filterArgs) {
+    let jobs = this.state.jobs
+    let newJobs = jobs.filter(job => job[filterArgs.filterType] === filterArgs.value)
+
+    this.setState({
+      jobs: sortBy(newJobs, 'date_posted').reverse()
+    })
+  }
+
   render() {
     let categories = this.state.categories
     let jobs = this.state.jobs
@@ -81,8 +92,9 @@ class App extends Component {
         <Header />
         <div className={css(styles.mainSection)}>
           <Slide content={'Job Blob wants to help you...'}/>
-          <JobForm categoryOptions={categories.map(c => c.name)} stateUpdater={this.addJob} mode={'create'} />
+          <JobForm categoryOptions={categories} stateUpdater={this.addJob} mode={'create'} />
           <Slide content={'Available Jobs'}/>
+          <FilterWidget menuOptions={categories} filterType={'category'} stateUpdater={this.filterJobs} />
           {jobs.map(job => <Job job={job} key={job.id} handleDelete={this.deleteJob} categoryOptions={categories.map(c => c.name)} stateUpdater={this.updateJob} />)}
         </div>
       </div>

@@ -14,7 +14,7 @@ class BasicDropDownSelector extends Component {
         {
           this.props.options.map((opt, i) => {
             return (
-              <option key={i} value={opt}>{opt}</option>
+              <option key={opt.id} value={opt.id}>{opt.name}</option>
             )
           })
         }
