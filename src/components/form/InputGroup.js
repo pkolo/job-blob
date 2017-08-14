@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: '10px',
     fontSize: '.75em',
+    backgroundColor: colors.white,
     border: `1px solid ${colors.lightGrey}`,
     borderRadius: '5px',
     ':focus': {
