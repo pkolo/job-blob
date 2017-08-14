@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     boxSizing: 'border-box',
     width: '100%',
     padding: '10px',
+    fontFamily: fonts.second,
     fontSize: '.75em',
     backgroundColor: colors.white,
     border: `1px solid ${colors.lightGrey}`,
