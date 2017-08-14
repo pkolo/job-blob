@@ -37,8 +37,11 @@ class App extends Component {
   }
 
   setCategories() {
+    // A list of all categories could also be hard-coded, or served by the API
     let categories = this.state.jobs.map(job => job.category)
-    this.setState({ categories: uniqBy(categories, 'id') })
+    let uniqCategories = uniqBy(categories, 'id')
+
+    this.setState({ categories: sortBy(categories, 'name') })
   }
 
   getLocations() {
