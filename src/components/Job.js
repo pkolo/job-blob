@@ -53,7 +53,6 @@ class Job extends Component {
 
   render(props) {
     let job = this.props.job
-    let city = `${job.location.city[0]}${job.location.city.slice(1).toLowerCase()}`
     let date = Moment(job.date_posted).format("dddd, MMMM Do YYYY")
     if (this.state.mode === 'edit') {
       return (
@@ -65,7 +64,7 @@ class Job extends Component {
           <div className={(css(styles.jobHeading))}>{job.title}</div>
           <p>{job.details}</p>
           <div className={css(styles.metaContainer)}>
-            <div>Posted under {job.category.name} from {city}, {job.location.state} on {date}</div>
+            <div>Posted under {job.category.name} from {job.location.city}, {job.location.state} on {date}</div>
           </div>
           {this.state.buttonsVisible &&
             <div className={css(styles.buttonContainer)}>
