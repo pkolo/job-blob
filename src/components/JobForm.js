@@ -10,6 +10,7 @@ import TextArea from './form/TextArea'
 import DropDownSelector from './form/DropDownSelector'
 import Button from './form/Button'
 import ErrorMessageList from './ErrorMessageList'
+import Flash from './form/Flash'
 
 class JobForm extends Component {
   constructor(props) {
@@ -135,6 +136,7 @@ class JobForm extends Component {
   render(props) {
     return (
       <div className={css(styles.formContainer)}>
+        {this.state.errorMessages.length > 0 && <Flash errors={this.state.errorMessages}/>}
         <div className={css(styles.inputRow)}>
           <TextInput
             required={true}
@@ -207,6 +209,7 @@ export default JobForm;
 
 const styles = StyleSheet.create({
   formContainer: {
+    position: 'relative',
     padding: '15px',
     marginBottom: '10px',
     border: `1px solid ${colors.lightGrey}`
