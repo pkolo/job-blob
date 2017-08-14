@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { css, StyleSheet } from 'aphrodite'
 
+import { css, StyleSheet } from 'aphrodite'
 import { colors, fonts } from '../../styles/shared'
 
 const InputGroup = (WrappedComponent) => class extends Component {
@@ -14,12 +14,12 @@ const InputGroup = (WrappedComponent) => class extends Component {
 
   render() {
     return (
-      <div className={css(this.props.width, styles.container)}>
+      <div className={css(this.props.width, styles.container, styles.smallInputGroup)}>
         <div className={css(styles.label)}>{this.props.label} {this.props.required && <span>*</span>}</div>
         <WrappedComponent {...this.props}
           inputStyle={css(styles.input)}/>
       </div>
-    );
+    )
   }
 }
 
@@ -47,6 +47,13 @@ const styles = StyleSheet.create({
       backgroundColor: colors.lightRed,
       border: `1px solid ${colors.yellow}`,
       transition: 'border 0.05s ease-in-out, background-color 0.05s ease-in-out'
+    }
+  },
+
+  smallInputGroup: {
+    '@media (max-width: 630px)': {
+      width: '100%',
+      padding: '15px 0'
     }
   }
 })

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import {StyleSheet, css} from 'aphrodite'
-import { fonts } from './styles/shared'
-
 import uniqBy from 'lodash/uniqBy'
 import sortBy from 'lodash/sortBy'
+
+import {StyleSheet, css} from 'aphrodite'
+import { fonts } from './styles/shared'
 
 import { APIRoot, checkResponse, getJson } from './modules/api'
 
@@ -21,10 +21,10 @@ class App extends Component {
       categories: []
     }
 
+    this.setCategories = this.setCategories.bind(this)
     this.addJob = this.addJob.bind(this)
     this.deleteJob = this.deleteJob.bind(this)
     this.updateJob = this.updateJob.bind(this)
-    this.setCategories = this.setCategories.bind(this)
   }
 
   componentWillMount() {

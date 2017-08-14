@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import {StyleSheet, css} from 'aphrodite';
 import { colors, fonts } from '../styles/shared'
 
 const Header = props => {
   return (
-    <div className={css(styles.container)}>
+    <div className={css(styles.container, styles.small)}>
       <span className={css(styles.siteName)}>
         job
         <span className={css(styles.pop)}>Blob</span>
@@ -13,6 +13,8 @@ const Header = props => {
     </div>
   )
 }
+
+export default Header;
 
 const styles = StyleSheet.create({
   container: {
@@ -29,7 +31,12 @@ const styles = StyleSheet.create({
   },
   pop: {
     color: colors.yellow
+  },
+
+  small: {
+    '@media (max-width: 630px)': {
+      padding: '25px 0',
+      textAlign: 'center'
+    }
   }
 })
-
-export default Header;
