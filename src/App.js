@@ -92,9 +92,9 @@ class App extends Component {
         <Header />
         <div className={css(styles.mainSection)}>
           <Slide content={'Job Blob wants to help you...'}/>
-          <JobForm categoryOptions={categories} stateUpdater={this.addJob} mode={'create'} />
+          <JobForm categoryOptions={categories} stateUpdater={this.addJob} mode={'create'} optionNameFormatter={(category) => category.name} />
           <Slide content={'Available Jobs'}/>
-          <FilterWidget menuOptions={categories} filterType={'category'} stateUpdater={this.filterJobs} />
+          <FilterWidget menuOptions={categories} filterType={'category'} stateUpdater={this.filterJobs} optionNameFormatter={(category) => category.name} />
           {jobs.map(job => <Job job={job} key={job.id} handleDelete={this.deleteJob} categoryOptions={categories.map(c => c.name)} stateUpdater={this.updateJob} />)}
         </div>
       </div>

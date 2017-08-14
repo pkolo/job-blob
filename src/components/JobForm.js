@@ -158,7 +158,8 @@ class JobForm extends Component {
             placeholder={''}
             selectedOption={this.state.categorySelection}
             width={width.small}
-            changeHandler={this.handleInputChange} />
+            changeHandler={this.handleInputChange}
+            optionNameFormatter={this.props.optionNameFormatter} />
         </div>
         { this.state.showFullForm &&
           <div>

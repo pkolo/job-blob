@@ -31,7 +31,8 @@ class FilterWidget extends Component {
         options={this.props.menuOptions}
         placeholder={''}
         selectedOption={this.state.selectedFilter}
-        changeHandler={this.handleInputChange} />
+        changeHandler={this.handleInputChange}
+        optionNameFormatter={this.props.optionNameFormatter}/>
     )
   }
 }
