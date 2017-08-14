@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import {StyleSheet, css} from 'aphrodite'
-import {width} from '../styles/shared'
+import { StyleSheet, css } from 'aphrodite'
+import { width, colors } from '../styles/shared'
 
 import { APIRoot, checkResponse, getJson } from '../modules/api'
 
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   formContainer: {
     padding: '15px',
     marginBottom: '10px',
-    border: '1px solid black'
+    border: `1px solid ${colors.darkGrey}`
   },
   inputRow: {
     boxSizing: 'border-box',

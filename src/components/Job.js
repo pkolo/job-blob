@@ -6,7 +6,7 @@ import JobForm from './JobForm'
 import Button from './form/Button'
 
 import {StyleSheet, css} from 'aphrodite'
-import { fonts } from '../styles/shared'
+import { fonts, colors } from '../styles/shared'
 
 class Job extends Component {
   constructor(props) {
@@ -85,15 +85,21 @@ const styles = StyleSheet.create({
     position: 'relative',
     padding: '15px',
     marginBottom: '10px',
-    border: '1px solid black'
+    border: `1px solid ${colors.yellow}`,
+    backgroundColor: colors.lightRed,
+    color: colors.darkGrey,
+    fontSize: '.85em'
   },
   jobHeading: {
+    paddingBottom: '10px',
+    color: colors.red,
     fontFamily: fonts.heading,
-    fontSize: '1.15em'
+    fontSize: '1.5em',
+    fontWeight: '600'
   },
   buttonContainer: {
     position: 'absolute',
-    top: '0px',
+    top: '5px',
     right: '0px'
   }
 })
