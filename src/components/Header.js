@@ -14,6 +14,8 @@ const Header = props => {
   )
 }
 
+export default Header;
+
 const styles = StyleSheet.create({
   container: {
     padding: '25px',
@@ -38,5 +40,3 @@ const styles = StyleSheet.create({
     }
   }
 })
-
-export default Header;
