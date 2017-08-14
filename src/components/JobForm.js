@@ -139,7 +139,7 @@ class JobForm extends Component {
     return (
       <div className={css(styles.formContainer)}>
         {this.state.errorMessages.length > 0 && <Flash messages={this.state.errorMessages} clickHandler={this.handleFlash} />}
-        <div className={css(styles.inputRow)}>
+        <div className={css(styles.inputRow, styles.smallInputRow)}>
           <TextInput
             required={true}
             type={"text"}
@@ -162,7 +162,7 @@ class JobForm extends Component {
         </div>
         { this.state.showFullForm &&
           <div>
-            <div className={css(styles.inputRow)}>
+            <div className={css(styles.inputRow, styles.smallInputRow)}>
               <TextArea
                 required={true}
                 rows={5}
@@ -173,7 +173,7 @@ class JobForm extends Component {
                 width={width.full}
                 changeHandler={this.handleInputChange} />
             </div>
-            <div className={css(styles.inputRow, width.medium)}>
+            <div className={css(styles.inputRow, width.medium, styles.smallInputRow)}>
               <TextInput
                 required={true}
                 type="text"
@@ -192,9 +192,6 @@ class JobForm extends Component {
                 changeHandler={this.handleInputChange} />
             </div>
             <div className={css(styles.inputRow)}>
-              <div className={css(styles.errorContainer)}>
-
-              </div>
               <div className={css(styles.buttonContainer)}>
                 <Button label={'Post Job'} handleClick={this.handleFormSubmit} />
                 <Button label={'Cancel'} handleClick={this.handleCancelButton} />
@@ -230,5 +227,11 @@ const styles = StyleSheet.create({
   errorContainer: {
     marginRight: 'auto',
     padding: '10px'
+  },
+
+  smallInputRow: {
+    '@media (max-width: 630px)': {
+      display: 'block'
+    }
   }
 });
