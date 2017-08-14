@@ -30,6 +30,7 @@ class JobForm extends Component {
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.handleCancelButton = this.handleCancelButton.bind(this)
+    this.handleFlash = this.handleFlash.bind(this)
     this.showFullForm = this.showFullForm.bind(this)
     this.hideFullForm = this.hideFullForm.bind(this)
   }
@@ -123,6 +124,10 @@ class JobForm extends Component {
     }
   }
 
+  handleFlash(e) {
+    this.clearErrors()
+  }
+
   handleInputChange(e) {
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -136,7 +141,7 @@ class JobForm extends Component {
   render(props) {
     return (
       <div className={css(styles.formContainer)}>
-        {this.state.errorMessages.length > 0 && <Flash messages={this.state.errorMessages}/>}
+        {this.state.errorMessages.length > 0 && <Flash messages={this.state.errorMessages} clickHandler={this.handleFlash} />}
         <div className={css(styles.inputRow)}>
           <TextInput
             required={true}

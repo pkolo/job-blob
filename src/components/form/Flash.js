@@ -6,7 +6,7 @@ import { colors } from '../../styles/shared'
 const Flash = props => {
   let messages= props.messages.split(',')
   return (
-    <div className={css(styles.flashContainer)}>
+    <div className={css(styles.flashContainer)} onClick={props.clickHandler}>
       <div className={css(styles.flasHeader)}>Something went wrong...</div>
       <ul className={(css(styles.messages))}>
         {messages.map((message, i) => <li key={i}>{message}</li>)}
