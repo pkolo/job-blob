@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   },
   label: {
     paddingBottom: '5px',
+    color: colors.darkGrey,
     fontSize: '1.15em'
   },
   input: {

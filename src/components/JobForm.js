@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   formContainer: {
     padding: '15px',
     marginBottom: '10px',
-    border: `1px solid ${colors.darkGrey}`
+    border: `1px solid ${colors.lightGrey}`
   },
   inputRow: {
     boxSizing: 'border-box',
