@@ -5,7 +5,7 @@ import { colors, fonts } from '../styles/shared'
 
 const Header = props => {
   return (
-    <div className={css(styles.container)}>
+    <div className={css(styles.container, styles.small)}>
       <span className={css(styles.siteName)}>
         job
         <span className={css(styles.pop)}>Blob</span>
@@ -29,6 +29,13 @@ const styles = StyleSheet.create({
   },
   pop: {
     color: colors.yellow
+  },
+
+  small: {
+    '@media (max-width: 630px)': {
+      padding: '25px 0',
+      textAlign: 'center'
+    }
   }
 })
 
