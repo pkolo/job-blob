@@ -1,6 +1,6 @@
 import React from 'react';
-import { css, StyleSheet } from 'aphrodite';
 
+import { css, StyleSheet } from 'aphrodite';
 import { colors } from '../../styles/shared'
 
 const Flash = props => {

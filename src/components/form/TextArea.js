@@ -17,5 +17,4 @@ class BasicTextArea extends Component {
 }
 
 let TextArea = InputGroup(BasicTextArea)
-
 export default TextArea;

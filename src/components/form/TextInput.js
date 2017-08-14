@@ -15,7 +15,6 @@ class BasicTextInput extends Component {
     }
   }
 
-
   render() {
     return (
       <input
@@ -31,5 +30,4 @@ class BasicTextInput extends Component {
 }
 
 let TextInput = InputGroup(BasicTextInput)
-
 export default TextInput;

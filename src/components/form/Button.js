@@ -1,6 +1,7 @@
-import React from 'react';
-import { css, StyleSheet } from 'aphrodite';
 
+import React from 'react';
+
+import { css, StyleSheet } from 'aphrodite';
 import { colors } from '../../styles/shared'
 
 const Button = props => {

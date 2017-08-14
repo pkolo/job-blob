@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { css, StyleSheet } from 'aphrodite'
 
+import { css, StyleSheet } from 'aphrodite'
 import { colors, fonts } from '../../styles/shared'
 
 const InputGroup = (WrappedComponent) => class extends Component {
@@ -19,7 +19,7 @@ const InputGroup = (WrappedComponent) => class extends Component {
         <WrappedComponent {...this.props}
           inputStyle={css(styles.input)}/>
       </div>
-    );
+    )
   }
 }
 
