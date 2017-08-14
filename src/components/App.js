@@ -80,8 +80,9 @@ class App extends Component {
       <div className={css(styles.appContainer)}>
         <Header />
         <div className={css(styles.mainSection)}>
-          <Slide />
+          <Slide content={'Job Blob wants to help you...'}/>
           <JobForm categoryOptions={categories.map(c => c.name)} stateUpdater={this.addJob} mode={'create'} />
+          <Slide content={'Available Jobs'}/>
           {jobs.map(job => <Job job={job} key={job.id} handleDelete={this.deleteJob} categoryOptions={categories.map(c => c.name)} stateUpdater={this.updateJob} />)}
         </div>
       </div>

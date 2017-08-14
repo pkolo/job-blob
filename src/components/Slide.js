@@ -6,7 +6,7 @@ import { colors, fonts } from '../styles/shared'
 const Slide = props => {
   return (
     <div className={css(styles.slideContainer)}>
-      <span className={css(styles.slide)}>Job Blob wants to help you...</span>
+      <span className={css(styles.slide)}>{props.content}</span>
     </div>
   )
 }
