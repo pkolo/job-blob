@@ -40,7 +40,7 @@ class JobForm extends Component {
       this.setState({
         jobTitle: job.title,
         jobDetails: job.details,
-        categorySelection: job.category.name,
+        categorySelection: job.category.id,
         locationCity: job.location.city,
         locationState: job.location.state,
         showFullForm: true,
@@ -65,12 +65,14 @@ class JobForm extends Component {
   handleFormSubmit(e) {
     e.preventDefault()
     this.clearErrors()
+    // Converts ID selected in Category dropdown to an actual category object.
+    let category = this.props.menuOptions.find((cat) => cat.id === parseInt(this.state.categorySelection))
 
     const jobPayload = {
       job: {
         title: this.state.jobTitle,
         details: this.state.jobDetails,
-        category_name: this.state.categorySelection,
+        category_name: category ? category.name : null,
         location_attributes: {
           city: this.state.locationCity,
           state: this.state.locationState
