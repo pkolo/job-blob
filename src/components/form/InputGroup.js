@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   },
   input: {
     boxSizing: 'border-box',
+    '-webkit-appearance': 'none',
     width: '100%',
     padding: '10px',
     fontFamily: fonts.second,
