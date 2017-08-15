@@ -4,7 +4,7 @@ import uniqBy from 'lodash/uniqBy'
 import sortBy from 'lodash/sortBy'
 
 import {StyleSheet, css} from 'aphrodite'
-import { fonts } from './styles/shared'
+import { fonts, colors } from './styles/shared'
 
 import { APIRoot, checkResponse, getJson } from './modules/api'
 
@@ -81,9 +81,19 @@ class App extends Component {
         <Header />
         <div className={css(styles.mainSection)}>
           <Slide content={'Job Blob wants to help you...'}/>
-          <JobForm categoryOptions={categories.map(c => c.name)} stateUpdater={this.addJob} mode={'create'} />
+          <JobForm menuOptions={categories}
+                   optionNameFormatter={(category) => category.name}
+                   stateUpdater={this.addJob}
+                   mode={'create'} />
           <Slide content={'Available Jobs'}/>
-          {jobs.map(job => <Job job={job} key={job.id} handleDelete={this.deleteJob} categoryOptions={categories.map(c => c.name)} stateUpdater={this.updateJob} />)}
+          <div className="jobList">
+            {jobs.map(job => <Job job={job}
+                                  key={job.id}
+                                  handleDelete={this.deleteJob}
+                                  menuOptions={categories}
+                                  stateUpdater={this.updateJob} />)}
+            {jobs.length === 0 && <div className={css(styles.noJobs)}>There are no available jobs at this time. Please check back soon!</div> }
+          </div>
         </div>
       </div>
     );
@@ -102,5 +112,9 @@ const styles = StyleSheet.create({
     maxWidth: '900px',
     margin: 'auto',
     padding: '0 10px'
+  },
+  noJobs: {
+    textAlign: 'center',
+    color: colors.darkGrey
   }
 })

@@ -57,11 +57,18 @@ class Job extends Component {
     let date = Moment(job.date_posted).format("dddd, MMMM Do YYYY")
     if (this.state.mode === 'edit') {
       return (
-        <JobForm categoryOptions={this.props.categoryOptions} mode='edit' job={job} toggleParentMode={this.toggleEditMode} stateUpdater={this.props.stateUpdater} />
+        <JobForm menuOptions={this.props.menuOptions}
+                 optionNameFormatter={(category) => category.name}
+                 mode='edit'
+                 job={job}
+                 toggleParentMode={this.toggleEditMode}
+                 stateUpdater={this.props.stateUpdater} />
       )
     } else {
       return (
-        <div className={css(styles.jobContainer, styles.smallJobContainer)} onMouseEnter={this.showButtons} onMouseLeave={this.hideButtons}>
+        <div className={css(styles.jobContainer, styles.smallJobContainer)}
+             onMouseEnter={this.showButtons}
+             onMouseLeave={this.hideButtons}>
           <div className={(css(styles.jobHeading))}>{job.title}</div>
           <div className={css(styles.jobDetails)}>{job.details}</div>
           <div className={css(styles.metaContainer, styles.smallMetaContainer)}>
