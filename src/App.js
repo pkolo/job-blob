@@ -81,7 +81,8 @@ class App extends Component {
         <Header />
         <div className={css(styles.mainSection)}>
           <Slide content={'Job Blob wants to help you...'}/>
-          <JobForm categoryOptions={categories}
+          <JobForm menuOptions={categories}
+                   optionNameFormatter={(category) => category.name}
                    stateUpdater={this.addJob}
                    mode={'create'} />
           <Slide content={'Available Jobs'}/>
@@ -89,7 +90,7 @@ class App extends Component {
             {jobs.map(job => <Job job={job}
                                   key={job.id}
                                   handleDelete={this.deleteJob}
-                                  categoryOptions={categories}
+                                  menuOptions={categories}
                                   stateUpdater={this.updateJob} />)}
           </div>
         </div>

@@ -154,7 +154,8 @@ class JobForm extends Component {
             required={true}
             label={"Category"}
             name={"categorySelection"}
-            options={this.props.categoryOptions}
+            options={this.props.menuOptions}
+            optionNameFormatter={this.props.optionNameFormatter}
             placeholder={''}
             selectedOption={this.state.categorySelection}
             width={width.small}
