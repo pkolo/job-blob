@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite'
 import { width, colors } from '../styles/shared'
 
+import { stateData } from '../modules/stateData'
 import { APIRoot, checkResponse, getJson } from '../modules/api'
 
 import TextInput from './form/TextInput'
@@ -185,13 +186,14 @@ class JobForm extends Component {
                 name={"locationCity"}
                 content={this.state.locationCity}
                 changeHandler={this.handleInputChange} />
-              <TextInput
+              <DropDownSelector
                 required={true}
-                type="text"
                 label="State"
-                placeholder={'State'}
                 name={"locationState"}
-                content={this.state.locationState}
+                options={stateData}
+                optionNameFormatter={(state) => state.name}
+                placeholder={''}
+                selectedOption={this.state.locationState}
                 changeHandler={this.handleInputChange} />
             </div>
             <div className={css(styles.inputRow)}>
