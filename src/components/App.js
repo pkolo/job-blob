@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { } from '../actions/jobActions';
 
 class App extends Component {
   render() {
@@ -10,4 +9,10 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state, ownProps) {
+  return {
+    jobs: state.jobs
+  }
+}
+
+export default connect(mapStateToProps)(App);
