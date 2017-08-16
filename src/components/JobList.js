@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 class JobList extends Component {
   render() {
@@ -9,10 +8,4 @@ class JobList extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  return {
-    jobs: state.jobs
-  }
-}
-
-export default connect(mapStateToProps)(JobList);
+export default JobList;

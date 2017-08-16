@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {StyleSheet, css} from 'aphrodite'
 import { fonts, colors } from '../styles/shared'
 import Header from './Header'
@@ -20,7 +21,13 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state, ownProps) {
+  return {
+    jobs: state.jobs
+  }
+}
+
+export default connect(mapStateToProps)(App);
 
 const styles = StyleSheet.create({
   appContainer: {
