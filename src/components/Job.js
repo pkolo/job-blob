@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux'
 
 import Moment from 'moment'
 
@@ -18,10 +19,16 @@ class Job extends Component {
       buttonsVisible: false
     }
 
+    this.deleteJob = this.deleteJob.bind(this)
     this.handleDeleteButton = this.handleDeleteButton.bind(this)
     this.toggleEditMode = this.toggleEditMode.bind(this)
     this.showButtons = this.showButtons.bind(this)
     this.hideButtons = this.hideButtons.bind(this)
+  }
+
+  deleteJob(e) {
+    e.preventDefault()
+    this.props.actions.deleteJob(this.props.job)
   }
 
   handleDeleteButton(e) {
@@ -90,7 +97,19 @@ class Job extends Component {
   }
 }
 
-export default Job;
+Job.propTypes = {
+  job: PropTypes.object.isRequired
+}
+
+function mapStateToProps(state, ownProps) {
+  let job = {title: '', details: '', date_posted: '', category: {}, location: {}};
+  if (state.jobs.length > 0) {
+    job = Object.assign({}, state.jobs.find(job => job.id === ownProps.id))
+  }
+  return {job: job};
+}
+
+export default connect(mapStateToProps)(Job);
 
 const styles = StyleSheet.create({
   jobContainer: {
