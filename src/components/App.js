@@ -5,6 +5,7 @@ import {StyleSheet, css} from 'aphrodite'
 import { fonts, colors } from '../styles/shared'
 import Header from './Header'
 import Slide from './Slide'
+import JobForm from './JobForm'
 import JobList from './JobList'
 
 class App extends Component {
@@ -16,12 +17,18 @@ class App extends Component {
   }
 
   render() {
+    let categories = this.getCategories()
     return (
       <div className={css(styles.appContainer)}>
         <Header />
         <div className={css(styles.mainSection)}>
+          <Slide content={'Job Blob wants to help you...'}/>
+          <JobForm menuOptions={categories}
+                   optionNameFormatter={(category) => category.name}
+                   stateUpdater={this.addJob}
+                   mode={'create'} />
           <Slide content={'Available Jobs'}/>
-          <JobList jobs={this.props.jobs} categories={this.getCategories()}/>
+          <JobList jobs={this.props.jobs} categories={categories}/>
         </div>
       </div>
     )
