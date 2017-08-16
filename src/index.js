@@ -7,8 +7,12 @@ import App from './components/App';
 import { loadJobs } from './actions/jobActions'
 import registerServiceWorker from './registerServiceWorker';
 
+const store = configStore()
+
+store.dispatch(loadJobs());
+
 ReactDOM.render(
-  <Provider>
+  <Provider store={store}>
     <App />
   </Provider>,
   document.getElementById('root'));
