@@ -11,6 +11,18 @@ class JobAPI {
     )
   }
 
+  static deleteJob(job) {
+    let root = "https://radiant-springs-66711.herokuapp.com/api"
+    const request = new Request(`${root}/jobs/${job.id}`, {
+      method: 'DELETE'
+    });
+    return fetch(request)
+      .then(res => this.getJson(res))
+      .then(json => this.checkResponse(json))
+      .then(json => {return json})
+      .catch(err => {return err})
+  }
+
   static checkResponse(response) {
     if ([200, 201].includes(response.code)) {
       return Promise.resolve(response)
