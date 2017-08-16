@@ -1,12 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux'
-
+import {bindActionCreators} from 'redux';
 import Moment from 'moment'
-
 import {StyleSheet, css} from 'aphrodite'
 import { fonts, colors } from '../styles/shared'
-
-import { APIRoot, checkResponse, getJson } from '../modules/api'
+import * as jobActions from '../actions/jobActions'
 
 import JobForm from './JobForm'
 import Button from './form/Button'
@@ -15,12 +13,12 @@ class Job extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      job: this.props.job,
       isEditing: false,
       buttonsVisible: false
     }
 
     this.deleteJob = this.deleteJob.bind(this)
-    this.handleDeleteButton = this.handleDeleteButton.bind(this)
     this.toggleEditMode = this.toggleEditMode.bind(this)
     this.showButtons = this.showButtons.bind(this)
     this.hideButtons = this.hideButtons.bind(this)
@@ -28,23 +26,7 @@ class Job extends Component {
 
   deleteJob(e) {
     e.preventDefault()
-    this.props.actions.deleteJob(this.props.job)
-  }
-
-  handleDeleteButton(e) {
-    e.preventDefault()
-
-    fetch(APIRoot(`jobs/${this.props.job.id}`),
-    {
-      method: 'DELETE',
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(getJson)
-    .then(checkResponse)
-    .then(this.props.handleDelete(this.props.job))
-    .catch(err => console.log('ERROR', err))
+    this.props.actions.deleteJob(this.state.job)
   }
 
   toggleEditMode(e) {
@@ -60,7 +42,7 @@ class Job extends Component {
   }
 
   render(props) {
-    let job = this.props.job
+    let job = this.state.job
     let date = Moment(job.date_posted).format("dddd, MMMM Do YYYY")
     if (this.state.isEditing) {
       return (
@@ -88,7 +70,7 @@ class Job extends Component {
           { this.state.buttonsVisible &&
             <div className={css(styles.buttonContainer)}>
               <Button handleClick={this.toggleEditMode} label={'Edit'} />
-              <Button handleClick={this.handleDeleteButton} label={'Delete'}/>
+              <Button handleClick={this.deleteJob} label={'Delete'}/>
             </div>
           }
         </div>
@@ -97,9 +79,6 @@ class Job extends Component {
   }
 }
 
-Job.propTypes = {
-  job: PropTypes.object.isRequired
-}
 
 function mapStateToProps(state, ownProps) {
   let job = {title: '', details: '', date_posted: '', category: {}, location: {}};
@@ -109,7 +88,13 @@ function mapStateToProps(state, ownProps) {
   return {job: job};
 }
 
-export default connect(mapStateToProps)(Job);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(jobActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Job);
 
 const styles = StyleSheet.create({
   jobContainer: {
