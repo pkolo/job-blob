@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { uniqBy } from 'lodash'
+import { uniqBy, sortBy } from 'lodash'
 import {StyleSheet, css} from 'aphrodite'
 import { fonts, colors } from '../styles/shared'
 import Header from './Header'
@@ -37,7 +37,7 @@ class App extends Component {
 
 function mapStateToProps(state, ownProps) {
   return {
-    jobs: state.jobs
+    jobs: sortBy(state.jobs, 'date_posted').reverse()
   }
 }
 
