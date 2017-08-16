@@ -2,14 +2,16 @@ class JobAPI {
 
   static getAllJobs() {
     let root = "https://radiant-springs-66711.herokuapp.com/api"
+    return (
     fetch(`${root}/jobs`, {mode: 'cors'})
-      .then(this.getJson())
-      .then(this.checkResponse())
+      .then(res => this.getJson(res))
+      .then(json => this.checkResponse(json))
       .then(json => {return json})
       .catch(err => {return err})
+    )
   }
 
-  checkResponse(response) {
+  static checkResponse(response) {
     if ([200, 201].includes(response.code)) {
       return Promise.resolve(response)
     } else {
@@ -19,7 +21,7 @@ class JobAPI {
     }
   }
 
-  getJson(response) {
+  static getJson(response) {
     return response.json()
   }
 }
