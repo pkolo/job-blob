@@ -36,7 +36,7 @@ class JobForm extends Component {
   }
 
   componentWillMount() {
-    if (this.props.mode === 'edit') {
+    if (this.props.isEditing) {
       const job = this.props.job
       this.setState({
         jobTitle: job.title,

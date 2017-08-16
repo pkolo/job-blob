@@ -14,7 +14,7 @@ class Job extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      mode: 'show',
+      isEditing: false,
       buttonsVisible: false
     }
 
@@ -41,7 +41,7 @@ class Job extends Component {
   }
 
   toggleEditMode(e) {
-    this.state.mode === 'show' ? this.setState({ mode: 'edit' }) : this.setState({ mode: 'show' })
+    this.state.isEditing ? this.setState({ isEditing: false }) : this.setState({ isEditing: true })
   }
 
   showButtons(e) {
@@ -55,11 +55,11 @@ class Job extends Component {
   render(props) {
     let job = this.props.job
     let date = Moment(job.date_posted).format("dddd, MMMM Do YYYY")
-    if (this.state.mode === 'edit') {
+    if (this.state.isEditing) {
       return (
         <JobForm menuOptions={this.props.menuOptions}
                  optionNameFormatter={(category) => category.name}
-                 mode='edit'
+                 isEditing={true}
                  job={job}
                  toggleParentMode={this.toggleEditMode}
                  stateUpdater={this.props.stateUpdater} />
