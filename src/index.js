@@ -4,6 +4,7 @@ import configStore from './store/configStore'
 import { Provider } from 'react-redux';
 import './index.css'
 import App from './App';
+import { loadJobs } from './actions/jobActions'
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
