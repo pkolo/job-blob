@@ -29,6 +29,22 @@ export function createJobSuccess(job) {
   return {type: "CREATE_JOB_SUCCESS", job}
 }
 
+export function updateJob(jobPayload, jobId) {
+  return function (dispatch) {
+    return JobAPI.updateJob(jobPayload, jobId)
+      .then( (responseJob) => {
+        dispatch(updateJobSuccess(responseJob))
+    }).catch(error => {
+        console.log(error)
+        throw(error)
+    })
+  }
+}
+
+export function updateJobSuccess(job) {
+  return {type: "UPDATE_JOB_SUCCESS", job}
+}
+
 export function deleteJob(job) {
   return function (dispatch) {
     return JobAPI.deleteJob(job)
