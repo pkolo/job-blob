@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import Job from './Job'
 
 const JobList = (props) => {
@@ -14,9 +14,5 @@ const JobList = (props) => {
     </div>
   )
 }
-
-JobList.propTypes = {
-  jobs: PropTypes.array.isRequired
-};
 
 export default JobList;
