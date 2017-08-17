@@ -6,9 +6,14 @@ export default function jobReducer(state = initialState.jobs, action) {
       return action.jobs
     case "CREATE_JOB_SUCCESS":
       return [
-          ...state.filter(job => job.id !== action.job.id),
-          Object.assign({}, action.job)
-        ]
+        ...state.filter(job => job.id !== action.job.id),
+        Object.assign({}, action.job)
+      ]
+    case "UPDATE_CAT_SUCCESS":
+      return [
+        ...state.filter(job => job.id !== action.job.id),
+        Object.assign({}, action.job)
+      ]
     case "DELETE_JOB_SUCCESS":
       const newState = Object.assign([], state);
       const indexOfJobToDelete = state.findIndex(job => {
