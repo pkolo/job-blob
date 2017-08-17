@@ -11,6 +11,23 @@ class JobAPI {
     )
   }
 
+  static createJob(jobPayload) {
+    let root = "https://radiant-springs-66711.herokuapp.com/api"
+    const request = new Request(`${root}/jobs`, {
+      method: 'POST',
+      headers: new Headers({
+        "Content-Type": "application/json"
+      }),
+      body: JSON.stringify(jobPayload)
+    })
+
+    return fetch(request)
+      .then(res => this.getJson(res))
+      .then(json => this.checkResponse(json))
+      .then(json => {return json.result})
+      .catch(err => {return err})
+  }
+
   static deleteJob(job) {
     let root = "https://radiant-springs-66711.herokuapp.com/api"
     const request = new Request(`${root}/jobs/${job.id}`, {
