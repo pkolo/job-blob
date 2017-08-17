@@ -67,6 +67,8 @@ class JobForm extends Component {
 
     if (this.props.mode === 'create') {
       this.props.actions.createJob(jobPayload)
+    } else {
+      this.props.actions.updateJob(jobPayload, this.props.id)
     }
 
   }

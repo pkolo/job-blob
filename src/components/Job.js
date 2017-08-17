@@ -48,8 +48,8 @@ class Job extends Component {
       return (
         <JobForm menuOptions={this.props.menuOptions}
                  optionNameFormatter={(category) => category.name}
-                 isEditing={true}
-                 job={job}
+                 mode={'edit'}
+                 id={job.id}
                  toggleParentMode={this.toggleEditMode}
                  stateUpdater={this.props.stateUpdater} />
       )
