@@ -71,6 +71,8 @@ class JobForm extends Component {
       this.props.actions.updateJob(jobPayload, this.props.id)
     }
 
+    this.clearForm()
+
   }
 
   handleInputChange(e) {
