@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux'
+import {bindActionCreators} from 'redux';
+import * as jobActions from '../actions/jobActions'
 import { StyleSheet, css } from 'aphrodite'
 import { width, colors } from '../styles/shared'
-
 import { stateData } from '../modules/stateData'
-import { APIRoot, checkResponse, getJson } from '../modules/api'
-
 import TextInput from './form/TextInput'
 import TextArea from './form/TextArea'
 import Button from './form/Button'
@@ -22,13 +21,11 @@ class JobForm extends Component {
       locationCity: '',
       locationState: '',
       showFullForm: false,
-      formMethod: 'POST',
-      formURL: 'jobs',
       errorMessages: []
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
-    this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleFlash = this.handleFlash.bind(this)
     this.handleCancelButton = this.handleCancelButton.bind(this)
     this.showFullForm = this.showFullForm.bind(this)
@@ -36,7 +33,7 @@ class JobForm extends Component {
   }
 
   componentWillMount() {
-    if (this.props.isEditing) {
+    if (this.props.mode === 'edit') {
       const job = this.props.job
       this.setState({
         jobTitle: job.title,
@@ -44,30 +41,17 @@ class JobForm extends Component {
         categorySelection: job.category.id,
         locationCity: job.location.city,
         locationState: job.location.state,
-        showFullForm: true,
-        formMethod: 'PUT',
-        formURL: `jobs/${job.id}`
+        showFullForm: true
       })
     } else {
       this.clearForm()
     }
   }
 
-  handleInputChange(e) {
-    const target = e.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-
-    this.setState({
-      [name]: value
-    })
-  }
-
-  handleFormSubmit(e) {
-    e.preventDefault()
+  handleSubmit(e) {
     this.clearErrors()
-    // Converts ID selected in Category dropdown to an actual category object.
-    let category = this.props.menuOptions.find((cat) => cat.id === parseInt(this.state.categorySelection))
+
+    let category = this.props.menuOptions.find((cat) => cat.id === parseInt(this.state.categorySelection, 10))
 
     const jobPayload = {
       job: {
@@ -81,19 +65,20 @@ class JobForm extends Component {
       }
     }
 
-    fetch(APIRoot(this.state.formURL),
-      {
-        method: this.state.formMethod,
-        body: JSON.stringify(jobPayload),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
+    if (this.props.mode === 'create') {
+      this.props.actions.createJob(jobPayload)
+    }
 
-      .then(getJson)
-      .then(checkResponse)
-      .then(json => {this.props.stateUpdater(json.result); this.clearForm()})
-      .catch(err => {this.setState({ errorMessages: err.message }); this.clearForm()})
+  }
+
+  handleInputChange(e) {
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    })
   }
 
   clearForm() {
@@ -198,7 +183,7 @@ class JobForm extends Component {
             </div>
             <div className={css(styles.inputRow)}>
               <div className={css(styles.buttonContainer)}>
-                <Button label={'Post Job'} handleClick={this.handleFormSubmit} />
+                <Button label={'Post Job'} handleClick={this.handleSubmit} />
                 <Button label={'Cancel'} handleClick={this.handleCancelButton} />
               </div>
             </div>
@@ -209,7 +194,21 @@ class JobForm extends Component {
   }
 }
 
-export default JobForm;
+function mapStateToProps(state, ownProps) {
+  let job = {title: '', details: '', date_posted: '', category: {id: '', name: ''}, location: {city: '', state: ''}};
+  if (ownProps.id) {
+    job = Object.assign({}, state.jobs.find(job => job.id === ownProps.id))
+  }
+  return {job: job};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(jobActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(JobForm);
 
 const styles = StyleSheet.create({
   formContainer: {
