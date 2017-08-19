@@ -7,9 +7,8 @@ const JobList = (props) => {
       {props.jobs.map(job =>
         <Job id={job.id}
              key={job.id}
-             handleDelete={this.deleteJob}
              menuOptions={props.categories}
-             stateUpdater={this.updateJob} />
+             isEditing={props.isEditing} />
       )}
     </div>
   )
