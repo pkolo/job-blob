@@ -52,7 +52,7 @@ class Job extends Component {
   }
 
   resetJob() {
-    let job = {title: '', details: '', date_posted: '', category: {name: ''}, location: {city: '', state: ''}};
+    let job = {title: '', details: '', date_posted: '', category: {id: '', name: ''}, location: {city: '', state: ''}};
     this.setState({job: job})
   }
 

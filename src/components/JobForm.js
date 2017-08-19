@@ -83,6 +83,7 @@ class JobForm extends Component {
             label={"Category"}
             name={"category"}
             options={this.props.menuOptions}
+            selectedOption={this.props.job.category.id}
             optionNameFormatter={this.props.optionNameFormatter}
             placeholder={''}
             width={width.small}
@@ -115,6 +116,7 @@ class JobForm extends Component {
                 label="State"
                 name={"state"}
                 options={stateData}
+                selectedOption={this.props.job.location.state}
                 optionNameFormatter={(state) => state.name}
                 placeholder={''}
                 changeHandler={this.props.onChange} />
