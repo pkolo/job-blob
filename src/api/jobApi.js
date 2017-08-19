@@ -15,8 +15,7 @@ class JobAPI {
     let root = "https://radiant-springs-66711.herokuapp.com/api"
     return (
     fetch(`${root}/categories`, {mode: 'cors'})
-      .then(res => this.getJson(res))
-      .then(json => this.checkResponse(json))
+      .then(res => res.json())
       .then(json => {return json})
       .catch(err => {throw err})
     )

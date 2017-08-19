@@ -1,9 +1,9 @@
 import JobAPI from '../api/jobApi'
 
-export function loadJobs() {
+export function loadCategories() {
   return function(dispatch) {
     return JobAPI.getAllCategories()
-      .then(response => { dispatch(loadCategoriesSuccess(response.result)) })
+      .then(response => { dispatch(loadCategoriesSuccess(response)) })
       .catch(err => { throw(err) })
   }
 }
