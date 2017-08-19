@@ -13,7 +13,13 @@ class Job extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      job: Object.assign({}, this.props.job),
+      job: Object.assign({}, {
+        id: this.props.job.id,
+        title: this.props.job.title,
+        details: this.props.job.details,
+        category: Object.assign({}, this.props.job.category),
+        location: Object.assign({}, this.props.job.location)
+      }),
       isEditing: this.props.isEditing,
       buttonsVisible: false
     }
@@ -27,6 +33,8 @@ class Job extends Component {
     this.hideButtons = this.hideButtons.bind(this)
   }
 
+
+
   updateJobState(e) {
     const field = e.target.name;
     const job = this.state.job;
@@ -34,7 +42,7 @@ class Job extends Component {
       let category = this.props.menuOptions.find((cat) => cat.id === parseInt(e.target.value, 10))
       job[field] = category
     } else if (field === 'state' || field === 'city') {
-      job.location[field] = e.target.value
+      job["location"][field] = e.target.value
     } else {
       job[field] = e.target.value;
     }
@@ -44,8 +52,9 @@ class Job extends Component {
   saveJob(e) {
     e.preventDefault()
     let job = this.state.job
-    if (job.id) {
+    if (this.props.job.id) {
       this.props.actions.updateJob(job)
+      this.toggleEditMode()
     } else {
       this.props.actions.createJob(job)
       this.resetJob()
@@ -53,14 +62,14 @@ class Job extends Component {
   }
 
   cancelJob() {
-    if (this.state.job.id) {
+    if (this.props.job.id) {
       this.toggleEditMode()
     }
     this.resetJob()
   }
 
   resetJob() {
-    if (this.state.job.id) {
+    if (this.props.job.id) {
       this.setState({job: this.props.job})
     } else {
       let job = {title: '', details: '', date_posted: '', category: {id: '', name: ''}, location: {city: '', state: ''}};
@@ -125,7 +134,7 @@ class Job extends Component {
 
 
 function mapStateToProps(state, ownProps) {
-  let job = {title: '', details: '', date_posted: '', category: {name: ''}, location: {city: '', state: ''}};
+  let job = {id: null, title: '', details: '', date_posted: '', category: {name: ''}, location: {city: '', state: ''}};
   if (state.jobs.length > 0) {
     job = Object.assign({}, state.jobs.find(job => job.id === ownProps.id))
   }
