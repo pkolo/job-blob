@@ -34,7 +34,8 @@ class App extends Component {
 
 function mapStateToProps(state, ownProps) {
   return {
-    jobs: sortBy(state.jobs, 'date_posted').reverse()
+    jobs: sortBy(state.jobs, 'date_posted').reverse(),
+    categories: state.categories
   }
 }
 
