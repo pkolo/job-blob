@@ -16,7 +16,6 @@ class JobForm extends Component {
       errorMessages: []
     }
 
-    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleFlash = this.handleFlash.bind(this)
     this.handleCancelButton = this.handleCancelButton.bind(this)
     this.showFullForm = this.showFullForm.bind(this)
@@ -29,14 +28,6 @@ class JobForm extends Component {
         showFullForm: true
       })
     }
-  }
-
-  handleSubmit(e) {
-    this.clearErrors()
-    this.props.saveJob(e, this.props.mode)
-
-    this.clearForm()
-
   }
 
   clearForm() {

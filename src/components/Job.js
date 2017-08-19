@@ -47,7 +47,13 @@ class Job extends Component {
       this.props.actions.updateJob(job)
     } else {
       this.props.actions.createJob(job)
+      this.resetJob()
     }
+  }
+
+  resetJob() {
+    let job = {title: '', details: '', date_posted: '', category: {name: ''}, location: {city: '', state: ''}};
+    this.setState({job: job})
   }
 
   deleteJob(e) {
