@@ -13,7 +13,6 @@ class JobAPI {
 
   static createJob(job) {
     let jobPayload = this.getJobPayload(job)
-    debugger
     let root = "https://radiant-springs-66711.herokuapp.com/api"
     const request = new Request(`${root}/jobs`, {
       method: 'POST',
