@@ -36,7 +36,7 @@ class JobForm extends Component {
 
   handleCancelButton(e) {
     if (!this.props.job.id) {
-      this.hideFullForm
+      this.hideFullForm()
     }
     this.props.onCancel(e)
   }

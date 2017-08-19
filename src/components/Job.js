@@ -13,7 +13,7 @@ class Job extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      job: this.props.job,
+      job: Object.assign({}, this.props.job),
       isEditing: this.props.isEditing,
       buttonsVisible: false
     }
@@ -44,7 +44,7 @@ class Job extends Component {
   saveJob(e) {
     e.preventDefault()
     let job = this.state.job
-    if (this.props.id) {
+    if (job.id) {
       this.props.actions.updateJob(job)
     } else {
       this.props.actions.createJob(job)
@@ -55,14 +55,17 @@ class Job extends Component {
   cancelJob() {
     if (this.state.job.id) {
       this.toggleEditMode()
-    } else {
-      this.resetJob()
     }
+    this.resetJob()
   }
 
   resetJob() {
-    let job = {title: '', details: '', date_posted: '', category: {id: '', name: ''}, location: {city: '', state: ''}};
-    this.setState({job: job})
+    if (this.state.job.id) {
+      this.setState({job: this.props.job})
+    } else {
+      let job = {title: '', details: '', date_posted: '', category: {id: '', name: ''}, location: {city: '', state: ''}};
+      this.setState({job: job})
+    }
   }
 
   deleteJob(e) {
@@ -89,7 +92,6 @@ class Job extends Component {
       return (
         <JobForm menuOptions={this.props.menuOptions}
                  optionNameFormatter={(category) => category.name}
-                 mode={'edit'}
                  job={job}
                  saveJob={this.saveJob}
                  onChange={this.updateJobState}
@@ -108,7 +110,7 @@ class Job extends Component {
               <div>Location: <span className={css(styles.metaData)}>{job.location.city}, {job.location.state}</span></div>
             </div>
             <div>Posted: <span className={css(styles.metaData)}>{date}</span></div>
-          </div>
+          </div>.
           { this.state.buttonsVisible &&
             <div className={css(styles.buttonContainer)}>
               <Button handleClick={this.toggleEditMode} label={'Edit'} />
