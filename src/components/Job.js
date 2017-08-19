@@ -19,6 +19,7 @@ class Job extends Component {
     }
 
     this.updateJobState = this.updateJobState.bind(this)
+    this.saveJob = this.saveJob.bind(this)
     this.deleteJob = this.deleteJob.bind(this)
     this.toggleEditMode = this.toggleEditMode.bind(this)
     this.showButtons = this.showButtons.bind(this)
@@ -37,6 +38,16 @@ class Job extends Component {
       job[field] = e.target.value;
     }
     return this.setState({job: job});
+  }
+
+  saveJob(e) {
+    e.preventDefault()
+    let job = this.state.job
+    if (this.props.id) {
+      this.props.actions.updateJob(job)
+    } else {
+      this.props.actions.createJob(job)
+    }
   }
 
   deleteJob(e) {
@@ -65,6 +76,7 @@ class Job extends Component {
                  optionNameFormatter={(category) => category.name}
                  mode={'edit'}
                  job={job}
+                 saveJob={this.saveJob}
                  toggleParentMode={this.toggleEditMode}
                  onChange={this.updateJobState} />
       )

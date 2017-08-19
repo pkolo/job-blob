@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import {bindActionCreators} from 'redux';
-import * as jobActions from '../actions/jobActions'
 import { StyleSheet, css } from 'aphrodite'
 import { width, colors } from '../styles/shared'
 import { stateData } from '../modules/stateData'
@@ -19,7 +16,6 @@ class JobForm extends Component {
       errorMessages: []
     }
 
-    this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleFlash = this.handleFlash.bind(this)
     this.handleCancelButton = this.handleCancelButton.bind(this)
@@ -37,39 +33,22 @@ class JobForm extends Component {
 
   handleSubmit(e) {
     this.clearErrors()
+    this.props.saveJob(e, this.props.mode)
 
-    let category = this.props.menuOptions.find((cat) => cat.id === parseInt(this.state.categorySelection, 10))
-
-    const jobPayload = {
-      job: {
-        title: this.state.jobTitle,
-        details: this.state.jobDetails,
-        category_name: category ? category.name : null,
-        location_attributes: {
-          city: this.state.locationCity,
-          state: this.state.locationState
-        }
-      }
-    }
-
-    if (this.props.mode === 'create') {
-      this.props.actions.createJob(jobPayload)
-    } else {
-      this.props.actions.updateJob(jobPayload, this.props.id)
-    }
+    // const jobPayload = {
+    //   job: {
+    //     title: this.state.jobTitle,
+    //     details: this.state.jobDetails,
+    //     category_name: category ? category.name : null,
+    //     location_attributes: {
+    //       city: this.state.locationCity,
+    //       state: this.state.locationState
+    //     }
+    //   }
+    // }
 
     this.clearForm()
 
-  }
-
-  handleInputChange(e) {
-    const target = e.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-
-    this.setState({
-      [name]: value
-    })
   }
 
   clearForm() {
@@ -163,7 +142,7 @@ class JobForm extends Component {
             </div>
             <div className={css(styles.inputRow)}>
               <div className={css(styles.buttonContainer)}>
-                <Button label={'Post Job'} handleClick={this.handleSubmit} />
+                <Button label={'Post Job'} handleClick={this.props.saveJob} />
                 <Button label={'Cancel'} handleClick={this.handleCancelButton} />
               </div>
             </div>
