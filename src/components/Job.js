@@ -14,14 +14,29 @@ class Job extends Component {
     super(props)
     this.state = {
       job: this.props.job,
-      isEditing: false,
+      isEditing: this.props.isEditing,
       buttonsVisible: false
     }
 
+    this.updateJobState = this.updateJobState.bind(this)
     this.deleteJob = this.deleteJob.bind(this)
     this.toggleEditMode = this.toggleEditMode.bind(this)
     this.showButtons = this.showButtons.bind(this)
     this.hideButtons = this.hideButtons.bind(this)
+  }
+
+  updateJobState(e) {
+    const field = e.target.name;
+    const job = this.state.job;
+    if (field === 'category') {
+      let category = this.props.menuOptions.find((cat) => cat.id === parseInt(e.target.value, 10))
+      job[field] = category
+    } else if (field === 'state' || field === 'city') {
+      job.location[field] = e.target.value
+    } else {
+      job[field] = e.target.value;
+    }
+    return this.setState({job: job});
   }
 
   deleteJob(e) {
@@ -49,9 +64,9 @@ class Job extends Component {
         <JobForm menuOptions={this.props.menuOptions}
                  optionNameFormatter={(category) => category.name}
                  mode={'edit'}
-                 id={job.id}
+                 job={job}
                  toggleParentMode={this.toggleEditMode}
-                 stateUpdater={this.props.stateUpdater} />
+                 onChange={this.updateJobState} />
       )
     } else {
       return (
@@ -81,7 +96,7 @@ class Job extends Component {
 
 
 function mapStateToProps(state, ownProps) {
-  let job = {title: '', details: '', date_posted: '', category: {}, location: {}};
+  let job = {title: '', details: '', date_posted: '', category: {name: ''}, location: {city: '', state: ''}};
   if (state.jobs.length > 0) {
     job = Object.assign({}, state.jobs.find(job => job.id === ownProps.id))
   }

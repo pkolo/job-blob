@@ -15,11 +15,6 @@ class JobForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      jobTitle: '',
-      jobDetails: '',
-      categorySelection: '',
-      locationCity: '',
-      locationState: '',
       showFullForm: false,
       errorMessages: []
     }
@@ -34,17 +29,9 @@ class JobForm extends Component {
 
   componentWillMount() {
     if (this.props.mode === 'edit') {
-      const job = this.props.job
       this.setState({
-        jobTitle: job.title,
-        jobDetails: job.details,
-        categorySelection: job.category.id,
-        locationCity: job.location.city,
-        locationState: job.location.state,
         showFullForm: true
       })
-    } else {
-      this.clearForm()
     }
   }
 
@@ -90,15 +77,6 @@ class JobForm extends Component {
 
     if (this.props.mode === 'edit' && !errors) {
       this.props.toggleParentMode()
-    } else if (!errors) {
-      this.setState({
-        jobTitle: '',
-        jobDetails: '',
-        categorySelection: '',
-        locationCity: '',
-        locationState: '',
-        showFullForm: false
-      })
     }
   }
 
@@ -137,21 +115,20 @@ class JobForm extends Component {
             type={"text"}
             label={'What do you need done?'}
             placeholder={'I need a catsitter...'}
-            name={"jobTitle"}
-            content={this.state.jobTitle}
+            name={"title"}
+            content={this.props.job.title}
             width={width.large}
-            changeHandler={this.handleInputChange}
+            changeHandler={this.props.onChange}
             focusHandler={this.showFullForm} />
           <DropDownSelector
             required={true}
             label={"Category"}
-            name={"categorySelection"}
+            name={"category"}
             options={this.props.menuOptions}
             optionNameFormatter={this.props.optionNameFormatter}
             placeholder={''}
-            selectedOption={this.state.categorySelection}
             width={width.small}
-            changeHandler={this.handleInputChange} />
+            changeHandler={this.props.onChange} />
         </div>
         { this.state.showFullForm &&
           <div>
@@ -161,10 +138,10 @@ class JobForm extends Component {
                 rows={5}
                 label={"Anything you'd like to add?"}
                 placeholder={'The more details the better. No personal info, please...'}
-                name={"jobDetails"}
-                content={this.state.jobDetails}
+                name={"details"}
+                content={this.props.job.details}
                 width={width.full}
-                changeHandler={this.handleInputChange} />
+                changeHandler={this.props.onChange} />
             </div>
             <div className={css(styles.inputRow, width.medium, styles.smallInputRow)}>
               <TextInput
@@ -172,18 +149,17 @@ class JobForm extends Component {
                 type="text"
                 label="City"
                 placeholder={'City'}
-                name={"locationCity"}
-                content={this.state.locationCity}
-                changeHandler={this.handleInputChange} />
+                name={"city"}
+                content={this.props.job.location.city}
+                changeHandler={this.props.onChange} />
               <DropDownSelector
                 required={true}
                 label="State"
-                name={"locationState"}
+                name={"state"}
                 options={stateData}
                 optionNameFormatter={(state) => state.name}
                 placeholder={''}
-                selectedOption={this.state.locationState}
-                changeHandler={this.handleInputChange} />
+                changeHandler={this.props.onChange} />
             </div>
             <div className={css(styles.inputRow)}>
               <div className={css(styles.buttonContainer)}>
@@ -198,21 +174,7 @@ class JobForm extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  let job = {title: '', details: '', date_posted: '', category: {id: '', name: ''}, location: {city: '', state: ''}};
-  if (ownProps.id) {
-    job = Object.assign({}, state.jobs.find(job => job.id === ownProps.id))
-  }
-  return {job: job};
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(jobActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(JobForm);
+export default JobForm;
 
 const styles = StyleSheet.create({
   formContainer: {
