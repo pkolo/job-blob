@@ -7,7 +7,18 @@ class JobAPI {
       .then(res => this.getJson(res))
       .then(json => this.checkResponse(json))
       .then(json => {return json})
-      .catch(err => {return err})
+      .catch(err => {throw err})
+    )
+  }
+
+  static getAllCategories() {
+    let root = "https://radiant-springs-66711.herokuapp.com/api"
+    return (
+    fetch(`${root}/categories`, {mode: 'cors'})
+      .then(res => this.getJson(res))
+      .then(json => this.checkResponse(json))
+      .then(json => {return json})
+      .catch(err => {throw err})
     )
   }
 
@@ -26,7 +37,7 @@ class JobAPI {
       .then(res => this.getJson(res))
       .then(json => this.checkResponse(json))
       .then(json => {return json.result})
-      .catch(err => {return err})
+      .catch(err => {throw err})
   }
 
   static updateJob(job) {
@@ -44,7 +55,7 @@ class JobAPI {
       .then(res => this.getJson(res))
       .then(json => this.checkResponse(json))
       .then(json => {return json.result})
-      .catch(err => {return err})
+      .catch(err => {throw err})
   }
 
   static deleteJob(job) {
@@ -56,7 +67,7 @@ class JobAPI {
       .then(res => this.getJson(res))
       .then(json => this.checkResponse(json))
       .then(json => {return json})
-      .catch(err => {return err})
+      .catch(err => {throw err})
   }
 
   static getJobPayload(job) {
