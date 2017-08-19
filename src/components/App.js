@@ -10,22 +10,16 @@ import JobList from './JobList'
 
 class App extends Component {
 
-  getCategories() {
-    // A list of all categories could also be hard-coded, or served by the API
-    let categories = this.props.jobs.map(job => job.category)
-    return uniqBy(categories, 'id')
-  }
-
   render() {
-    let categories = this.getCategories()
+    let categories = this.props.categories
     return (
       <div className={css(styles.appContainer)}>
         <Header />
         <div className={css(styles.mainSection)}>
           <Slide content={'Job Blob wants to help you...'}/>
-          <Job menuOptions={categories} isEditing={true}/>
+          <Job isEditing={true}/>
           <Slide content={'Available Jobs'}/>
-          <JobList jobs={this.props.jobs} categories={categories}/>
+          <JobList jobs={this.props.jobs} />
         </div>
       </div>
     )
@@ -34,8 +28,7 @@ class App extends Component {
 
 function mapStateToProps(state, ownProps) {
   return {
-    jobs: sortBy(state.jobs, 'date_posted').reverse(),
-    categories: state.categories
+    jobs: sortBy(state.jobs, 'date_posted').reverse()
   }
 }
 

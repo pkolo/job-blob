@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import { StyleSheet, css } from 'aphrodite'
 import { width, colors } from '../styles/shared'
 import { stateData } from '../modules/stateData'
@@ -68,7 +69,7 @@ class JobForm extends Component {
             required={true}
             label={"Category"}
             name={"category"}
-            options={this.props.menuOptions}
+            options={this.props.categories}
             selectedOption={this.props.job.category.id}
             optionNameFormatter={this.props.optionNameFormatter}
             placeholder={''}
@@ -120,7 +121,13 @@ class JobForm extends Component {
   }
 }
 
-export default JobForm;
+function mapStateToProps(state) {
+  return {
+    categories: state.categories
+  }
+}
+
+export default connect(mapStateToProps)(JobForm);
 
 const styles = StyleSheet.create({
   formContainer: {

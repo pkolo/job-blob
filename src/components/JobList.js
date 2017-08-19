@@ -7,7 +7,6 @@ const JobList = (props) => {
       {props.jobs.map(job =>
         <Job id={job.id}
              key={job.id}
-             menuOptions={props.categories}
              isEditing={props.isEditing} />
       )}
     </div>

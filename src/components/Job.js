@@ -39,7 +39,7 @@ class Job extends Component {
     const field = e.target.name;
     const job = this.state.job;
     if (field === 'category') {
-      let category = this.props.menuOptions.find((cat) => cat.id === parseInt(e.target.value, 10))
+      let category = this.props.categories.find((cat) => cat.id === parseInt(e.target.value, 10))
       job[field] = category
     } else if (field === 'state' || field === 'city') {
       job["location"][field] = e.target.value
@@ -99,8 +99,7 @@ class Job extends Component {
     let date = Moment(job.date_posted).format("dddd, MMMM Do YYYY")
     if (this.state.isEditing) {
       return (
-        <JobForm menuOptions={this.props.menuOptions}
-                 optionNameFormatter={(category) => category.name}
+        <JobForm optionNameFormatter={(category) => category.name}
                  job={job}
                  saveJob={this.saveJob}
                  onChange={this.updateJobState}
@@ -138,7 +137,7 @@ function mapStateToProps(state, ownProps) {
   if (state.jobs.length > 0) {
     job = Object.assign({}, state.jobs.find(job => job.id === ownProps.id))
   }
-  return {job: job};
+  return {job: job, categories: state.categories};
 }
 
 function mapDispatchToProps(dispatch) {
