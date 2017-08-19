@@ -134,7 +134,7 @@ class Job extends Component {
 
 function mapStateToProps(state, ownProps) {
   let job = {id: null, title: '', details: '', date_posted: '', category: {name: ''}, location: {city: '', state: ''}};
-  if (state.jobs.length > 0) {
+  if (state.jobs.length > 0 && ownProps.id) {
     job = Object.assign({}, state.jobs.find(job => job.id === ownProps.id))
   }
   return {job: job, categories: state.categories};
