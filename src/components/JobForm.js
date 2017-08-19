@@ -35,18 +35,6 @@ class JobForm extends Component {
     this.clearErrors()
     this.props.saveJob(e, this.props.mode)
 
-    // const jobPayload = {
-    //   job: {
-    //     title: this.state.jobTitle,
-    //     details: this.state.jobDetails,
-    //     category_name: category ? category.name : null,
-    //     location_attributes: {
-    //       city: this.state.locationCity,
-    //       state: this.state.locationState
-    //     }
-    //   }
-    // }
-
     this.clearForm()
 
   }

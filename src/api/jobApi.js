@@ -11,7 +11,9 @@ class JobAPI {
     )
   }
 
-  static createJob(jobPayload) {
+  static createJob(job) {
+    let jobPayload = this.getJobPayload(job)
+    debugger
     let root = "https://radiant-springs-66711.herokuapp.com/api"
     const request = new Request(`${root}/jobs`, {
       method: 'POST',
@@ -28,9 +30,10 @@ class JobAPI {
       .catch(err => {return err})
   }
 
-  static updateJob(jobPayload, jobId) {
+  static updateJob(job) {
+    let jobPayload = this.getJobPayload(job)
     let root = "https://radiant-springs-66711.herokuapp.com/api"
-    const request = new Request(`${root}/jobs/${jobId}`, {
+    const request = new Request(`${root}/jobs/${job.id}`, {
       method: 'PUT',
       headers: new Headers({
         "Content-Type": "application/json"
@@ -55,6 +58,20 @@ class JobAPI {
       .then(json => this.checkResponse(json))
       .then(json => {return json})
       .catch(err => {return err})
+  }
+
+  static getJobPayload(job) {
+    return {
+      job: {
+        title: job.title,
+        details: job.details,
+        category_name: job.category.name,
+        location_attributes: {
+          city: job.location.city,
+          state: job.location.state
+        }
+      }
+    }
   }
 
   static checkResponse(response) {
