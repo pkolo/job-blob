@@ -23,23 +23,11 @@ class JobForm extends Component {
   }
 
   componentWillMount() {
-    if (this.props.mode === 'edit') {
+    if (this.props.job.id) {
       this.setState({
         showFullForm: true
       })
     }
-  }
-
-  clearForm() {
-    let errors = (this.state.errorMessages.length > 0)
-
-    if (this.props.mode === 'edit' && !errors) {
-      this.props.toggleParentMode()
-    }
-  }
-
-  clearErrors() {
-    this.setState({ errorMessages: [] })
   }
 
   handleFlash(e) {
@@ -47,12 +35,10 @@ class JobForm extends Component {
   }
 
   handleCancelButton(e) {
-    if (this.props.mode === 'create') {
-      this.clearErrors()
-      this.hideFullForm()
-    } else {
-      this.props.toggleParentMode(e)
+    if (!this.props.job.id) {
+      this.hideFullForm
     }
+    this.props.onCancel(e)
   }
 
   showFullForm(e) {
