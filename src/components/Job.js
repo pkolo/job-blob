@@ -51,11 +51,13 @@ class Job extends Component {
     if (this.props.job.id) {
       // Editing
       this.props.actions.updateJob(job)
+        .then(this.toggleEditMode)
         .catch(err => this.setState({ errorMessages: err }))
 
     } else {
       // Creating
       this.props.actions.createJob(job)
+        .then(this.cancelJob)
         .catch(err => this.setState({ errorMessages: err }))
     }
 
