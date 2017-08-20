@@ -109,8 +109,8 @@ class JobForm extends Component {
             </div>
             <div className={css(styles.inputRow)}>
               <div className={css(styles.buttonContainer)}>
-                <Button label={'Post Job'} handleClick={this.props.saveJob} />
                 <Button label={'Cancel'} handleClick={this.handleCancelButton} />
+                <Button label={'Post Job'} handleClick={this.props.saveJob} />
               </div>
             </div>
           </div>
