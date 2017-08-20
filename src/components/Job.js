@@ -96,7 +96,7 @@ class Job extends Component {
 
   render(props) {
     let job = this.state.job
-    let date = Moment(job.date_posted).format("dddd, MMMM Do YYYY")
+    let date = Moment(this.props.job.date_posted).format("dddd, MMMM Do YYYY")
     if (this.state.isEditing) {
       return (
         <JobForm optionNameFormatter={(category) => category.name}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { uniqBy, sortBy } from 'lodash'
+import { sortBy } from 'lodash'
 import {StyleSheet, css} from 'aphrodite'
 import { fonts, colors } from '../styles/shared'
 import Header from './Header'
@@ -11,7 +11,6 @@ import JobList from './JobList'
 class App extends Component {
 
   render() {
-    let categories = this.props.categories
     return (
       <div className={css(styles.appContainer)}>
         <Header />
