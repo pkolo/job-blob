@@ -4,7 +4,7 @@ import { css, StyleSheet } from 'aphrodite';
 import { colors } from '../../styles/shared'
 
 const Flash = props => {
-  let messages= props.messages.split(',')
+  let messages= props.messages
   return (
     <div className={css(styles.flashContainer)} onClick={props.clickHandler}>
       <div className={(css(styles.messageContainer, styles.smallMessageContainer))}>

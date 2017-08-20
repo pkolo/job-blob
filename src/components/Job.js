@@ -21,13 +21,15 @@ class Job extends Component {
         location: Object.assign({}, this.props.job.location)
       }),
       isEditing: this.props.isEditing,
-      buttonsVisible: false
+      buttonsVisible: false,
+      errorMessages: ''
     }
 
     this.updateJobState = this.updateJobState.bind(this)
     this.saveJob = this.saveJob.bind(this)
     this.deleteJob = this.deleteJob.bind(this)
     this.cancelJob = this.cancelJob.bind(this)
+    this.clearErrors = this.clearErrors.bind(this)
     this.toggleEditMode = this.toggleEditMode.bind(this)
     this.showButtons = this.showButtons.bind(this)
     this.hideButtons = this.hideButtons.bind(this)
@@ -54,9 +56,13 @@ class Job extends Component {
     let job = this.state.job
     if (this.props.job.id) {
       this.props.actions.updateJob(job)
+        .catch(err => this.setState({ errorMessages: err }))
+
       this.toggleEditMode()
     } else {
       this.props.actions.createJob(job)
+        .catch(err => this.setState({ errorMessages: err }))
+
       this.resetJob()
     }
   }
@@ -82,6 +88,11 @@ class Job extends Component {
     this.props.actions.deleteJob(this.state.job)
   }
 
+  clearErrors(e) {
+    e.preventDefault()
+    this.setState({ errorMessages: [] })
+  }
+
   toggleEditMode(e) {
     this.state.isEditing ? this.setState({ isEditing: false }) : this.setState({ isEditing: true })
   }
@@ -101,6 +112,8 @@ class Job extends Component {
       return (
         <JobForm optionNameFormatter={(category) => category.name}
                  job={job}
+                 errorMessages={this.state.errorMessages}
+                 clearErrors={this.clearErrors}
                  saveJob={this.saveJob}
                  onChange={this.updateJobState}
                  onCancel={this.cancelJob} />
