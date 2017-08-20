@@ -29,8 +29,6 @@ class Job extends Component {
     this.hideButtons = this.hideButtons.bind(this)
   }
 
-
-
   updateJobState(e) {
     const field = e.target.name;
     let job = this.state.job
@@ -63,16 +61,16 @@ class Job extends Component {
 
   }
 
+  deleteJob(e) {
+    e.preventDefault()
+    this.props.actions.deleteJob(this.props.job)
+  }
+
   cancelJob() {
     this.setState({ job: JSON.parse(JSON.stringify(this.props.job)) })
     if (this.props.job.id) {
       this.toggleEditMode()
     }
-  }
-
-  deleteJob(e) {
-    e.preventDefault()
-    this.props.actions.deleteJob(this.props.job)
   }
 
   clearErrors(e) {
