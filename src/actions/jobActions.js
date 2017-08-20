@@ -19,14 +19,18 @@ export function createJob(jobPayload) {
         dispatch(createJobSuccess(responseJob))
         return responseJob
     }).catch(error => {
-        console.log(error)
-        throw(error)
+        dispatch(createJobFailure(error))
     })
   }
 }
 
 export function createJobSuccess(job) {
   return {type: "CREATE_JOB_SUCCESS", job}
+}
+
+export function createJobFailure(error) {
+  console.log("ERROR: ", error)
+  return {type: "CREATE_JOB_FAILURE", error}
 }
 
 export function updateJob(jobPayload, jobId) {
