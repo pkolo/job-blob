@@ -13,13 +13,7 @@ class Job extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      job: Object.assign({}, {
-        id: this.props.job.id,
-        title: this.props.job.title,
-        details: this.props.job.details,
-        category: Object.assign({}, this.props.job.category),
-        location: Object.assign({}, this.props.job.location)
-      }),
+      job: JSON.parse(JSON.stringify(this.props.job)),
       isEditing: this.props.isEditing,
       buttonsVisible: false,
       errorMessages: ''
@@ -39,52 +33,44 @@ class Job extends Component {
 
   updateJobState(e) {
     const field = e.target.name;
-    const job = this.state.job;
+    let job = this.state.job
     if (field === 'category') {
       let category = this.props.categories.find((cat) => cat.id === parseInt(e.target.value, 10))
-      job[field] = category
+      job[field] = Object.assign({}, category)
     } else if (field === 'state' || field === 'city') {
       job["location"][field] = e.target.value
     } else {
       job[field] = e.target.value;
     }
-    return this.setState({job: job});
+    this.setState({job: job})
   }
 
   saveJob(e) {
     e.preventDefault()
     let job = this.state.job
     if (this.props.job.id) {
+      // Editing
       this.props.actions.updateJob(job)
         .catch(err => this.setState({ errorMessages: err }))
 
     } else {
+      // Creating
       this.props.actions.createJob(job)
         .catch(err => this.setState({ errorMessages: err }))
-
-      this.resetJob()
     }
+
   }
 
   cancelJob() {
+    this.setState({ job: JSON.parse(JSON.stringify(this.props.job)) })
     if (this.props.job.id) {
       this.toggleEditMode()
-    }
-    this.resetJob()
-  }
-
-  resetJob() {
-    if (this.props.job.id) {
-      this.setState({job: this.props.job})
-    } else {
-      let job = {title: '', details: '', date_posted: '', category: {id: '', name: ''}, location: {city: '', state: ''}};
-      this.setState({job: job})
     }
   }
 
   deleteJob(e) {
     e.preventDefault()
-    this.props.actions.deleteJob(this.state.job)
+    this.props.actions.deleteJob(this.props.job)
   }
 
   clearErrors(e) {
@@ -147,7 +133,7 @@ class Job extends Component {
 function mapStateToProps(state, ownProps) {
   let job = {id: null, title: '', details: '', date_posted: '', category: {name: ''}, location: {city: '', state: ''}};
   if (state.jobs.length > 0 && ownProps.id) {
-    job = Object.assign({}, state.jobs.find(job => job.id === ownProps.id))
+    job = JSON.parse(JSON.stringify(state.jobs.find(job => job.id === ownProps.id)))
   }
   return {job: job, categories: state.categories};
 }
