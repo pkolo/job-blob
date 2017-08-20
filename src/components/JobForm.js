@@ -16,7 +16,6 @@ class JobForm extends Component {
       showFullForm: false
     }
 
-    this.handleFlash = this.handleFlash.bind(this)
     this.handleCancelButton = this.handleCancelButton.bind(this)
     this.showFullForm = this.showFullForm.bind(this)
     this.hideFullForm = this.hideFullForm.bind(this)
@@ -28,10 +27,6 @@ class JobForm extends Component {
         showFullForm: true
       })
     }
-  }
-
-  handleFlash(e) {
-    this.props.clearErrors(e)
   }
 
   handleCancelButton(e) {
@@ -52,7 +47,7 @@ class JobForm extends Component {
   render(props) {
     return (
       <div className={css(styles.formContainer)}>
-        {this.props.errorMessages.length > 0 && <Flash messages={this.props.errorMessages} clickHandler={this.handleFlash} />}
+        {this.props.errorMessages.length > 0 && <Flash messages={this.props.errorMessages} clickHandler={this.props.clearErrors} />}
         <div className={css(styles.inputRow, styles.smallInputRow)}>
           <TextInput
             required={true}
