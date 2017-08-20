@@ -29,8 +29,7 @@ export function createJobSuccess(job) {
 }
 
 export function createJobFailure(error) {
-  console.log("ERROR: ", error)
-  return {type: "CREATE_JOB_FAILURE", error}
+  throw(error.message.split(','))
 }
 
 export function updateJob(jobPayload, jobId) {
