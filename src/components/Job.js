@@ -58,7 +58,6 @@ class Job extends Component {
       this.props.actions.updateJob(job)
         .catch(err => this.setState({ errorMessages: err }))
 
-      this.toggleEditMode()
     } else {
       this.props.actions.createJob(job)
         .catch(err => this.setState({ errorMessages: err }))

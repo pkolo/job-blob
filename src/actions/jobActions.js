@@ -38,14 +38,17 @@ export function updateJob(jobPayload, jobId) {
       .then( (responseJob) => {
         dispatch(updateJobSuccess(responseJob))
     }).catch(error => {
-        console.log(error)
-        throw(error)
+        dispatch(updateJobFailure(error))
     })
   }
 }
 
 export function updateJobSuccess(job) {
   return {type: "UPDATE_JOB_SUCCESS", job}
+}
+
+export function updateJobFailure(error) {
+  throw(error.message.split(','))
 }
 
 export function deleteJob(job) {
