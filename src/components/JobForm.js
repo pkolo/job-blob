@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { sortBy } from 'lodash'
 import { StyleSheet, css } from 'aphrodite'
 import { width, colors } from '../styles/shared'
 import { stateData } from '../modules/stateData'
@@ -116,8 +117,9 @@ class JobForm extends Component {
 }
 
 function mapStateToProps(state) {
+  let categories = [...sortBy(state.categories, 'name')]
   return {
-    categories: state.categories
+    categories: categories
   }
 }
 
