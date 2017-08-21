@@ -34,7 +34,7 @@ class Job extends Component {
     let job = this.state.job
     if (field === 'category') {
       let category = this.props.categories.find((cat) => cat.id === parseInt(e.target.value, 10))
-      job[field] = Object.assign({}, category)
+      category ?  job[field] = Object.assign({}, category) : job[field] = {id: null, name: null}
     } else if (field === 'state' || field === 'city') {
       job["location"][field] = e.target.value
     } else {
