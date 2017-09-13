@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux'
+import {bindActionCreators} from 'redux';
 import Moment from 'moment'
-
 import {StyleSheet, css} from 'aphrodite'
 import { fonts, colors } from '../styles/shared'
-
-import { APIRoot, checkResponse, getJson } from '../modules/api'
+import * as jobActions from '../actions/jobActions'
 
 import JobForm from './JobForm'
 import Button from './form/Button'
@@ -14,34 +13,73 @@ class Job extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      mode: 'show',
-      buttonsVisible: false
+      job: JSON.parse(JSON.stringify(this.props.job)),
+      isEditing: this.props.isEditing,
+      buttonsVisible: false,
+      errorMessages: ''
     }
 
-    this.handleDeleteButton = this.handleDeleteButton.bind(this)
+    this.updateJobState = this.updateJobState.bind(this)
+    this.saveJob = this.saveJob.bind(this)
+    this.deleteJob = this.deleteJob.bind(this)
+    this.cancelJob = this.cancelJob.bind(this)
+    this.clearErrors = this.clearErrors.bind(this)
     this.toggleEditMode = this.toggleEditMode.bind(this)
     this.showButtons = this.showButtons.bind(this)
     this.hideButtons = this.hideButtons.bind(this)
   }
 
-  handleDeleteButton(e) {
-    e.preventDefault()
+  updateJobState(e) {
+    const field = e.target.name;
+    let job = this.state.job
+    if (field === 'category') {
+      let category = this.props.categories.find((cat) => cat.id === parseInt(e.target.value, 10))
+      category ?  job[field] = Object.assign({}, category) : job[field] = {id: null, name: null}
+    } else if (field === 'state' || field === 'city') {
+      job["location"][field] = e.target.value
+    } else {
+      job[field] = e.target.value;
+    }
+    this.setState({job: job})
+  }
 
-    fetch(APIRoot(`jobs/${this.props.job.id}`),
-    {
-      method: 'DELETE',
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(getJson)
-    .then(checkResponse)
-    .then(this.props.handleDelete(this.props.job))
-    .catch(err => console.log('ERROR', err))
+  saveJob(e) {
+    e.preventDefault()
+    let job = this.state.job
+    if (this.props.job.id) {
+      // Editing
+      this.props.actions.updateJob(job)
+        .then(this.toggleEditMode)
+        .catch(err => this.setState({ errorMessages: err }))
+
+    } else {
+      // Creating
+      this.props.actions.createJob(job)
+        .then(this.cancelJob)
+        .catch(err => this.setState({ errorMessages: err }))
+    }
+
+  }
+
+  deleteJob(e) {
+    e.preventDefault()
+    this.props.actions.deleteJob(this.props.job)
+  }
+
+  cancelJob() {
+    this.setState({ job: JSON.parse(JSON.stringify(this.props.job)) })
+    if (this.props.job.id) {
+      this.toggleEditMode()
+    }
+  }
+
+  clearErrors(e) {
+    e.preventDefault()
+    this.setState({ errorMessages: [] })
   }
 
   toggleEditMode(e) {
-    this.state.mode === 'show' ? this.setState({ mode: 'edit' }) : this.setState({ mode: 'show' })
+    this.state.isEditing ? this.setState({ isEditing: false }) : this.setState({ isEditing: true })
   }
 
   showButtons(e) {
@@ -53,16 +91,17 @@ class Job extends Component {
   }
 
   render(props) {
-    let job = this.props.job
-    let date = Moment(job.date_posted).format("dddd, MMMM Do YYYY")
-    if (this.state.mode === 'edit') {
+    let job = this.state.job
+    let date = Moment(this.props.job.date_posted).format("dddd, MMMM Do YYYY")
+    if (this.state.isEditing) {
       return (
-        <JobForm menuOptions={this.props.menuOptions}
-                 optionNameFormatter={(category) => category.name}
-                 mode='edit'
+        <JobForm optionNameFormatter={(category) => category.name}
                  job={job}
-                 toggleParentMode={this.toggleEditMode}
-                 stateUpdater={this.props.stateUpdater} />
+                 errorMessages={this.state.errorMessages}
+                 clearErrors={this.clearErrors}
+                 saveJob={this.saveJob}
+                 onChange={this.updateJobState}
+                 onCancel={this.cancelJob} />
       )
     } else {
       return (
@@ -77,11 +116,11 @@ class Job extends Component {
               <div>Location: <span className={css(styles.metaData)}>{job.location.city}, {job.location.state}</span></div>
             </div>
             <div>Posted: <span className={css(styles.metaData)}>{date}</span></div>
-          </div>
+          </div>.
           { this.state.buttonsVisible &&
             <div className={css(styles.buttonContainer)}>
               <Button handleClick={this.toggleEditMode} label={'Edit'} />
-              <Button handleClick={this.handleDeleteButton} label={'Delete'}/>
+              <Button handleClick={this.deleteJob} label={'Delete'}/>
             </div>
           }
         </div>
@@ -90,7 +129,22 @@ class Job extends Component {
   }
 }
 
-export default Job;
+
+function mapStateToProps(state, ownProps) {
+  let job = {id: null, title: '', details: '', date_posted: '', category: {name: ''}, location: {city: '', state: ''}};
+  if (state.jobs.length > 0 && ownProps.id) {
+    job = JSON.parse(JSON.stringify(state.jobs.find(job => job.id === ownProps.id)))
+  }
+  return {job: job, categories: state.categories};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(jobActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Job);
 
 const styles = StyleSheet.create({
   jobContainer: {

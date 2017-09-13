@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux'
+import { sortBy } from 'lodash'
 import { StyleSheet, css } from 'aphrodite'
 import { width, colors } from '../styles/shared'
-
 import { stateData } from '../modules/stateData'
-import { APIRoot, checkResponse, getJson } from '../modules/api'
-
 import TextInput from './form/TextInput'
 import TextArea from './form/TextArea'
 import Button from './form/Button'
@@ -16,118 +14,27 @@ class JobForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      jobTitle: '',
-      jobDetails: '',
-      categorySelection: '',
-      locationCity: '',
-      locationState: '',
-      showFullForm: false,
-      formMethod: 'POST',
-      formURL: 'jobs',
-      errorMessages: []
+      showFullForm: false
     }
 
-    this.handleInputChange = this.handleInputChange.bind(this)
-    this.handleFormSubmit = this.handleFormSubmit.bind(this)
-    this.handleFlash = this.handleFlash.bind(this)
     this.handleCancelButton = this.handleCancelButton.bind(this)
     this.showFullForm = this.showFullForm.bind(this)
     this.hideFullForm = this.hideFullForm.bind(this)
   }
 
   componentWillMount() {
-    if (this.props.mode === 'edit') {
-      const job = this.props.job
+    if (this.props.job.id) {
       this.setState({
-        jobTitle: job.title,
-        jobDetails: job.details,
-        categorySelection: job.category.id,
-        locationCity: job.location.city,
-        locationState: job.location.state,
-        showFullForm: true,
-        formMethod: 'PUT',
-        formURL: `jobs/${job.id}`
-      })
-    } else {
-      this.clearForm()
-    }
-  }
-
-  handleInputChange(e) {
-    const target = e.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-
-    this.setState({
-      [name]: value
-    })
-  }
-
-  handleFormSubmit(e) {
-    e.preventDefault()
-    this.clearErrors()
-    // Converts ID selected in Category dropdown to an actual category object.
-    let category = this.props.menuOptions.find((cat) => cat.id === parseInt(this.state.categorySelection))
-
-    const jobPayload = {
-      job: {
-        title: this.state.jobTitle,
-        details: this.state.jobDetails,
-        category_name: category ? category.name : null,
-        location_attributes: {
-          city: this.state.locationCity,
-          state: this.state.locationState
-        }
-      }
-    }
-
-    fetch(APIRoot(this.state.formURL),
-      {
-        method: this.state.formMethod,
-        body: JSON.stringify(jobPayload),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-
-      .then(getJson)
-      .then(checkResponse)
-      .then(json => {this.props.stateUpdater(json.result); this.clearForm()})
-      .catch(err => {this.setState({ errorMessages: err.message }); this.clearForm()})
-  }
-
-  clearForm() {
-    let errors = (this.state.errorMessages.length > 0)
-
-    if (this.props.mode === 'edit' && !errors) {
-      this.props.toggleParentMode()
-    } else if (!errors) {
-      this.setState({
-        jobTitle: '',
-        jobDetails: '',
-        categorySelection: '',
-        locationCity: '',
-        locationState: '',
-        showFullForm: false
+        showFullForm: true
       })
     }
-  }
-
-  clearErrors() {
-    this.setState({ errorMessages: [] })
-  }
-
-  handleFlash(e) {
-    this.clearErrors()
   }
 
   handleCancelButton(e) {
-    if (this.props.mode === 'create') {
-      this.clearErrors()
+    if (!this.props.job.id) {
       this.hideFullForm()
-    } else {
-      this.props.toggleParentMode(e)
     }
+    this.props.onCancel(e)
   }
 
   showFullForm(e) {
@@ -141,28 +48,28 @@ class JobForm extends Component {
   render(props) {
     return (
       <div className={css(styles.formContainer)}>
-        {this.state.errorMessages.length > 0 && <Flash messages={this.state.errorMessages} clickHandler={this.handleFlash} />}
+        {this.props.errorMessages.length > 0 && <Flash messages={this.props.errorMessages} clickHandler={this.props.clearErrors} />}
         <div className={css(styles.inputRow, styles.smallInputRow)}>
           <TextInput
             required={true}
             type={"text"}
             label={'What do you need done?'}
             placeholder={'I need a catsitter...'}
-            name={"jobTitle"}
-            content={this.state.jobTitle}
+            name={"title"}
+            content={this.props.job.title}
             width={width.large}
-            changeHandler={this.handleInputChange}
+            changeHandler={this.props.onChange}
             focusHandler={this.showFullForm} />
           <DropDownSelector
             required={true}
             label={"Category"}
-            name={"categorySelection"}
-            options={this.props.menuOptions}
+            name={"category"}
+            options={this.props.categories}
+            selectedOption={this.props.job.category.id}
             optionNameFormatter={this.props.optionNameFormatter}
             placeholder={''}
-            selectedOption={this.state.categorySelection}
             width={width.small}
-            changeHandler={this.handleInputChange} />
+            changeHandler={this.props.onChange} />
         </div>
         { this.state.showFullForm &&
           <div>
@@ -172,10 +79,10 @@ class JobForm extends Component {
                 rows={5}
                 label={"Anything you'd like to add?"}
                 placeholder={'The more details the better. No personal info, please...'}
-                name={"jobDetails"}
-                content={this.state.jobDetails}
+                name={"details"}
+                content={this.props.job.details}
                 width={width.full}
-                changeHandler={this.handleInputChange} />
+                changeHandler={this.props.onChange} />
             </div>
             <div className={css(styles.inputRow, width.medium, styles.smallInputRow)}>
               <TextInput
@@ -183,23 +90,23 @@ class JobForm extends Component {
                 type="text"
                 label="City"
                 placeholder={'City'}
-                name={"locationCity"}
-                content={this.state.locationCity}
-                changeHandler={this.handleInputChange} />
+                name={"city"}
+                content={this.props.job.location.city}
+                changeHandler={this.props.onChange} />
               <DropDownSelector
                 required={true}
                 label="State"
-                name={"locationState"}
+                name={"state"}
                 options={stateData}
+                selectedOption={this.props.job.location.state}
                 optionNameFormatter={(state) => state.name}
                 placeholder={''}
-                selectedOption={this.state.locationState}
-                changeHandler={this.handleInputChange} />
+                changeHandler={this.props.onChange} />
             </div>
             <div className={css(styles.inputRow)}>
               <div className={css(styles.buttonContainer)}>
-                <Button label={'Post Job'} handleClick={this.handleFormSubmit} />
                 <Button label={'Cancel'} handleClick={this.handleCancelButton} />
+                <Button label={'Post Job'} handleClick={this.props.saveJob} />
               </div>
             </div>
           </div>
@@ -209,7 +116,14 @@ class JobForm extends Component {
   }
 }
 
-export default JobForm;
+function mapStateToProps(state) {
+  let categories = [...sortBy(state.categories, 'name')]
+  return {
+    categories: categories
+  }
+}
+
+export default connect(mapStateToProps)(JobForm);
 
 const styles = StyleSheet.create({
   formContainer: {
